@@ -18,6 +18,11 @@ collider = Collider(INITIAL_COLLIDER_ENERGY)
 
 ## BEGIN DIFFERENTIAL CROSS SECTIONS ##
 
+"""
+Example usage:
+  gamma_gamma(0.1)
+"""
+
 def gamma_gamma(cos_theta):
   """Gamma-gamma differential cross section"""
   
@@ -96,7 +101,6 @@ def check_gamma_gamma_consistency():
   # N = 1000:
   # Expected value:  4.52108e-06
   # Trapezium value: 4.52108e-06
-
   
 def check_z_z_consistency():
   """Checks to see if the numerical z-z cross section complies with theory"""
@@ -139,7 +143,7 @@ def check_z_z_consistency():
 
 """
 Example usage:
-  plot_z_z()
+  plot_gamma_gamma(-1, 1)
 """
 
 def plot_gamma_gamma(a, b, step_size = 0.1):
@@ -168,7 +172,6 @@ def plot_gamma_z(a, b, step_size = 0.1):
   plb.plot(cos_theta, z)
   plb.show()
 
-plot_z_z(-1, 1)
 ## END DIFFERENTIAL PLOTS ##
 
 ## BEGIN THEORY CROSS SECTIONS ##
