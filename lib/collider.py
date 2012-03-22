@@ -3,12 +3,12 @@ from lib.constants import *
 class Collider:
   """A few functions which calculate collider-energy-dependant quantities."""
   
-  # Somehow require lib.constants here
-  
   def __init__(self, energy):
+    """`Collider(5)` creates a 5GeV collider"""
     self.set_energy_to(energy)
     
   def __repr__(self):
+    """`print collider_instance` will show this string."""
     return "Current collider energy sqrt(s): {:.2} GeV".format(float(self.energy))
     
   def set_energy_to(self, energy):

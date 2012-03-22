@@ -1,25 +1,27 @@
 #!/usr/local/bin/python
 
+# Global constant, used to initialize the collider
 INITIAL_COLLIDER_ENERGY = 3
 
+# Import 3rd party modules
 import pylab as plb
 from numpy import *
 from math import ceil
 
+# Import our modules
 from lib.constants import *
 from lib.functions import *
-# Import my collider..
 from lib.collider import Collider
   
 #  Create a new collider and set its energy
-c = Collider(INITIAL_COLLIDER_ENERGY)
+collider = Collider(INITIAL_COLLIDER_ENERGY)
 
 # Gamma-gamma differential cross section
 def gamma_gamma(cos_theta):
   # Uses the *global* root_s value
-  factor = 4*c.epsilon_2
+  factor = 4*collider.epsilon_2
   
-  coefficient = (g_e**4 / ((8*pi)*(8*pi)*c.s)) * sqrt(1 - factor)
+  coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor)
   
   # I'm using cos^2(theta) + sin^2(theta) = 1 here,
   # but this could be unstable if one term is small.
@@ -52,8 +54,8 @@ def check_consistency():
   # plot_gamma_gamma(-1, 1)
 
   # Expected and calculated values
-  factor = 4*c.epsilon_2
-  coefficient = (g_e**4 / ((8*pi)*(8*pi)*c.s)) * sqrt(1 - factor) 
+  factor = 4*collider.epsilon_2
+  coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor) 
   print "Expected value:    {0:.6}".format(2*coefficient*((1 + factor) +(1.0/3.0)*(1 - factor)))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_gamma, -1, 1, 1000))
   print "Monte carlo value: {0:.6}".format(montecarlo(gamma_gamma, 10000))
@@ -75,10 +77,10 @@ def theory_cross_section(a, b, step_size = 0.1):
   cross_section = zeros(len(root_s_arr))
   count = 0
   for i in root_s_arr:
-    c.set_energy_to(i)
+    collider.set_energy_to(i)
     
-    factor = 4*c.epsilon_2
-    coefficient = (g_e**4 / ((8*pi)*(8*pi)*c.s)) * sqrt(1 - factor)
+    factor = 4*collider.epsilon_2
+    coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor)
     # The theoretical cross section from integrating the (simple) diff. cross section
     cross_section[count] = 2*coefficient*((1 + factor) +(1.0/3.0)*(1 - factor))
     count += 1
@@ -90,7 +92,7 @@ def trapezium_cross_section(a, b, step_size = 0.1):
   cross_section = zeros(len(root_s_arr))
   count = 0
   for i in root_s_arr:
-    c.set_energy_to(i)
+    collider.set_energy_to(i)
     # Use the trapezium rule to calculate the numerical cross section
     cross_section[count] = trapezium(gamma_gamma, -1, 1, 1000)
     count += 1
@@ -102,7 +104,7 @@ def montecarlo_cross_section(a, b,step_size = 0.1):
   cross_section = zeros(len(root_s_arr))
   count = 0
   for i in root_s_arr:
-    c.set_energy_to(i)
+    collider.set_energy_to(i)
     # Use the monte carlo method to calculate the numerical cross section
     cross_section[count] = montecarlo(gamma_gamma, 1000)
     count += 1
