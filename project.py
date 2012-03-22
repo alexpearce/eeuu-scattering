@@ -126,15 +126,16 @@ def check_z_z_consistency():
   delta_term  = (4.0/3.0) * epsilon_minus * delta
   
   print "Expected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
-  print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 50000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
+  print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
+  # TODO: fix monte carlo integration (it's hardcoded on gamma-gamma).
+  # print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
 
   # N = 100:
-  # Expected value:  
-  # Trapezium value: 
+  # Expected value:    6.56796e-13
+  # Trapezium value:   6.56828e-13
   # N = 1000:
-  # Expected value:  
-  # Trapezium value: 
+  # Expected value:    6.56796e-13
+  # Trapezium value:   6.56796e-13
 
 check_z_z_consistency()
 
