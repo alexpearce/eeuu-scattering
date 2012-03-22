@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 
-# Global constant, used to initialize the collider
+# Global constant, used to initialize the collider (GeV)
 INITIAL_COLLIDER_ENERGY = 3
 
 # Import 3rd party modules
@@ -71,6 +71,11 @@ def gamma_z(cos_theta):
 
 
 ## BEGIN CONSISTENCY CHECKS ##
+
+"""
+Example usage:
+  check_gamma_gamma_consistency()
+"""
 
 def check_gamma_gamma_consistency():
   """Checks to see if the numerical gamma-gamma cross section complies with theory"""
