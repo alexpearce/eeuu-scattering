@@ -1,9 +1,12 @@
 from numpy import random
 from lib.constants import *
   
-# Trapezium integration of a function f between a and b
-# with N strips
 def trapezium(f, a, b, N):
+  """
+  Trapezium integration of a function f between a and b
+  with N strips.
+  """
+  
   # Width of strips
   h = (b - a) / float(N)
   
@@ -16,9 +19,12 @@ def trapezium(f, a, b, N):
   
   return prefactor + h*s
   
-# Monte carlo integration of a function f between -1 and 1
-# with N trials
 def montecarlo(f, N):
+  """
+  Monte carlo integration of a function f between -1 and 1
+  with N trials.
+  """
+  
   # 1. Generate a random (x, y) pair
   # 2. Compute f(x)
   # 3. If y < f(x), (x, y) is under the curve
