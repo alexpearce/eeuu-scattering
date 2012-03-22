@@ -16,7 +16,7 @@ from lib.collider import Collider
 #  Create a new collider and set its energy
 collider = Collider(INITIAL_COLLIDER_ENERGY)
 
-## BEGIN GAMMA-GAMMA ##
+## BEGIN DIFFERENTIAL CROSS SECTIONS ##
 
 def gamma_gamma(cos_theta):
   """Gamma-gamma differential cross section"""
@@ -36,15 +36,42 @@ def gamma_gamma(cos_theta):
   variable = 1 + cos_theta_2 + (epsilon_factor*sin_theta_2)
   
   return coefficient*variable
+
   
-def plot_gamma_gamma(a, b, step_size = 0.1):
-  """Plot gamma-gamma differential cross section between a and b"""
+def z_z(cos_theta):
+  """Z-Z differential cross section"""
+
+  epsilon_factor = 4*collider.epsilon_2
+
+  # Shorter name for neatness
+  c = collider
+
+  # Variables
+  cos_theta_2 = cos_theta * cos_theta
+  sin_theta_2 = 1 - cos_theta_2
+
+  # We'll do this line by line, similarly to the project description
+  # Note that it is *not* the case that all lines are simply multiplied together
+  line_1_numerator = (g_z**4 * sqrt(1 - epsilon_factor)) / (1024*pi*pi*c.s)
+  line_1_denominator = (1 - (2*c.zeta*c.zeta) + c.zeta**4) + ((c.zeta*gamma_z0)*(c.zeta*gamma_z0) / c.s)
+  line_1 = line_1_numerator / line_1_denominator
+
+  line_2 = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v) * (1 + cos_theta_2 + (epsilon_factor*sin_theta_2))
+  line_3 = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a) * (1 + cos_theta_2) * (1 - epsilon_factor)
+  line_4 = 8 * C_e_v * C_e_a * C_u_v * C_u_a * sqrt(1 - epsilon_factor) * cos_theta
+
+  return line_1 * (line_2 + line_3 + line_4)
+
   
-  cos_theta = arange(a, b+step_size, step_size)
-  z = [gamma_gamma(x) for x in cos_theta]
-  plb.plot(cos_theta, z)
-  plb.show()
+def gamma_z(cos_theta):
+  """gamma-Z differential cross section"""
+  pass
   
+## END DIFFERENTIAL CROSS SECTIONS ##
+
+
+## BEGIN CONSISTENCY CHECKS ##
+
 def check_gamma_gamma_consistency():
   """Checks to see if the numerical gamma-gamma cross section complies with theory"""
 
@@ -65,44 +92,7 @@ def check_gamma_gamma_consistency():
   # Expected value:  4.52108e-06
   # Trapezium value: 4.52108e-06
 
-# check_gamma_gamma_consistency()
   
-## END GAMMA-GAMMA ##
-
-## BEGIN Z-Z ##
-  
-def z_z(cos_theta):
-  """Z-Z differential cross section"""
-
-  epsilon_factor = 4*collider.epsilon_2
-  
-  # Shorter name for neatness
-  c = collider
-  
-  # Variables
-  cos_theta_2 = cos_theta * cos_theta
-  sin_theta_2 = 1 - cos_theta_2
-  
-  # We'll do this line by line, similarly to the project description
-  # Note that it is *not* the case that all lines are simply multiplied together
-  line_1_numerator = (g_z**4 * sqrt(1 - epsilon_factor)) / (1024*pi*pi*collider.s)
-  line_1_denominator = (1 - 2*c.lamba*c.lamba + c.lamba**4) + ((c.lamba*gamma_z)*(c.lamba*gamma_z) / c.s)
-  line_1 = line_1_numerator / line_1_denominator
-  
-  line_2 = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v) * (1 + cos_theta_2 + (epsilon_factor*sin_theta_2))
-  line_3 = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a) * (1 + cos_theta_2) * (1 - epsilon_factor)
-  line_4 = 8 * C_e_v * C_e_a * C_u_v * C_u_a * sqrt(1 - epsilon_factor) * cos_theta
-  
-  return line_1 * (line_2 + line_3 + line_4)
-  
-def plot_z_z(a, b, step_size = 0.1):
-  """Plot z-z differential cross section between a and b"""
-
-  cos_theta = arange(a, b+step_size, step_size)
-  z = [z_z(x) for x in cos_theta]
-  plb.plot(cos_theta, z)
-  plb.show()
-
 def check_z_z_consistency():
   """Checks to see if the numerical z-z cross section complies with theory"""
 
@@ -116,15 +106,15 @@ def check_z_z_consistency():
   epsilon_plus = 1 + (4*c.epsilon*c.epsilon)
   epsilon_minus = 1 - (4*c.epsilon*c.epsilon)
   alpha   = (g_z**4 * sqrt(epsilon_minus)) / (1024*pi*pi*c.s)
-  alpha  /= (1 - (c.lamba*c.lamba))**2 + (c.lamba*c.lamba*gamma_z*gamma_z / c.s)
+  alpha  /= (1 - (c.zeta*c.zeta))**2 + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
   beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
   delta   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a)
-  
+
   # Haven't integrated over phi, no no 2*pi prefactor
   prefactor   = 2*alpha
   beta_term   = (epsilon_plus + (1.0/3.0)*epsilon_minus) * beta
   delta_term  = (4.0/3.0) * epsilon_minus * delta
-  
+
   print "Expected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
   # TODO: fix monte carlo integration (it's hardcoded on gamma-gamma).
@@ -137,19 +127,55 @@ def check_z_z_consistency():
   # Expected value:    6.56796e-13
   # Trapezium value:   6.56796e-13
 
-check_z_z_consistency()
+## END CONSISTENCY CHECKS ##
 
-## END Z-Z ##
 
-## BEGIN GAMMA-Z ##
+## BEGIN DIFFERENTIAL PLOTS ##
+
+"""
+Example usage:
+  plot_z_z()
+"""
+
+def plot_gamma_gamma(a, b, step_size = 0.1):
+  """Plot gamma-gamma differential cross section between a and b"""
   
-def gamma_z(cos_theta):
-  """gamma-Z differential cross section"""
-  pass
+  cos_theta = arange(a, b+step_size, step_size)
+  z = [gamma_gamma(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
 
-## END GAMMA-Z ##
 
-def theory_cross_section(a, b, step_size = 0.1):
+def plot_z_z(a, b, step_size = 0.1):
+  """Plot z-z differential cross section between a and b"""
+
+  cos_theta = arange(a, b+step_size, step_size)
+  z = [z_z(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
+
+  
+def plot_gamma_z(a, b, step_size = 0.1):
+  """Plot gamma-z differential cross section between a and b"""
+
+  cos_theta = arange(a, b+step_size, step_size)
+  z = [gamma_z(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
+
+plot_z_z(-1, 1)
+## END DIFFERENTIAL PLOTS ##
+
+## BEGIN THEORY CROSS SECTIONS ##
+
+"""
+Example usage:
+  theory_root_s, theory_cross_section  = gamma_gamma_theory_cross_section(3, 30)
+  plb.plot(theory_root_s, theory_cross_section)
+  plb.show()
+"""
+
+def gamma_gamma_theory_cross_section(a, b, step_size = 0.1):
   """Evaluate between collider energy a to b in steps of step_size"""
   
   # A range of collider energies from 3GeV to 30GeV
@@ -167,44 +193,61 @@ def theory_cross_section(a, b, step_size = 0.1):
     count += 1
 
   return root_s_arr, cross_section
+  
+## END THEORY CROSS SECTIONS ##
 
-def trapezium_cross_section(a, b, step_size = 0.1):
+## BEGIN NUMERICAL CROSS SECTIONS ##
+
+"""
+Example usage:
+  mc_root_s, mc_cross_section  = montecarlo_cross_section(gamma_gamma, 3, 30)
+  plb.plot(mc_root_s, mc_cross_section)
+  plb.show()
+"""
+
+def trapezium_cross_section(f, a, b, step_size = 0.1):
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   cross_section = zeros(len(root_s_arr))
   count = 0
   for i in root_s_arr:
     collider.set_energy_to(i)
     # Use the trapezium rule to calculate the numerical cross section
-    cross_section[count] = trapezium(gamma_gamma, -1, 1, 1000)
+    cross_section[count] = trapezium(f, -1, 1, 1000)
     count += 1
 
   return root_s_arr, cross_section
-  
-def montecarlo_cross_section(a, b,step_size = 0.1):
+
+
+def montecarlo_cross_section(f, a, b,step_size = 0.1, iterations = 1000):
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   cross_section = zeros(len(root_s_arr))
   count = 0
   for i in root_s_arr:
     collider.set_energy_to(i)
     # Use the monte carlo method to calculate the numerical cross section
-    cross_section[count] = montecarlo(gamma_gamma, 1000)
+    cross_section[count] = montecarlo(f, iterations)
     count += 1
     
   return root_s_arr, cross_section
-  
-# mc_root_s, mc_sigma = montecarlo_cross_section(3, 30)
-# plb.plot(mc_root_s, mc_sigma)
-# plb.show()
+
+## END NUMERICAL CROSS SECTIONS ##
+
+## BEGIN CROSS SECTION COMPARISONS ##
+
+"""
+Example usage:
+  compare_gamma_gamma(3, 30)
+"""
 
 def compare_gamma_gamma(a, b, step_size = 0.1):
-  theory_root_s, theory_sigma = theory_cross_section(a, b, step_size)
-  trap_root_s, trap_sigma = trapezium_cross_section(a, b, step_size)
-  mc_root_s, mc_sigma = montecarlo_cross_section(a, b, step_size)
+  theory_root_s, theory_sigma = gamma_gamma_theory_cross_section(a, b, step_size)
+  trap_root_s, trap_sigma = trapezium_cross_section(gamma_gamma, a, b, step_size)
+  mc_root_s, mc_sigma = montecarlo_cross_section(gamma_gamma, a, b, step_size)
 
   plb.plot(theory_root_s, theory_sigma)
   plb.plot(trap_root_s, trap_sigma)
   plb.plot(mc_root_s, mc_sigma)
   # Pretty good fit tbh
   plb.show()
-  
-# compare_gamma_gamma(3, 30)
+
+## END CROSS SECTION COMPARISONS ##

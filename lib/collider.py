@@ -17,7 +17,7 @@ class Collider:
     self.energy = self.root_s = self.sqrt_s = float(energy)
     self.s      = self.root_s * self.root_s
     self.set_epsilon(self.energy)
-    self.set_lamba(self.energy)
+    self.set_zeta(self.energy)
     
   def set_epsilon(self, energy):
     """Dimensionless variable. In practice we only use the square of epsilon."""
@@ -27,6 +27,6 @@ class Collider:
   def _set_epsilon_2(self, epsilon):
     self.epsilon_2 = epsilon * epsilon
     
-  def set_lamba(self, energy):
+  def set_zeta(self, energy):
     """Dimensionless variable."""
-    self.lamba = m_z / energy
+    self.zeta = m_z / energy

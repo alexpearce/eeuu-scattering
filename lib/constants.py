@@ -27,7 +27,7 @@ m_u = 0.105658
 m_z = 91.1876
 
 # Z0 width
-gamma_z = 2.5
+gamma_z0 = 2.5
 
 # e- vectorial coupling
 C_e_v = -0.5 + (2*sin_2_theta_w)
