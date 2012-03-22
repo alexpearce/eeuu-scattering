@@ -119,7 +119,7 @@ def check_z_z_consistency():
   beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
   delta   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a)
 
-  # Haven't integrated over phi, no no 2*pi prefactor
+  # Haven't integrated over phi, so no 2*pi prefactor
   prefactor   = 2*alpha
   beta_term   = (epsilon_plus + (1.0/3.0)*epsilon_minus) * beta
   delta_term  = (4.0/3.0) * epsilon_minus * delta
@@ -201,7 +201,35 @@ def gamma_gamma_theory_cross_section(a, b, step_size = 0.1):
     count += 1
 
   return root_s_arr, cross_section
+
+
+def z_z_theory_cross_section(a, b, step_size = 0.1):
+  """Evaluate between collider energy a to b in steps of step_size"""
+  # This one's is good to go from 3 to 300GeV. Yeeeah.
   
+  root_s_arr = [i for i in arange(float(a), float(b), step_size)]
+  
+  cross_section = zeros(len(root_s_arr))
+  count = 0
+  for i in root_s_arr:
+    collider.set_energy_to(i)
+    c = collider
+    epsilon_plus = 1 + (4*c.epsilon*c.epsilon)
+    epsilon_minus = 1 - (4*c.epsilon*c.epsilon)
+    alpha   = (g_z**4 * sqrt(epsilon_minus)) / (1024*pi*pi*c.s)
+    alpha  /= (1 - (c.zeta*c.zeta))**2 + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
+    beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
+    delta   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a)
+    
+    prefactor   = 2*alpha
+    beta_term   = (epsilon_plus + (1.0/3.0)*epsilon_minus) * beta
+    delta_term  = (4.0/3.0) * epsilon_minus * delta
+
+    cross_section[count] = prefactor * (beta_term + delta_term)
+    count += 1
+    
+  return root_s_arr, cross_section
+
 ## END THEORY CROSS SECTIONS ##
 
 ## BEGIN NUMERICAL CROSS SECTIONS ##
@@ -248,6 +276,7 @@ Example usage:
 """
 
 def compare_gamma_gamma(a, b, step_size = 0.1):
+  """Compare the theoretical with the numerical cross sections."""
   theory_root_s, theory_sigma = gamma_gamma_theory_cross_section(a, b, step_size)
   trap_root_s, trap_sigma = trapezium_cross_section(gamma_gamma, a, b, step_size)
   mc_root_s, mc_sigma = montecarlo_cross_section(gamma_gamma, a, b, step_size)
@@ -256,6 +285,20 @@ def compare_gamma_gamma(a, b, step_size = 0.1):
   plb.plot(trap_root_s, trap_sigma)
   plb.plot(mc_root_s, mc_sigma)
   # Pretty good fit tbh
+  plb.show()
+  
+def compare_gamma_gamma_to_z_z(a, b, step_size = 0.1):
+  """Compare the theoretical gamma-gamma and z-z cross sections."""
+  g_g_root_s, g_g_cross_section  = gamma_gamma_theory_cross_section(a, b, step_size)
+  z_z_root_s, z_z_cross_section  = z_z_theory_cross_section(a, b, step_size)
+
+  combined_theory_cross_section = []
+  for i in range(len(z_z_cross_section)):
+    combined_theory_cross_section.append(g_g_cross_section[i] + z_z_cross_section[i])
+
+  # Either root_s array will work here, same scale
+  plb.plot(g_g_root_s, combined_theory_cross_section)
+  # 3-300GeV, jesus christ that is beautiful
   plb.show()
 
 ## END CROSS SECTION COMPARISONS ##
