@@ -14,7 +14,7 @@ class Collider:
   def set_energy_to(self, energy):
     """Update all s-dependant quantities"""
     # Collider energy is sqrt(s) in GeV
-    self.energy = self.root_s = float(energy)
+    self.energy = self.root_s = self.sqrt_s = float(energy)
     self.s      = self.root_s * self.root_s
     self.set_epsilon(self.energy)
     self.set_lamba(self.energy)
