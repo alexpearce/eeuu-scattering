@@ -1,0 +1,10 @@
+== Integrating the cross section
+
+Differential cross section is d(sigma)/d(omega)
+
+d(omega) = d(cos(theta)) * d(phi)
+0 <= theta <= pi, 0 <= phi <= 2*pi
+
+The integration over phi is trivial as the initial particles have
+no transverse polarisation, so this merely adds a factor of 2*pi.
+
