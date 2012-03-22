@@ -16,8 +16,9 @@ from lib.collider import Collider
 #  Create a new collider and set its energy
 collider = Collider(INITIAL_COLLIDER_ENERGY)
 
-# Gamma-gamma differential cross section
 def gamma_gamma(cos_theta):
+  """Gamma-gamma differential cross section"""
+  
   # Uses the *global* root_s value
   factor = 4*collider.epsilon_2
   
@@ -33,23 +34,25 @@ def gamma_gamma(cos_theta):
   
   return coefficient*variable
   
-# Plot gamma-gamma differential cross section between a and b
 def plot_gamma_gamma(a, b, step_size = 0.1):
+  """Plot gamma-gamma differential cross section between a and b"""
+  
   cos_theta = arange(a, b+step_size, step_size)
   z = [gamma_gamma(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
   
-# Z-Z differential cross section
 def z_z(cos_theta):
+  """Z-Z differential cross section"""
   pass
   
-# gamma-Z differential cross section
 def gamma_z(cos_theta):
+  """gamma-Z differential cross section"""
   pass
 
-# Checks to see if the numerical gamma-gamma cross section complies with theory
 def check_consistency():
+  """Checks to see if the numerical gamma-gamma cross section complies with theory"""
+  
   # Sample plot from cos(theta) = -1..1
   # plot_gamma_gamma(-1, 1)
 
@@ -69,8 +72,9 @@ def check_consistency():
   
 # check_consistency()
 
-# Evaluate between collider energy a to b in steps of step_size
 def theory_cross_section(a, b, step_size = 0.1):
+  """Evaluate between collider energy a to b in steps of step_size"""
+  
   # A range of collider energies from 3GeV to 30GeV
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   # Array to store the integrated differential cross section, sigma
