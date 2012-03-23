@@ -1,0 +1,55 @@
+\documentclass[]{report}
+\usepackage{atlasphysics,amsmath}
+
+\begin{document}
+
+\section{Theoretical $\Zzero-\Zzero$ Cross Section $\sigma$}
+
+Define
+
+\begin{align*}
+\alpha &= \frac{g^{4}}{(32\pi)^{2}s} \frac{\sqrt{1-4\varepsilon^{2}}}{(1-\lambda^{2})^{2} + (\frac{\lambda\Gamma_{\Zzero}}{\rts})},
+\\
+\beta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{V}^{\mu})^{2}),
+\\
+\Delta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{A}^{\mu})^{2}),
+\\
+\Gamma &= 8C_{V}^{e}C_{A}^{e}C_{V}^{\mu}C_{A}^{\mu}.
+\end	{align*}
+
+These definitions produce the differential cross section:
+
+$$
+\frac{\d\sigma}{\d\Omega}^{\Zzero-\Zzero}
+  = \alpha(\beta(1+\cos^{2}{\theta}+4\varepsilon^{2}\sin^{2}{\theta})
+    + \Delta(1+\cos^{2}{\theta})(1-4\varepsilon^{2})
+    + \Gamma\sqrt{1-4\varepsilon^{2}}\cos{\theta}
+  )
+$$
+
+Under the change of variable $\sin^{2}{\theta}\ra1-\cos^{2}{\theta}$ and the substitution
+
+$$\varepsilon_{\pm}=1\pm4\varepsilon^{2},$$
+
+we see that the integral over the solid angle $\d{\Omega} = \d{\phi}\d{(\cos{\theta})}$ becomes
+
+\begin{align*}
+\sigma &= 2\pi\alpha\int\limits_{-1}^{1}
+  \beta\varepsilon_{+} + \beta\varepsilon_{-}x^{2} + \Delta\varepsilon_{-}
+  + \Delta\varepsilon_{-}x^{2} + \Gamma\sqrt{\varepsilon_{-}}x
+  \d{x}
+  \\
+  &= 2\pi\alpha\int\limits_{-1}^{1}
+    \beta\varepsilon_{+} + \Delta\varepsilon_{-} + (\beta + \Delta)\varepsilon_{-}x^{2}
+    + \Gamma\sqrt{\varepsilon_{-}}x
+    \d{x}.
+\end{align*}
+
+The $\Gamma$ term will disappear as it is symmetric in the integration limits. After simplification, the trivial integral is evaluated to
+
+$$
+\sigma^{\Zzero-\Zzero} = 4\pi\alpha(\beta(\varepsilon_{+} + \frac{1}{3}\varepsilon_{-})
+  + \frac{4}{3}\Delta\varepsilon_{-})
+$$
+
+\end{document}
