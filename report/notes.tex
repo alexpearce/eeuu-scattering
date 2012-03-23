@@ -20,21 +20,24 @@ Define
 These definitions produce the differential cross section:
 
 $$
-\frac{\d\sigma}{\d\Omega}^{\Zzero-\Zzero}
+\frac{\d{\sigma}}{\d{\Omega}}^{\Zzero-\Zzero}
   = \alpha(\beta(1+\cos^{2}{\theta}+4\varepsilon^{2}\sin^{2}{\theta})
     + \Delta(1+\cos^{2}{\theta})(1-4\varepsilon^{2})
     + \Gamma\sqrt{1-4\varepsilon^{2}}\cos{\theta}
   )
 $$
 
-Under the change of variable $\sin^{2}{\theta}\ra1-\cos^{2}{\theta}$ and the substitution
-
-$$\varepsilon_{\pm}=1\pm4\varepsilon^{2},$$
-
-we see that the integral over the solid angle $\d{\Omega} = \d{\phi}\d{(\cos{\theta})}$ becomes
+Under the substitutions
 
 \begin{align*}
-\sigma &= 2\pi\alpha\int\limits_{-1}^{1}
+\sin^{2}{\theta} &\ra 1-\cos^{2}{\theta} \,\,\,\,\rm{and}\\
+\varepsilon_{\pm} &= 1\pm4\varepsilon^{2},
+\end{align*}
+
+we see that the integral over the solid angle $\d{\Omega} = \d{\phi}\d{x}$ (with implicit change of variable $\cos{\theta}\ra x$) becomes
+
+\begin{align*}
+\sigma &= \alpha\int\limits_{0}^{2\pi}\d{\phi}\int\limits_{-1}^{1}
   \beta\varepsilon_{+} + \beta\varepsilon_{-}x^{2} + \Delta\varepsilon_{-}
   + \Delta\varepsilon_{-}x^{2} + \Gamma\sqrt{\varepsilon_{-}}x
   \d{x}
@@ -49,7 +52,7 @@ The $\Gamma$ term will disappear as it is symmetric in the integration limits. A
 
 $$
 \sigma^{\Zzero-\Zzero} = 4\pi\alpha(\beta(\varepsilon_{+} + \frac{1}{3}\varepsilon_{-})
-  + \frac{4}{3}\Delta\varepsilon_{-})
+  + \frac{4}{3}\Delta\varepsilon_{-}).
 $$
 
 \end{document}
