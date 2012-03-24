@@ -71,4 +71,5 @@ def export_to_csv(x, y, filename = 'data'):
   writer.writerow(['x', 'y'])
   for k, v in enumerate(x):
     writer.writerow([v, y[k]])
+
   print "File writing complete."
