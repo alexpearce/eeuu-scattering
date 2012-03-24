@@ -254,7 +254,7 @@ def trapezium_cross_section(f, a, b, step_size = 0.1):
   return root_s_arr, cross_section
 
 
-def montecarlo_cross_section(f, a, b,step_size = 0.1, iterations = 1000):
+def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   cross_section = zeros(len(root_s_arr))
   count = 0
@@ -287,10 +287,22 @@ def compare_gamma_gamma(a, b, step_size = 0.1):
   # Pretty good fit tbh
   plb.show()
   
+def compare_z_z(a, b, step_size = 0.1):
+  theory_root_s, theory_sigma = z_z_theory_cross_section(a, b, step_size)
+  trap_root_s, trap_sigma = trapezium_cross_section(z_z, a, b, step_size)
+  mc_root_s, mc_sigma = montecarlo_cross_section(z_z, a, b, step_size)
+
+  plb.plot(theory_root_s, theory_sigma)
+  plb.plot(trap_root_s, trap_sigma)
+  plb.plot(mc_root_s, mc_sigma)
+  plb.show()
+  
 def compare_gamma_gamma_to_z_z(a, b, step_size = 0.1):
   """Compare the theoretical gamma-gamma and z-z cross sections."""
-  g_g_root_s, g_g_cross_section  = gamma_gamma_theory_cross_section(a, b, step_size)
-  z_z_root_s, z_z_cross_section  = z_z_theory_cross_section(a, b, step_size)
+  # g_g_root_s, g_g_cross_section  = gamma_gamma_theory_cross_section(a, b, step_size)
+  # z_z_root_s, z_z_cross_section  = z_z_theory_cross_section(a, b, step_size)
+  g_g_root_s, g_g_cross_section  = montecarlo_cross_section(gamma_gamma, a, b, step_size)
+  z_z_root_s, z_z_cross_section  = montecarlo_cross_section(z_z, a, b, step_size)
 
   combined_theory_cross_section = []
   for i in range(len(z_z_cross_section)):
