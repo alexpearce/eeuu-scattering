@@ -1,4 +1,5 @@
 from numpy import random, arange
+import csv
 from lib.constants import *
   
 def trapezium(f, a, b, N):
@@ -56,10 +57,18 @@ def max_of(f, a, b, step_size = 0.1):
   
 # TODO: export as PDF, export as CSV/some data format
 
-def export_as_pdf():
+def export_to_pdf():
   """docstring for export_as_data"""
   pass
   
-def export_as_data():
-  """docstring for export_as_data"""
-  pass
+def export_to_csv(x, y, filename = 'data'):
+  """Exports two equal-dimension arrays to a CSV file"""
+  if (len(x) != len(y)):
+    print "x and y must be of the same dimension."
+    exit()
+  print "Writing data to file..."
+  writer = csv.writer(open('{}.csv'.format(filename), 'wb'), delimiter = ' ')
+  writer.writerow(['x', 'y'])
+  for k, v in enumerate(x):
+    writer.writerow([v, y[k]])
+  print "File writing complete."

@@ -229,7 +229,10 @@ def z_z_theory_cross_section(a, b, step_size = 0.1):
     count += 1
     
   return root_s_arr, cross_section
+  
 
+theory_root_s, theory_cross_section  = z_z_theory_cross_section(80, 110)
+export_to_csv(theory_root_s, theory_cross_section)
 ## END THEORY CROSS SECTIONS ##
 
 ## BEGIN NUMERICAL CROSS SECTIONS ##
