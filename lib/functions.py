@@ -38,7 +38,6 @@ def montecarlo(f, N):
   maximum, minimum = max_min_of(f, -1, 1)
   x_arr = []
   y_arr = []
-  print maximum, minimum
   for i in range(N-1):
     # Generate x between -1 and 1
     x = 2*random.random() - 1
@@ -53,7 +52,6 @@ def montecarlo(f, N):
       if 0 < y < f(x): positive_hits += 1
     # else f(x) = 0, no area to integrate.
   
-  print positive_hits, negative_hits
   positive_hits_ratio = float(positive_hits) / float(N)
   negative_hits_ratio = float(negative_hits) / float(N)
   # Integrating in a box of width 2 (between -1 and 1), height maximum - minimum
