@@ -70,7 +70,23 @@ def z_z(cos_theta):
   
 def gamma_z(cos_theta):
   """gamma-Z differential cross section"""
-  pass
+  
+  epsilon_facotr = 4*collider.epsilon_2
+  
+  c = collider
+  
+  # Variables
+  cos_theta_2 = cos_theta * cos_theta
+  sin_theta_2 = 1 - cos_theta_2
+  zeta_factor = 1 - (c.zeta * c.zeta)
+  
+  line_1_numerator = (2 * g_e*g_e * g_z*g_z * sqrt(1 - epsilon_factor) * zeta_factor) / (256*pi*pi*c.s)
+  line_1_denominator = (zeta_factor*zeta_factor) + (c.zeta*c.zeta * gamma_z0*gamma_z0  / c.s)
+  line_1 = line_1_numerator / line_1_denominator
+  
+  line_2 = (C_e_v*C_u_v*(1 + cos_theta_2 + (epsilon_factor*sin_theta_2))) + 2*C_e_a*C_u_a*sqrt(1 - epsilon_factor)*cos_theta
+  
+  return line_1 * line_2
   
 ## END DIFFERENTIAL CROSS SECTIONS ##
 
