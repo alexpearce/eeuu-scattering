@@ -71,7 +71,7 @@ def z_z(cos_theta):
 def gamma_z(cos_theta):
   """gamma-Z differential cross section"""
   
-  epsilon_facotr = 4*collider.epsilon_2
+  epsilon_factor = 4*collider.epsilon_2
   
   c = collider
   
@@ -125,8 +125,7 @@ def check_z_z_consistency():
   # plot_z_z(-1, 1)
 
   # Expected and calculated values
-  # See written notes for greek letter translations
-  # TODO: latex these
+  # See notes for greek letter translations
   c = collider
   epsilon_plus = 1 + (4*c.epsilon*c.epsilon)
   epsilon_minus = 1 - (4*c.epsilon*c.epsilon)
@@ -151,6 +150,30 @@ def check_z_z_consistency():
   # N = 1000:
   # Expected value:    6.56796e-13
   # Trapezium value:   6.56796e-13
+  
+def check_gamma_z_consistency():
+  """Checks to see if the numerical gamma-z cross section complies with theory"""
+  
+  # Sample plot from cos(theta) = -1..1
+  plot_gamma_z(-1, 1)
+
+  # Expected and calculated values
+  # See notes for greek letter translations
+  c = collider
+  epsilon_factor = sqrt(1 - c.epsilon_2)
+  zeta_factor = 1 - (c.zeta*c.zeta)
+  
+  alpha   = (2 * g_e*g_e * g_z*g_z * epsilon_factor * zeta_factor) / (256*pi*pi*c.s)
+  alpha  /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta * gamma_z0*gamma_z0  / c.s)
+  beta    = C_e_v * C_u_v
+  delta   = 2 * C_e_a * C_u_a * epsilon_factor
+
+  print "Expected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1+2*c.epsilon_2))
+  print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
+  # TODO: fix monte carlo integration (it's hardcoded on gamma-gamma).
+  # print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
+  
+check_gamma_z_consistency()
 
 ## END CONSISTENCY CHECKS ##
 
