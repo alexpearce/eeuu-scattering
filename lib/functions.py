@@ -59,7 +59,7 @@ def montecarlo(f, a, b, N):
 
   return integration_area * hits_ratio
   
-def max_min_of(f, a, b, step_size = 0.1):
+def max_min_of(f, a, b, step_size = 0.01):
   """Find the maximum value of a function f between a and b"""
   maximum = minimum = f(a)
   for x in arange(a, b+step_size, step_size):
