@@ -144,7 +144,7 @@ def check_gamma_gamma_consistency():
   coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor) 
   print "\nExpected value:    {0:.6}".format(2*coefficient*((1 + factor) +(1.0/3.0)*(1 - factor)))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_gamma, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_gamma, -1, 1, 10000))
+  print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_gamma, -1, 1, 10000))
 
   # N = 100:
   # Expected value:  4.52108e-06
@@ -176,7 +176,7 @@ def check_z_z_consistency():
 
   print "\nExpected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, -1, 1, 10000))
+  print "Monte carlo value: {0:.6}".format(montecarlo2(z_z, -1, 1, 10000))
 
   # N = 100:
   # Expected value:    6.56796e-13
@@ -204,11 +204,8 @@ def check_gamma_z_consistency():
 
   print "\nExpected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1+2*c.epsilon_2))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
-  # TODO: monte carlo is awful here
-  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_z, -1, 1, 10000))
-
-collider.set_energy_to(m_z-0.1) 
-for i in range(0, 5): check_gamma_z_consistency()
+  # mc only starts to get reasonable results at 10e-6 points
+  print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_z, -1, 1, 1000))
 
 ## END CONSISTENCY CHECKS ##
 
@@ -324,7 +321,7 @@ def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
   for i in root_s_arr:
     collider.set_energy_to(i)
     # Use the monte carlo method to calculate the numerical cross section
-    cross_section[count] = montecarlo(f, -1, 1, iterations)
+    cross_section[count] = montecarlo2(f, -1, 1, iterations)
     count += 1
     
   return root_s_arr, cross_section
@@ -363,7 +360,7 @@ def compare_z_z(a, b, step_size = 0.1):
 def compare_gamma_z(a, b, step_size = 0.1):
   theory_root_s, theory_sigma = gamma_z_theory_cross_section(a, b, step_size)
   trap_root_s, trap_sigma = trapezium_cross_section(gamma_z, a, b, step_size)
-  mc_root_s, mc_sigma = montecarlo_cross_section(gamma_z, a, b, step_size)
+  mc_root_s, mc_sigma = montecarlo_cross_section(gamma_z, a, b, step_size, 1000)
 
   plb.plot(theory_root_s, theory_sigma)
   plb.plot(trap_root_s, trap_sigma)

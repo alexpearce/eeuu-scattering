@@ -36,7 +36,7 @@ def montecarlo(f, a, b, N):
   negative_hits = 0
   # The maximum and minimum value f takes between -1 and 1
   maximum, minimum = max_min_of(f, -1, 1)
-  for i in range(N-1):
+  for i in range(N):
     # Generate x between -1 and 1
     x = (b - a)*random.random_sample() + a
     # Generate y between 0 and the function's maximum value
@@ -58,6 +58,17 @@ def montecarlo(f, a, b, N):
   integration_area = (b - a) * (maximum - minimum)
 
   return integration_area * hits_ratio
+  
+def montecarlo2(f, a, b, N):
+  """A considerably better mc method. Same API as the first."""
+  prefactor = float(b - a) / float(N)
+  thesum = 0
+  
+  for i in range(N):
+    x = (b - a)*random.random_sample() + a
+    thesum += f(x)
+  
+  return prefactor * thesum
   
 def max_min_of(f, a, b, step_size = 0.01):
   """Find the maximum value of a function f between a and b"""
