@@ -177,7 +177,7 @@ def check_z_z_consistency():
 
   print "Expected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 10000))
 
   # N = 100:
   # Expected value:    6.56796e-13
@@ -185,6 +185,8 @@ def check_z_z_consistency():
   # N = 1000:
   # Expected value:    6.56796e-13
   # Trapezium value:   6.56796e-13
+  
+# check_z_z_consistency()
   
 def check_gamma_z_consistency():
   """Checks to see if the numerical gamma-z cross section complies with theory"""
@@ -206,8 +208,6 @@ def check_gamma_z_consistency():
   print "Expected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1+2*c.epsilon_2))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
   print "Monte carlo value: {0:.6}".format(montecarlo(gamma_z, 1000))
-  
-# check_gamma_z_consistency()
 
 ## END CONSISTENCY CHECKS ##
 

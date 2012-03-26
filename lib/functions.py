@@ -31,32 +31,46 @@ def montecarlo(f, N):
   # 3. If y < f(x), (x, y) is under the curve
   # 4. Compute the ratio hits / N
   # 5. Multiply the ratio by the box area
-  hits = 0
-  # The maximum value f takes between -1 and 1
-  maximum = max_of(f, -1, 1)
+  # Hits above and below the x-axis
+  positive_hits = 0
+  negative_hits = 0
+  # The maximum and minimum value f takes between -1 and 1
+  maximum, minimum = max_min_of(f, -1, 1)
+  x_arr = []
+  y_arr = []
+  print maximum, minimum
   for i in range(N-1):
     # Generate x between -1 and 1
     x = 2*random.random() - 1
+    x_arr.append(x)
     # Generate y between 0 and the function's maximum value
-    y = maximum*random.random()
-    if y < f(x): hits += 1
-
-  hits_ratio = float(hits) / float(N)
-  # Integrating in a box of width 2 (between -1 and 1), height maximum
-  integration_area = 2.0 * maximum
-
-  return integration_area * hits_ratio
+    # http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random
+    y = (maximum - minimum)*random.random() + minimum
+    y_arr.append(y)
+    if f(x) < 0:
+      if f(x) < y < 0: negative_hits += 1
+    elif f(x) > 0:
+      if 0 < y < f(x): positive_hits += 1
+    # else f(x) = 0, no area to integrate.
   
-def max_of(f, a, b, step_size = 0.1):
+  print positive_hits, negative_hits
+  positive_hits_ratio = float(positive_hits) / float(N)
+  negative_hits_ratio = float(negative_hits) / float(N)
+  # Integrating in a box of width 2 (between -1 and 1), height maximum - minimum
+  integration_area = 2.0 * (maximum - minimum)
+
+  return integration_area * (positive_hits_ratio - negative_hits_ratio)
+  
+def max_min_of(f, a, b, step_size = 0.001):
   """Find the maximum value of a function f between a and b"""
-  maximum = f(a)
-  for x in arange(a+step_size, b+step_size, step_size):
+  maximum = minimum = f(a)
+  for x in arange(a, b+step_size, step_size):
     if (f(x) > maximum): maximum = f(x)
+    if (f(x) < minimum): minimum = f(x)
   
-  return maximum
-  
-# TODO: export as PDF, export as CSV/some data format
+  return maximum, (minimum if minimum < 0 else 0) 
 
+# TODO: export plots as PDF
 def export_to_pdf():
   """docstring for export_as_data"""
   pass
