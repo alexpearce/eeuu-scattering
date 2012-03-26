@@ -91,6 +91,42 @@ def gamma_z(cos_theta):
 ## END DIFFERENTIAL CROSS SECTIONS ##
 
 
+## BEGIN DIFFERENTIAL PLOTS ##
+
+"""
+Example usage:
+  plot_gamma_gamma(-1, 1)
+"""
+
+def plot_gamma_gamma(a, b, step_size = 0.1):
+  """Plot gamma-gamma differential cross section between a and b"""
+  
+  cos_theta = arange(a, b+step_size, step_size)
+  z = [gamma_gamma(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
+
+
+def plot_z_z(a, b, step_size = 0.1):
+  """Plot z-z differential cross section between a and b"""
+
+  cos_theta = arange(a, b+step_size, step_size)
+  z = [z_z(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
+
+  
+def plot_gamma_z(a, b, step_size = 0.1):
+  """Plot gamma-z differential cross section between a and b"""
+
+  cos_theta = arange(a, b+step_size, step_size)
+  z = [gamma_z(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
+
+## END DIFFERENTIAL PLOTS ##
+
+
 ## BEGIN CONSISTENCY CHECKS ##
 
 """
@@ -141,8 +177,7 @@ def check_z_z_consistency():
 
   print "Expected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
-  # TODO: fix monte carlo integration (it's hardcoded on gamma-gamma).
-  # print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
 
   # N = 100:
   # Expected value:    6.56796e-13
@@ -155,7 +190,7 @@ def check_gamma_z_consistency():
   """Checks to see if the numerical gamma-z cross section complies with theory"""
   
   # Sample plot from cos(theta) = -1..1
-  plot_gamma_z(-1, 1)
+  # plot_gamma_z(-1, 1)
 
   # Expected and calculated values
   # See notes for greek letter translations
@@ -170,48 +205,12 @@ def check_gamma_z_consistency():
 
   print "Expected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1+2*c.epsilon_2))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
-  # TODO: fix monte carlo integration (it's hardcoded on gamma-gamma).
-  # print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 1000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_z, 1000))
   
-check_gamma_z_consistency()
+# check_gamma_z_consistency()
 
 ## END CONSISTENCY CHECKS ##
 
-
-## BEGIN DIFFERENTIAL PLOTS ##
-
-"""
-Example usage:
-  plot_gamma_gamma(-1, 1)
-"""
-
-def plot_gamma_gamma(a, b, step_size = 0.1):
-  """Plot gamma-gamma differential cross section between a and b"""
-  
-  cos_theta = arange(a, b+step_size, step_size)
-  z = [gamma_gamma(x) for x in cos_theta]
-  plb.plot(cos_theta, z)
-  plb.show()
-
-
-def plot_z_z(a, b, step_size = 0.1):
-  """Plot z-z differential cross section between a and b"""
-
-  cos_theta = arange(a, b+step_size, step_size)
-  z = [z_z(x) for x in cos_theta]
-  plb.plot(cos_theta, z)
-  plb.show()
-
-  
-def plot_gamma_z(a, b, step_size = 0.1):
-  """Plot gamma-z differential cross section between a and b"""
-
-  cos_theta = arange(a, b+step_size, step_size)
-  z = [gamma_z(x) for x in cos_theta]
-  plb.plot(cos_theta, z)
-  plb.show()
-
-## END DIFFERENTIAL PLOTS ##
 
 ## BEGIN THEORY CROSS SECTIONS ##
 
@@ -269,9 +268,6 @@ def z_z_theory_cross_section(a, b, step_size = 0.1):
     
   return root_s_arr, cross_section
   
-
-theory_root_s, theory_cross_section  = z_z_theory_cross_section(80, 110)
-export_to_csv(theory_root_s, theory_cross_section)
 ## END THEORY CROSS SECTIONS ##
 
 ## BEGIN NUMERICAL CROSS SECTIONS ##
