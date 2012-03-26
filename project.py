@@ -80,11 +80,10 @@ def gamma_z(cos_theta):
   sin_theta_2 = 1 - cos_theta_2
   zeta_factor = 1 - (c.zeta * c.zeta)
   
-  line_1_numerator = (2 * g_e*g_e * g_z*g_z * sqrt(1 - epsilon_factor) * zeta_factor) / (256*pi*pi*c.s)
-  line_1_denominator = (zeta_factor*zeta_factor) + (c.zeta*c.zeta * gamma_z0*gamma_z0  / c.s)
-  line_1 = line_1_numerator / line_1_denominator
+  line_1  = (2 * g_e*g_e * g_z*g_z * zeta_factor * sqrt(1 - epsilon_factor)) / (256*pi*pi*c.s)
+  line_1 /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta * gamma_z0*gamma_z0  / c.s)
   
-  line_2 = (C_e_v*C_u_v*(1 + cos_theta_2 + (epsilon_factor*sin_theta_2))) + 2*C_e_a*C_u_a*sqrt(1 - epsilon_factor)*cos_theta
+  line_2 = (C_e_v*C_u_v*(1 + cos_theta_2 + (epsilon_factor*sin_theta_2))) + (2*C_e_a*C_u_a*sqrt(1 - epsilon_factor)*cos_theta)
   
   return line_1 * line_2
   
@@ -145,7 +144,7 @@ def check_gamma_gamma_consistency():
   coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor) 
   print "Expected value:    {0:.6}".format(2*coefficient*((1 + factor) +(1.0/3.0)*(1 - factor)))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_gamma, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_gamma, 10000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_gamma, -1, 1, 10000))
 
   # N = 100:
   # Expected value:  4.52108e-06
@@ -177,7 +176,7 @@ def check_z_z_consistency():
 
   print "Expected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, 10000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, -1, 1, 10000))
 
   # N = 100:
   # Expected value:    6.56796e-13
@@ -207,7 +206,7 @@ def check_gamma_z_consistency():
 
   print "Expected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1+2*c.epsilon_2))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_z, 1000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_z, -1, 1, 100000))
 
 ## END CONSISTENCY CHECKS ##
 
@@ -243,7 +242,7 @@ def gamma_gamma_theory_cross_section(a, b, step_size = 0.1):
 
 def z_z_theory_cross_section(a, b, step_size = 0.1):
   """Evaluate between collider energy a to b in steps of step_size"""
-  # This one's is good to go from 3 to 300GeV. Yeeeah.
+  # This one's is good to go from 3 to 200GeV. Yeeeah.
   
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   
@@ -264,6 +263,30 @@ def z_z_theory_cross_section(a, b, step_size = 0.1):
     delta_term  = (4.0/3.0) * epsilon_minus * delta
 
     cross_section[count] = prefactor * (beta_term + delta_term)
+    count += 1
+    
+  return root_s_arr, cross_section
+  
+def gamma_z_theory_cross_section(a, b, step_size = 0.1):
+  """Evaluate between collider energy a to b in steps of step_size"""
+  
+  root_s_arr = [i for i in arange(float(a), float(b), step_size)]
+  
+  cross_section = zeros(len(root_s_arr))
+  count = 0
+  for i in root_s_arr:
+    collider.set_energy_to(i)
+    c = collider
+    
+    epsilon_factor = sqrt(1 - c.epsilon_2)
+    zeta_factor = 1 - (c.zeta*c.zeta)
+
+    alpha   = (2 * g_e*g_e * g_z*g_z * epsilon_factor * zeta_factor) / (256*pi*pi*c.s)
+    alpha  /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta * gamma_z0*gamma_z0  / c.s)
+    beta    = C_e_v * C_u_v
+    delta   = 2 * C_e_a * C_u_a * epsilon_factor
+    
+    cross_section[count] = (8.0/3.0) * alpha * beta * (1 + (2*c.epsilon_2))
     count += 1
     
   return root_s_arr, cross_section
@@ -299,7 +322,7 @@ def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
   for i in root_s_arr:
     collider.set_energy_to(i)
     # Use the monte carlo method to calculate the numerical cross section
-    cross_section[count] = montecarlo(f, iterations)
+    cross_section[count] = montecarlo(f, -1, 1, iterations)
     count += 1
     
   return root_s_arr, cross_section
@@ -335,6 +358,16 @@ def compare_z_z(a, b, step_size = 0.1):
   plb.plot(mc_root_s, mc_sigma)
   plb.show()
   
+def compare_gamma_z(a, b, step_size = 0.1):
+  theory_root_s, theory_sigma = gamma_z_theory_cross_section(a, b, step_size)
+  trap_root_s, trap_sigma = trapezium_cross_section(gamma_z, a, b, step_size)
+  mc_root_s, mc_sigma = montecarlo_cross_section(gamma_z, a, b, step_size)
+
+  plb.plot(theory_root_s, theory_sigma)
+  plb.plot(trap_root_s, trap_sigma)
+  plb.plot(mc_root_s, mc_sigma)
+  plb.show()
+  
 def compare_gamma_gamma_to_z_z(a, b, step_size = 0.1):
   """Compare the theoretical gamma-gamma and z-z cross sections."""
   # g_g_root_s, g_g_cross_section  = gamma_gamma_theory_cross_section(a, b, step_size)
@@ -351,4 +384,20 @@ def compare_gamma_gamma_to_z_z(a, b, step_size = 0.1):
   # 3-300GeV, jesus christ that is beautiful
   plb.show()
 
+def compare_all(a, b, step_size = 0.1):
+  """Compare all the theoretical (g-g, z-z, g-z) crosss sections."""
+  g_g_root_s, g_g_cross_section  = gamma_gamma_theory_cross_section(a, b, step_size)
+  z_z_root_s, z_z_cross_section  = z_z_theory_cross_section(a, b, step_size)
+  g_z_root_s, g_z_cross_section  = gamma_z_theory_cross_section(a, b, step_size)
+  
+  combined_theory_cross_section_1 = []
+  combined_theory_cross_section_2 = []
+  for i in range(len(z_z_cross_section)):
+    combined_theory_cross_section_1.append(g_g_cross_section[i] + z_z_cross_section[i])
+    combined_theory_cross_section_2.append(g_g_cross_section[i] + z_z_cross_section[i] + g_z_cross_section[i])
+    
+  plb.plot(g_g_root_s, combined_theory_cross_section_1)
+  plb.plot(g_g_root_s, combined_theory_cross_section_2)
+  plb.show()
+  
 ## END CROSS SECTION COMPARISONS ##

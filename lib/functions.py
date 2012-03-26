@@ -20,9 +20,9 @@ def trapezium(f, a, b, N):
   
   return prefactor + h*s
   
-def montecarlo(f, N):
+def montecarlo(f, a, b, N):
   """
-  Monte carlo integration of a function f between -1 and 1
+  Monte carlo integration of a function f between a and b (a < b)
   with N trials.
   """
   
@@ -36,30 +36,30 @@ def montecarlo(f, N):
   negative_hits = 0
   # The maximum and minimum value f takes between -1 and 1
   maximum, minimum = max_min_of(f, -1, 1)
-  x_arr = []
-  y_arr = []
   for i in range(N-1):
     # Generate x between -1 and 1
-    x = 2*random.random() - 1
-    x_arr.append(x)
+    x = (b - a)*random.random_sample() + a
     # Generate y between 0 and the function's maximum value
     # http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random
-    y = (maximum - minimum)*random.random() + minimum
-    y_arr.append(y)
-    if f(x) < 0:
-      if f(x) < y < 0: negative_hits += 1
-    elif f(x) > 0:
-      if 0 < y < f(x): positive_hits += 1
+    y = (maximum - minimum)*random.random_sample() + minimum
+    
+    # Store the function value at x
+    f_x = f(x)
+    
+    # y needs to be between the x-axis and the curve
+    if f_x > 0:
+      if 0 <= y <= f_x: positive_hits += 1
+    elif f_x < 0:
+      if f_x <= y <= 0: negative_hits += 1
     # else f(x) = 0, no area to integrate.
   
-  positive_hits_ratio = float(positive_hits) / float(N)
-  negative_hits_ratio = float(negative_hits) / float(N)
+  hits_ratio = float(positive_hits - negative_hits) / float(N)
   # Integrating in a box of width 2 (between -1 and 1), height maximum - minimum
-  integration_area = 2.0 * (maximum - minimum)
+  integration_area = (b - a) * (maximum - minimum)
 
-  return integration_area * (positive_hits_ratio - negative_hits_ratio)
+  return integration_area * hits_ratio
   
-def max_min_of(f, a, b, step_size = 0.001):
+def max_min_of(f, a, b, step_size = 0.1):
   """Find the maximum value of a function f between a and b"""
   maximum = minimum = f(a)
   for x in arange(a, b+step_size, step_size):

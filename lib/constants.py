@@ -1,4 +1,4 @@
-from math import *
+from math import pi, sqrt, sin, cos, asin
 
 # Particle data found at the PDG
 # http://pdg.lbl.gov/2011/tables/contents_tables.html
@@ -19,6 +19,9 @@ g_e = sqrt(4*pi*alpha)
 
 # QED Z coupling
 g_z = g_e / (cos(theta_w) * sin(theta_w))
+
+# Take electron to be massless
+m_e = 0.0
 
 # Muon rest mass
 m_u = 0.105658
