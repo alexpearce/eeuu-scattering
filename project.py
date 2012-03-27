@@ -301,20 +301,22 @@ Example usage:
   plb.show()
 """
 
-def trapezium_cross_section(f, a, b, step_size = 0.1):
+def trapezium_cross_section(f, a, b, step_size = 0.1, strips = 1000):
+  """Compete the cross section using the trapezium rule in a range of collider energies."""
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   cross_section = zeros(len(root_s_arr))
   count = 0
   for i in root_s_arr:
     collider.set_energy_to(i)
     # Use the trapezium rule to calculate the numerical cross section
-    cross_section[count] = trapezium(f, -1, 1, 1000)
+    cross_section[count] = trapezium(f, -1, 1, strips)
     count += 1
 
   return root_s_arr, cross_section
 
 
 def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
+  """Compete the cross section using monte carlo integration in a range of collider energies."""
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   cross_section = zeros(len(root_s_arr))
   count = 0
@@ -392,6 +394,7 @@ def compare_all(a, b, step_size = 0.1):
   combined_theory_cross_section_1 = []
   combined_theory_cross_section_2 = []
   for i in range(len(z_z_cross_section)):
+    # Cross section with, then without, the interference term
     combined_theory_cross_section_1.append(g_g_cross_section[i] + z_z_cross_section[i])
     combined_theory_cross_section_2.append(g_g_cross_section[i] + z_z_cross_section[i] + g_z_cross_section[i])
     
@@ -400,3 +403,9 @@ def compare_all(a, b, step_size = 0.1):
   plb.show()
   
 ## END CROSS SECTION COMPARISONS ##
+
+## BEGIN NUMERICAL CROSS SECTION PLOTS ##
+
+
+
+## END NUMERICAL CROSS SECTION PLOTS ##
