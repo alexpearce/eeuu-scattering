@@ -104,7 +104,7 @@ Example usage:
 def plot_gamma_gamma(a, b, step_size = 0.1):
   """Plot gamma-gamma differential cross section between a and b"""
   
-  cos_theta = arange(a, b+step_size, step_size)
+  cos_theta = arange(a, b, step_size)
   z = [gamma_gamma(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
@@ -113,7 +113,7 @@ def plot_gamma_gamma(a, b, step_size = 0.1):
 def plot_z_z(a, b, step_size = 0.1):
   """Plot z-z differential cross section between a and b"""
 
-  cos_theta = arange(a, b+step_size, step_size)
+  cos_theta = arange(a, b, step_size)
   z = [z_z(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
@@ -122,8 +122,16 @@ def plot_z_z(a, b, step_size = 0.1):
 def plot_gamma_z(a, b, step_size = 0.1):
   """Plot gamma-z differential cross section between a and b"""
 
-  cos_theta = arange(a, b+step_size, step_size)
+  cos_theta = arange(a, b, step_size)
   z = [gamma_z(x) for x in cos_theta]
+  plb.plot(cos_theta, z)
+  plb.show()
+  
+def plot_combined(a, b, step_size = 0.1):
+  """Plot the sum of all the differential cross sections between a and b"""
+  
+  cos_theta = arange(a, b, step_size)
+  z = [combined_diff_cross_section(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
 
@@ -408,19 +416,29 @@ def compare_all(a, b, step_size = 0.1):
   
 ## END CROSS SECTION COMPARISONS ##
 
+
 ## BEGIN NUMERICAL CROSS SECTION PLOTS ##
 
 """Example usage:
-  root_s_range, sigma = seperate_trapezium(3, 100)
+  root_s_range, sigma = seperate_cross_section('trapezium', 3, 100)
   plb.plot(root_s_range, sigma)
   plb.show()
 """
 
-def seperate_trapezium(a, b, step_size = 0.1, strips = 1000):
-  """Integrate each cross section seperately in a range of collider energies."""
-  g_g_root_s, g_g_sigma = trapezium_cross_section(gamma_gamma, a, b, step_size, strips)
-  z_z_root_s, z_z_sigma = trapezium_cross_section(z_z, a, b, step_size, strips)
-  g_z_root_s, g_z_sigma = trapezium_cross_section(gamma_z, a, b, step_size, strips)
+method_map = {
+  'trapezium':  trapezium_cross_section,
+  'mc':         montecarlo_cross_section
+}
+
+def seperate_cross_section(method, a, b, step_size = 0.1, N = 1000):
+  """
+  Integrate each cross section seperately in a range of collider energies.
+  N is number of strips for trapezium, number of points for monte carlo.
+  """
+  f = method_map[method]
+  g_g_root_s, g_g_sigma = f(gamma_gamma, a, b, step_size, N)
+  z_z_root_s, z_z_sigma = f(z_z, a, b, step_size, N)
+  g_z_root_s, g_z_sigma = f(gamma_z, a, b, step_size, N)
   
   # Could use the length of any list here, they all have the same dimension
   length = len(g_g_root_s)
@@ -430,8 +448,9 @@ def seperate_trapezium(a, b, step_size = 0.1, strips = 1000):
   
   return g_g_root_s, combined_cross_section
   
-def combined_trapezium(a, b, step_size = 0.1, strips = 1000):
+def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
   """Integrate the combined cross section in a range of collider energies."""
-  return trapezium_cross_section(combined_diff_cross_section, a, b, step_size, strips)
-
+  f = method_map[method]
+  return f(combined_diff_cross_section, a, b, step_size, N)
+  
 ## END NUMERICAL CROSS SECTION PLOTS ##
