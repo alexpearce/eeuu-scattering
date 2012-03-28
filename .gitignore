@@ -3,3 +3,5 @@
 **.log
 **.synctex.gz
 .DS_Store
+**.toc
+**.t1

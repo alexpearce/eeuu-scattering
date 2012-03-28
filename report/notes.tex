@@ -1,7 +1,15 @@
 \documentclass[]{report}
-\usepackage{atlasphysics,amsmath}
+\usepackage{atlasphysics,amsmath,feynmp}
+% Read .1 file extension as .mps.
+\DeclareGraphicsRule{.1}{mps}{*}{}
+% Diagram unit length.
+\unitlength = 1mm
 
 \begin{document}
+
+\tableofcontents
+
+\chapter{Derivations}
 
 \section{Theoretical $\Zzero-\Zzero$ Cross Section $\sigma$}
 
@@ -54,5 +62,39 @@ $$
 \sigma^{\Zzero-\Zzero} = 4\pi\alpha(\beta(\varepsilon_{+} + \frac{1}{3}\varepsilon_{-})
   + \frac{4}{3}\Delta\varepsilon_{-}).
 $$
+
+\chapter{Misc.}
+
+\section{Feynman Diagrams}
+
+Here are the Feynman diagrams for the scatterings.
+
+\begin{fmffile}{gammacrossing}
+  \begin{fmfgraph*}(40,25)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmflabel{$e^-$}{i1}
+    \fmflabel{$e^+$}{i2}
+    \fmflabel{$\mu^+$}{o1}
+    \fmflabel{$\mu^-$}{o2}
+    \fmf{fermion}{i1,v1,i2}
+    \fmf{fermion}{o1,v2,o2}
+    \fmf{photon,label=$\gamma$}{v1,v2}
+  \end{fmfgraph*}
+\end{fmffile}
+
+\begin{fmffile}{zcrossing}
+  \begin{fmfgraph*}(40,25)
+    \fmfleft{i1,i2}
+    \fmfright{o1,o2}
+    \fmflabel{$e^-$}{i1}
+    \fmflabel{$e^+$}{i2}
+    \fmflabel{$\mu^+$}{o1}
+    \fmflabel{$\mu^-$}{o2}
+    \fmf{fermion}{i1,v1,i2}
+    \fmf{fermion}{o1,v2,o2}
+    \fmf{boson,label=$\Zzero$}{v1,v2}
+  \end{fmfgraph*}
+\end{fmffile}
 
 \end{document}
