@@ -1,5 +1,5 @@
 \documentclass[]{report}
-\usepackage{atlasphysics,amsmath,feynmp}
+\usepackage{atlasphysics,amsmath,feynmp, graphicx, subfig}
 % Read .1 file extension as .mps.
 \DeclareGraphicsRule{.1}{mps}{*}{}
 % Diagram unit length.
@@ -16,7 +16,7 @@
 Define
 
 \begin{align*}
-\alpha &= \frac{g^{4}}{(32\pi)^{2}s} \frac{\sqrt{1-4\varepsilon^{2}}}{(1-\lambda^{2})^{2} + (\frac{\lambda\Gamma_{\Zzero}}{\rts})},
+\alpha &= \frac{g_{\Zzero}^{4}}{(32\pi)^{2}s} \frac{\sqrt{1-4\varepsilon^{2}}}{(1-\lambda^{2})^{2} + (\frac{\lambda\Gamma_{\Zzero}}{\rts})},
 \\
 \beta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{V}^{\mu})^{2}),
 \\
@@ -63,38 +63,86 @@ $$
   + \frac{4}{3}\Delta\varepsilon_{-}).
 $$
 
+\section{Theoretical $\gamma-\Zzero$ Cross Section $\sigma$}
+
+Define
+
+\begin{align*}
+\alpha &= \frac{2g_{e}^{2}g_{\Zzero}^{2}}{(16\pi)^{2}s} \frac{(1-\lambda^{2})\sqrt{1-4\varepsilon^{2}}}{(1-\lambda^{2})^{2} + (\frac{\lambda\Gamma_{\Zzero}}{\rts})},
+\\
+\beta &= C^{e}_{V}C^{\mu}_{V},
+\\
+\Delta &= 2C^{e}_{A}C^{\mu}_{A}\sqrt{1-4\varepsilon^{2}},
+\end	{align*}
+
+These definitions lead to the differential cross section
+
+$$
+\frac{\d{\sigma}}{\d{\Omega}}^{\gamma-\Zzero}
+  = \alpha(\beta(1+\cos^{2}{\vartheta}+4\varepsilon^{2}\sin^{2}{\vartheta})
+    + \Delta\cos{\vartheta}
+  )
+$$
+
+Under the substitution $\sin^{2}{\vartheta} \ra 1-\cos^{2}{\vartheta}$, we see that the integral over the solid angle $\d{\Omega} = \d{\phi}\d{x}$ (with implicit change of variable $\cos{\vartheta}\ra x$) becomes
+
+\begin{align*}
+\sigma &= \alpha \int\limits_{0}^{2\pi}\d{\phi}
+	\int\limits_{-1}^{1}
+		\beta(1+x^{2}+4\varepsilon^{2}(1- x^{2}))
+    	+ \Delta x
+	\d{x}
+\\
+&= 2\pi\alpha \int\limits_{-1}^{1} \beta(1+4\varepsilon^{2})+\beta(1-4\varepsilon^{2})x^{2} + \Delta x \d{x}.
+\end{align*}
+
+The antisymmetric $\Delta x$ terms vanishes under integration, giving (after rearranging)s
+
+$$
+\sigma = \frac{16}{3}\pi\alpha\beta(1 + 2\varepsilon^{2}).
+$$
+
 \chapter{Misc.}
 
 \section{Feynman Diagrams}
 
 Here are the Feynman diagrams for the scatterings.
 
-\begin{fmffile}{gammacrossing}
-  \begin{fmfgraph*}(40,25)
-    \fmfleft{i1,i2}
-    \fmfright{o1,o2}
-    \fmflabel{$e^-$}{i1}
-    \fmflabel{$e^+$}{i2}
-    \fmflabel{$\mu^+$}{o1}
-    \fmflabel{$\mu^-$}{o2}
-    \fmf{fermion}{i1,v1,i2}
-    \fmf{fermion}{o1,v2,o2}
-    \fmf{photon,label=$\gamma$}{v1,v2}
-  \end{fmfgraph*}
-\end{fmffile}
-
-\begin{fmffile}{zcrossing}
-  \begin{fmfgraph*}(40,25)
-    \fmfleft{i1,i2}
-    \fmfright{o1,o2}
-    \fmflabel{$e^-$}{i1}
-    \fmflabel{$e^+$}{i2}
-    \fmflabel{$\mu^+$}{o1}
-    \fmflabel{$\mu^-$}{o2}
-    \fmf{fermion}{i1,v1,i2}
-    \fmf{fermion}{o1,v2,o2}
-    \fmf{boson,label=$\Zzero$}{v1,v2}
-  \end{fmfgraph*}
-\end{fmffile}
+\begin{figure}[h]
+	\vspace{10pt}
+	\centering
+	\subfloat[$\gamma-\gamma$]{
+		\begin{fmffile}{gammacrossing}
+		  \begin{fmfgraph*}(40,25)
+		    \fmfleft{i1,i2}
+		    \fmfright{o1,o2}
+		    \fmflabel{$e^-$}{i1}
+		    \fmflabel{$e^+$}{i2}
+		    \fmflabel{$\mu^+$}{o1}
+		    \fmflabel{$\mu^-$}{o2}
+		    \fmf{fermion}{i1,v1,i2}
+		    \fmf{fermion}{o1,v2,o2}
+		    \fmf{photon,label=$\gamma$}{v1,v2}
+		  \end{fmfgraph*}
+		\end{fmffile}
+	}
+	\qquad
+	\subfloat[$\Zzero-\Zzero$]{
+		\begin{fmffile}{zcrossing}
+		  \begin{fmfgraph*}(40,25)
+		    \fmfleft{i1,i2}
+		    \fmfright{o1,o2}
+		    \fmflabel{$e^-$}{i1}
+		    \fmflabel{$e^+$}{i2}
+		    \fmflabel{$\mu^+$}{o1}
+		    \fmflabel{$\mu^-$}{o2}
+		    \fmf{fermion}{i1,v1,i2}
+		    \fmf{fermion}{o1,v2,o2}
+		    \fmf{boson,label=$\Zzero$}{v1,v2}
+		  \end{fmfgraph*}
+		\end{fmffile}
+	}
+	\caption{$e^{-}e^{+}\rarrow\mu^{-}\mu^{+}$ scattering via different bosons.}
+\end{figure}
 
 \end{document}
