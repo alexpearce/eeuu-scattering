@@ -196,8 +196,6 @@ def check_z_z_consistency():
   # Expected value:    6.56796e-13
   # Trapezium value:   6.56796e-13
   
-check_z_z_consistency()
-  
 def check_gamma_z_consistency():
   """Checks to see if the numerical gamma-z cross section complies with theory"""
   
@@ -244,13 +242,13 @@ def gamma_gamma_theory_cross_section(a, b, step_size = 0.1):
     collider.set_energy_to(i)
     
     factor = 4*collider.epsilon_2
-    coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor)
+    alpha = (g_e**4 / (64*pi*pi*collider.s)) * sqrt(1 - factor) 
+    
     # The theoretical cross section from integrating the (simple) diff. cross section
-    cross_section[count] = 2*coefficient*((1 + factor) +(1.0/3.0)*(1 - factor))
+    cross_section[count] = (4.0/3.0)*alpha*(2 + factor)
     count += 1
 
   return root_s_arr, cross_section
-
 
 def z_z_theory_cross_section(a, b, step_size = 0.1):
   """Evaluate between collider energy a to b in steps of step_size"""
@@ -263,18 +261,16 @@ def z_z_theory_cross_section(a, b, step_size = 0.1):
   for i in root_s_arr:
     collider.set_energy_to(i)
     c = collider
-    epsilon_plus = 1 + (4*c.epsilon*c.epsilon)
-    epsilon_minus = 1 - (4*c.epsilon*c.epsilon)
-    alpha   = (g_z**4 * sqrt(epsilon_minus)) / (1024*pi*pi*c.s)
-    alpha  /= (1 - (c.zeta*c.zeta))**2 + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
-    beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
-    delta   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a)
-    
-    prefactor   = 2*alpha
-    beta_term   = (epsilon_plus + (1.0/3.0)*epsilon_minus) * beta
-    delta_term  = (4.0/3.0) * epsilon_minus * delta
 
-    cross_section[count] = prefactor * (beta_term + delta_term)
+    epsilon_factor = 1 - (4*c.epsilon_2)
+    zeta_factor = 1 - (c.zeta*c.zeta)
+
+    alpha   = (g_z**4 * sqrt(epsilon_factor)) / (1024*pi*pi*c.s)
+    alpha  /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
+    beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
+    gamma   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a) * epsilon_factor
+
+    cross_section[count] = (8.0/3.0)*alpha*(gamma + ((1 + 2*c.epsilon_2)*beta))
     count += 1
     
   return root_s_arr, cross_section
@@ -298,7 +294,7 @@ def gamma_z_theory_cross_section(a, b, step_size = 0.1):
     beta    = C_e_v * C_u_v
     delta   = 2 * C_e_a * C_u_a * epsilon_factor
     
-    cross_section[count] = (8.0/3.0) * alpha * beta * (1 + (2*c.epsilon_2))
+    cross_section[count] = (8.0/3.0) * alpha * beta * (1 + 2*c.epsilon_2)
     count += 1
     
   return root_s_arr, cross_section
@@ -342,6 +338,7 @@ def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
   return root_s_arr, cross_section
 
 ## END NUMERICAL CROSS SECTIONS ##
+
 
 ## BEGIN CROSS SECTION COMPARISONS ##
 
@@ -428,7 +425,8 @@ def compare_all(a, b, step_size = 0.1):
 
 method_map = {
   'trapezium':  trapezium_cross_section,
-  'mc':         montecarlo_cross_section
+  'mc':         montecarlo_cross_section,
+  'montecarlo': montecarlo_cross_section
 }
 
 def seperate_cross_section(method, a, b, step_size = 0.1, N = 1000):
