@@ -426,7 +426,7 @@ method_map = {
 
 def seperate_cross_section(method, a, b, step_size = 0.1, N = 1000):
   """
-  Integrate each cross section seperately in a range of collider energies.
+  Integrate each cross section seperately in a range of collider energies, then add the result.
   N is number of strips for trapezium, number of points for monte carlo.
   """
   f = method_map[method]
