@@ -39,7 +39,6 @@ def gamma_gamma(cos_theta):
   sin_theta_2 = 1 - cos_theta_2
   
   return alpha*(1 + cos_theta_2 + (epsilon_factor*sin_theta_2))
-
   
 def z_z(cos_theta):
   """Z-Z differential cross section"""
@@ -52,19 +51,17 @@ def z_z(cos_theta):
   # Variables
   cos_theta_2 = cos_theta * cos_theta
   sin_theta_2 = 1 - cos_theta_2
-
-  # We'll do this line by line, similarly to the project description
-  # Note that it is *not* the case that all lines are simply multiplied together
-  line_1_numerator = (g_z**4 * sqrt(1 - epsilon_factor)) / (1024*pi*pi*c.s)
-  line_1_denominator = (1 - (2*c.zeta*c.zeta) + c.zeta**4) + ((c.zeta*gamma_z0)*(c.zeta*gamma_z0) / c.s)
-  line_1 = line_1_numerator / line_1_denominator
-
-  line_2 = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v) * (1 + cos_theta_2 + (epsilon_factor*sin_theta_2))
-  line_3 = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a) * (1 + cos_theta_2) * (1 - epsilon_factor)
-  line_4 = 8 * C_e_v * C_e_a * C_u_v * C_u_a * sqrt(1 - epsilon_factor) * cos_theta
-
-  return line_1 * (line_2 + line_3 + line_4)
-
+  
+  epsilon_factor = 1 - (4*c.epsilon_2)
+  zeta_factor = 1 - (c.zeta*c.zeta)
+  
+  alpha   = (g_z**4 * sqrt(epsilon_factor)) / (1024*pi*pi*c.s)
+  alpha  /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
+  beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
+  gamma   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a) * epsilon_factor
+  delta   = 8 * C_e_v * C_e_a * C_u_v * C_u_a * sqrt(epsilon_factor)
+  
+  return alpha*(beta*(1 + cos_theta_2 + (4*c.epsilon_2*sin_theta_2)) + gamma*(1 + cos_theta_2) + delta*cos_theta)
   
 def gamma_z(cos_theta):
   """gamma-Z differential cross section"""
@@ -75,8 +72,8 @@ def gamma_z(cos_theta):
   cos_theta_2 = cos_theta * cos_theta
   sin_theta_2 = 1 - cos_theta_2
   
-  zeta_factor = 1 - (c.zeta * c.zeta)
-  epsilon_factor = sqrt(1 - 4*c.epsilon_2)
+  epsilon_factor = sqrt(1 - c.epsilon_2)
+  zeta_factor = 1 - (c.zeta*c.zeta)
   
   alpha   = (2 * g_e*g_e * g_z*g_z * epsilon_factor * zeta_factor) / (256*pi*pi*c.s)
   alpha  /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta * gamma_z0*gamma_z0  / c.s)
@@ -163,8 +160,6 @@ def check_gamma_gamma_consistency():
   # Expected value:  4.52108e-06
   # Trapezium value: 4.52108e-06
   
-check_gamma_gamma_consistency()
-  
 def check_z_z_consistency():
   """Checks to see if the numerical z-z cross section complies with theory"""
 
@@ -194,8 +189,8 @@ def check_z_z_consistency():
   # Trapezium value:   6.56828e-13
   # N = 1000:
   # Expected value:    6.56796e-13
-  # Trapezium value:   6.56796e-13
-  
+  # Trapezium value:   6.56796e-13  
+
 def check_gamma_z_consistency():
   """Checks to see if the numerical gamma-z cross section complies with theory"""
   
