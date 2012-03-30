@@ -30,7 +30,7 @@ def gamma_gamma(cos_theta):
   # a) tidy things up and b) prevent wasted cycles
   epsilon_factor = 4*collider.epsilon_2
   
-  coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - epsilon_factor)
+  alpha = (g_e**4 * sqrt(1 - epsilon_factor)) / (64*pi*pi*collider.s)
   
   # I'm using cos^2(theta) + sin^2(theta) = 1 here,
   # but this could be unstable if one term is small.
@@ -38,9 +38,7 @@ def gamma_gamma(cos_theta):
   cos_theta_2 = cos_theta * cos_theta
   sin_theta_2 = 1 - cos_theta_2
   
-  variable = 1 + cos_theta_2 + (epsilon_factor*sin_theta_2)
-  
-  return coefficient*variable
+  return alpha*(1 + cos_theta_2 + (epsilon_factor*sin_theta_2))
 
   
 def z_z(cos_theta):
@@ -164,6 +162,8 @@ def check_gamma_gamma_consistency():
   # N = 1000:
   # Expected value:  4.52108e-06
   # Trapezium value: 4.52108e-06
+  
+check_gamma_gamma_consistency()
   
 def check_z_z_consistency():
   """Checks to see if the numerical z-z cross section complies with theory"""
