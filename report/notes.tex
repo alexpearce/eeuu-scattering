@@ -48,9 +48,9 @@ Define
 \\
 \beta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{V}^{\mu})^{2}),
 \\
-\Delta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{A}^{\mu})^{2}),
+\Gamma &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{A}^{\mu})^{2})(1-4\varepsilon^{2}),
 \\
-\Gamma &= 8C_{V}^{e}C_{A}^{e}C_{V}^{\mu}C_{A}^{\mu}.
+\Delta &= 8C_{V}^{e}C_{A}^{e}C_{V}^{\mu}C_{A}^{\mu}\sqrt{1-4\varepsilon^{2}}.
 \end	{align*}
 
 These definitions produce the differential cross section:
@@ -58,37 +58,27 @@ These definitions produce the differential cross section:
 $$
 \frac{\d{\sigma}}{\d{\Omega}}^{\Zzero-\Zzero}
   = \alpha(\beta(1+\cos^{2}{\vartheta}+4\varepsilon^{2}\sin^{2}{\vartheta})
-    + \Delta(1+\cos^{2}{\vartheta})(1-4\varepsilon^{2})
-    + \Gamma\sqrt{1-4\varepsilon^{2}}\cos{\vartheta}
+    + \Delta(1+\cos^{2}{\vartheta})
+    + \Gamma\cos{\vartheta}
   )
 $$
 
-Under the substitutions
-
-\begin{align*}
-\sin^{2}{\vartheta} &\ra 1-\cos^{2}{\vartheta} \quad\text{and}\\
-\varepsilon_{\pm} &= 1\pm4\varepsilon^{2},
-\end{align*}
-
-we see that the integral over the solid angle $\d{\Omega} = \d{\phi}\d{x}$ (with implicit change of variable $\cos{\vartheta}\ra x$) becomes
+Under the substitution $\sin^{2}{\vartheta} \ra 1-\cos^{2}{\vartheta}$ we see that the integral over the solid angle $\d{\Omega} = \d{\phi}\d{x}$ (with implicit change of variable $\cos{\vartheta}\ra x$) becomes
 
 \begin{align*}
 \sigma &= \alpha\int\limits_{0}^{2\pi}\d{\phi}\int\limits_{-1}^{1}
-  \beta\varepsilon_{+} + \beta\varepsilon_{-}x^{2} + \Delta\varepsilon_{-}
-  + \Delta\varepsilon_{-}x^{2} + \Gamma\sqrt{\varepsilon_{-}}x
-  \d{x}
+	\beta + \beta x^{2} + 4\varepsilon^{2}\beta(1-x^{2}) + \Gamma + \Gamma x^{2} + \Delta x
+	\d{x}
   \\
   &= 2\pi\alpha\int\limits_{-1}^{1}
-    \beta\varepsilon_{+} + \Delta\varepsilon_{-} + (\beta + \Delta)\varepsilon_{-}x^{2}
-    + \Gamma\sqrt{\varepsilon_{-}}x
+		(1 + 4\varepsilon^{2})\beta + \Gamma + ((1 - 4\varepsilon^{2})\beta + \Gamma)x^{2}
     \d{x}.
 \end{align*}
 
-The $\Gamma$ term will disappear as it is antisymmetric in the integration limits. After simplification, the trivial integral is evaluated to
+The $\Gamma$ term disappears as it is antisymmetric in the integration limits. After simplification, the integral is evaluated to
 
 $$
-\sigma^{\Zzero-\Zzero} = 4\pi\alpha(\beta(\varepsilon_{+} + \frac{1}{3}\varepsilon_{-})
-  + \frac{4}{3}\Delta\varepsilon_{-}).
+\sigma^{\Zzero-\Zzero} = \frac{16\pi\alpha}{3}(\Gamma + (1 + 2\varepsilon^{2})\beta).
 $$
 
 \subsection{$\gamma-\Zzero$}
@@ -127,7 +117,7 @@ Under the substitution $\sin^{2}{\vartheta} \ra 1-\cos^{2}{\vartheta}$, we see t
 The antisymmetric $\Delta x$ terms vanishes under integration, giving (after rearranging)s
 
 $$
-\sigma = \frac{16\pi\alpha\beta}{3}(1 + 2\varepsilon^{2}).
+\sigma^{\gamma-\Zzero} = \frac{16\pi\alpha\beta}{3}(1 + 2\varepsilon^{2}).
 $$
 
 \chapter{Misc.}

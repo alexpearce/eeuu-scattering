@@ -174,19 +174,18 @@ def check_z_z_consistency():
   # Expected and calculated values
   # See notes for greek letter translations
   c = collider
-  epsilon_plus = 1 + (4*c.epsilon*c.epsilon)
-  epsilon_minus = 1 - (4*c.epsilon*c.epsilon)
-  alpha   = (g_z**4 * sqrt(epsilon_minus)) / (1024*pi*pi*c.s)
-  alpha  /= (1 - (c.zeta*c.zeta))**2 + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
+  
+  epsilon_factor = 1 - (4*c.epsilon_2)
+  zeta_factor = 1 - (c.zeta*c.zeta)
+  
+  alpha   = (g_z**4 * sqrt(epsilon_factor)) / (1024*pi*pi*c.s)
+  alpha  /= (zeta_factor*zeta_factor) + (c.zeta*c.zeta*gamma_z0*gamma_z0 / c.s)
   beta    = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_v)*(C_u_v)
-  delta   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a)
+  gamma   = ((C_e_v*C_e_v) + (C_e_a*C_e_a))*(C_u_a)*(C_u_a) * epsilon_factor
+  # No need for delta as it isn't a term in sigma
 
   # Haven't integrated over phi, so no 2*pi prefactor
-  prefactor   = 2*alpha
-  beta_term   = (epsilon_plus + (1.0/3.0)*epsilon_minus) * beta
-  delta_term  = (4.0/3.0) * epsilon_minus * delta
-
-  print "\nExpected value:    {0:.6}".format(prefactor * (beta_term + delta_term))
+  print "\nExpected value:    {0:.6}".format((8.0/3.0)*alpha*(gamma + ((1 + 2*c.epsilon_2)*beta)))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
   print "Monte carlo value: {0:.6}".format(montecarlo2(z_z, -1, 1, 10000))
 
@@ -196,6 +195,8 @@ def check_z_z_consistency():
   # N = 1000:
   # Expected value:    6.56796e-13
   # Trapezium value:   6.56796e-13
+  
+check_z_z_consistency()
   
 def check_gamma_z_consistency():
   """Checks to see if the numerical gamma-z cross section complies with theory"""
