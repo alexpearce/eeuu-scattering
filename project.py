@@ -153,10 +153,10 @@ def check_gamma_gamma_consistency():
 
   # Expected and calculated values
   factor = 4*collider.epsilon_2
-  coefficient = (g_e**4 / ((8*pi)*(8*pi)*collider.s)) * sqrt(1 - factor) 
-  print "\nExpected value:    {0:.6}".format(2*coefficient*((1 + factor) +(1.0/3.0)*(1 - factor)))
-  print "Trapezium value:   {0:.6}".format(trapezium(gamma_gamma, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_gamma, -1, 1, 10000))
+  alpha = (g_e**4 / (64*pi*pi*collider.s)) * sqrt(1 - factor) 
+  print "\nExpected value:    {0:.6}".format((4.0/3.0)*alpha*(2 + factor))
+  print "Trapezium value:   {0:.6}".format(trapezium(gamma_gamma, -1, 1, 10000))
+  print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_gamma, -1, 1, 1000))
 
   # N = 100:
   # Expected value:  4.52108e-06
@@ -214,10 +214,12 @@ def check_gamma_z_consistency():
   beta    = C_e_v * C_u_v
   delta   = 2 * C_e_a * C_u_a * epsilon_factor
 
-  print "\nExpected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1+2*c.epsilon_2))
+  print "\nExpected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1 + 2*c.epsilon_2))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
   # mc only starts to get reasonable results at 10e-6 points
   print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_z, -1, 1, 1000))
+  
+check_gamma_z_consistency()
 
 ## END CONSISTENCY CHECKS ##
 
