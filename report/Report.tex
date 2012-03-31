@@ -37,12 +37,30 @@ This interaction is described by the Feynman diagram in figure \ref{fig:feynsgam
 
 The use of Feynman diagrams is that we may apply the Feynman rules to them to produce a  matrix element $\mathcal{M}$. This in fact corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
-The methods of integration used are explored in the next section, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. Finally, TODO is considered in section \ref{sec:extension}
+The following section briefly outlines the theory behind the interactions. The integration methods used are explored in the section after that, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. Finally, TODO is considered in section \ref{sec:extension}.
+
+\section{Principles of Interaction Cross Sections}
+
+With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}^{\nu}$ and $p_{2}^{\nu}$, whilst the outgoing particles carry $p_{3}^{\nu}$ and $p_{4}^{\nu}$. At LEP, the electrons and positrons (antiparticles to the electron) will be accelerated around a loop in opposite directions. The total collider energy is then given $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$ Here we have suppressed the metric tensor and covariant notation, implicitly assuming four vectors. The collider energy is then analogous to the hypotenuse of a right-angled triangle of sides $p_{1}^{\nu}$ and $p_{2}^{\nu}$.
+
+\subsection{Real and Virtual Particles}
+
+As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may either be \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the classical relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle, $\Delta E\Delta t \geq \hbar$: the violation in energy may only exists for a very small amount of time.
+
+The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$, where $M_{\Zzero}$ is the boson's mass.
+
+\subsection{Differential Cross Sections}
+
+
 
 
 \section{Integration of the Differential $\frac{\d{\sigma}}{\d{\Omega}}$}\label{sec:integration}
 
-History.
+A common analytical approach to numerically approximating integrals in the trapezium rule. We use the trapezium rule and compare it with the much more recent Monte Carlo method, whereby random points are sampled and the fraction of those between the curve and the independent axis is proportional to the area i.e. the integral.
+
+The reasoning behind using two methods of numerical integration is twofold. Firstly, it serves as a useful consistency check: if at least one method is running incorrectly, the results from each are unlikely to agree with each other. Secondly, the data collected with respect to the efficiency of each method on the given functions may be useful for future analysis of particle interaction cross sections (or, indeed, any functions of a similar form).
+
+On this point, it is worth noting that 
 
 
 \section{Results and Analysis}\label{sec:results}
