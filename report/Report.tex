@@ -35,7 +35,7 @@ The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wm
 
 This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering is also described by a t-channel diagram (in figure \ref{fig:feyntgammaz}), however we proceed by analysing only the s-channel as it is only this channel via which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but as it is simply a swapping of the outgoing particles' momenta in the t-channel, we ignore this also.
 
-The use of Feynman diagrams is that we may apply the Feynman rules to them to produce a  matrix element $\mathcal{M}$. This in fact corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
+The use of Feynman diagrams is that we may apply the Feynman rules to them to produce a  matrix element $\mathcal{M}$. The square of this corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
 The following section briefly outlines the theory behind the interactions. The integration methods used are explored in the section after that, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. Finally, TODO is considered in section \ref{sec:extension}.
 
@@ -51,7 +51,25 @@ The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$,
 
 \subsection{Differential Cross Sections}
 
+The total matrix element $\mathcal{M}$ must be considered carefully. As the propagator in the interaction may be one of two particles, it must be the sum of two separate matrix elements:
 
+\begin{align*}
+\mathcal{M} &= \mathcal{M}_{\gamma} + \mathcal{M}_{\Zzero},
+\\
+\mathcal{M}^{2} &= (\mathcal{M}_{\gamma} + \mathcal{M}_{\Zzero})^{2}
+\\
+&= \mathcal{M}_{\gamma}^{2} + \mathcal{M}_{\Zzero}^{2} + 2\operatorname{Re}(\mathcal{M}_{\gamma}\mathcal{M}_{\Zzero})
+\\
+&= \frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\gamma} +
+	\frac{\d{\sigma}}{\d{\Omega}}^{\Zzero\operatorname{-}\Zzero} +
+	\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}
+\\
+&= \frac{\d{\sigma}}{\d{\Omega}}.
+\end{align*}
+
+Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section: the first for the pure photon, the second for the pure $\Zzero$, and the last for the interference them.
+
+The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. Due to their bulk, they are reproduced in appendix \ref{app:differentials}.
 
 
 \section{Integration of the Differential $\frac{\d{\sigma}}{\d{\Omega}}$}\label{sec:integration}
@@ -120,6 +138,83 @@ TODO Extension of the problem.
 	}
 	\caption{$e^{-}e^{+}\rarrow\mu^{-}\mu^{+}$ scattering via two different channels.}
 \end{figure}
+
+\newpage
+
+\appendix
+\section{Differential Cross Sections}\label{app:differentials}
+
+The cross sections corresponding to the photon, $\Zzero$ and interference matrix elements follow. Due to the length of the analytic solutions, constants are defined, then the cross section is defined with respect to these constants.
+
+\subsection{$\gamma\operatorname{-}\gamma$}
+
+Define
+
+$$
+\alpha = \frac{g_{e}^{4}}{(8\pi)^{2}s} \sqrt{1-4\varepsilon^{2}}.
+$$
+
+Then
+
+$$
+\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\gamma} = \alpha (1 + \cos^{2}{\vartheta} + 4\varepsilon^{2}\sin^{2}{\vartheta}),
+$$
+\begin{equation}
+\sigma^{\gamma\operatorname{-}\gamma} = \frac{16\pi\alpha}{3}(1 + 2\varepsilon^{2}).
+\end{equation}
+
+\subsection{$\Zzero\operatorname{-}\Zzero$}
+
+Define
+
+\begin{align*}
+\alpha &= \frac{g_{\Zzero}^{4}}{(32\pi)^{2}s} \frac{\sqrt{1-4\varepsilon^{2}}}{(1-\lambda^{2})^{2} + (\frac{\lambda\Gamma_{\Zzero}}{\rts})},
+\\
+\beta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{V}^{\mu})^{2}),
+\\
+\Gamma &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{A}^{\mu})^{2})(1-4\varepsilon^{2}),
+\\
+\Delta &= 8C_{V}^{e}C_{A}^{e}C_{V}^{\mu}C_{A}^{\mu}\sqrt{1-4\varepsilon^{2}}.
+\end{align*}
+
+Then
+
+$$
+\frac{\d{\sigma}}{\d{\Omega}}^{\Zzero-\Zzero}
+  = \alpha(\beta(1+\cos^{2}{\vartheta}+4\varepsilon^{2}\sin^{2}{\vartheta})
+    + \Delta(1+\cos^{2}{\vartheta})
+    + \Gamma\cos{\vartheta}
+  ),
+$$
+\begin{equation}
+\sigma^{\gamma\operatorname{-}\gamma} = \frac{16\pi\alpha}{3}(\Gamma + (1 + 2\varepsilon^{2})\beta).
+\end{equation}
+
+\subsection{$\gamma\operatorname{-}\Zzero$}
+
+Define
+
+\begin{align*}
+\alpha &= \frac{g_{\Zzero}^{4}}{(32\pi)^{2}s} \frac{\sqrt{1-4\varepsilon^{2}}}{(1-\lambda^{2})^{2} + (\frac{\lambda\Gamma_{\Zzero}}{\rts})},
+\\
+\beta &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{V}^{\mu})^{2}),
+\\
+\Gamma &= ((C_{V}^{e})^{2} + (C_{A}^{e})^{2})((C_{A}^{\mu})^{2})(1-4\varepsilon^{2}),
+\\
+\Delta &= 8C_{V}^{e}C_{A}^{e}C_{V}^{\mu}C_{A}^{\mu}\sqrt{1-4\varepsilon^{2}}.
+\end{align*}
+
+Then
+
+$$
+\frac{\d{\sigma}}{\d{\Omega}}^{\gamma-\Zzero}
+  = \alpha(\beta(1+\cos^{2}{\vartheta}+4\varepsilon^{2}\sin^{2}{\vartheta})
+    + \Delta\cos{\vartheta}
+  ),
+$$
+\begin{equation}
+\sigma^{\gamma-\Zzero} = \frac{16\pi\alpha\beta}{3}(1 + 2\varepsilon^{2}).
+\end{equation}
 
 \begin{thebibliography}{9}
   % type bibliography here
