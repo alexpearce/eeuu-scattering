@@ -71,7 +71,7 @@ The total matrix element $\mathcal{M}$ must be considered carefully. As the prop
 &= \frac{\d{\sigma}}{\d{\Omega}}.
 \end{align*}
 
-Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section: the first for the pure photon, the second for the pure $\Zzero$, and the last for the interference them.
+Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section: the first for the pure photon process, the second for the pure $\Zzero$ process, and the last for the interference of both processes.
 
 The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. Due to their bulk, they are not reproduced here but are given in appendix \ref{app:differentials}.
 
@@ -82,7 +82,9 @@ A common analytical approach to numerically approximating integrals in the trape
 
 The reasoning behind using two methods of numerical integration is twofold. Firstly, it serves as a useful consistency check: if at least one method is running incorrectly, the results from each are unlikely to agree with each other. Secondly, the data collected with respect to the efficiency of each method on the given functions may be useful for future analysis of particle interaction cross sections (or, indeed, any functions of a similar form).
 
-On this point, it is worth noting that 
+On this point, it is worth noting that the accuracy of each algorithm will depend largely on the functional form of the differential cross sections. Erratic, non-analytic functions will be poorly suited for trapezium evaluation, while functions with very small variations will result in the poor Monte Carlo accuracy. The differential forms are plotted in figure TODO, and the impact of these forms in the accuracy of the final results will be analysed in the subsequent section.
+
+
 
 
 \section{Results and Analysis}\label{sec:results}
