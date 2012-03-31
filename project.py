@@ -99,7 +99,7 @@ Example usage:
 def plot_gamma_gamma(a, b, step_size = 0.1):
   """Plot gamma-gamma differential cross section between a and b"""
   
-  cos_theta = arange(a, b, step_size)
+  cos_theta = arange(a, b+step_size, step_size)
   z = [gamma_gamma(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
@@ -108,20 +108,20 @@ def plot_gamma_gamma(a, b, step_size = 0.1):
 def plot_z_z(a, b, step_size = 0.1):
   """Plot z-z differential cross section between a and b"""
 
-  cos_theta = arange(a, b, step_size)
+  cos_theta = arange(a, b+step_size, step_size)
   z = [z_z(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
 
-  
 def plot_gamma_z(a, b, step_size = 0.1):
   """Plot gamma-z differential cross section between a and b"""
 
-  cos_theta = arange(a, b, step_size)
+  cos_theta = arange(a, b+step_size, step_size)
   z = [gamma_z(x) for x in cos_theta]
+  print [cos_theta[0], z[0]], [cos_theta[-1], z[-1]]
   plb.plot(cos_theta, z)
   plb.show()
-  
+ 
 def plot_combined(a, b, step_size = 0.1):
   """Plot the sum of all the differential cross sections between a and b"""
   
@@ -448,3 +448,15 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
   return f(combined_diff_cross_section, a, b, step_size, N)
   
 ## END NUMERICAL CROSS SECTION PLOTS ##
+
+energies = [s for s in arange(2, 20, 0.1)]
+cos_theta = [x for x in arange(-1, 1.01, 0.1)]
+# An array of arrays of differential cross sections at increasing energies
+z = []
+x_y_z = []
+for s in energies:
+ collider.set_energy_to(s)
+ for theta in cos_theta:
+  x_y_z.append([theta, gamma_gamma(theta), s])
+
+threed_export_to_csv(x_y_z)
