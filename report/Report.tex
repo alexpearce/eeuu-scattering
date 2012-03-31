@@ -41,13 +41,17 @@ The following section briefly outlines the theory behind the interactions. The i
 
 \section{Principles of Interaction Cross Sections}
 
-With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}^{\nu}$ and $p_{2}^{\nu}$, whilst the outgoing particles carry $p_{3}^{\nu}$ and $p_{4}^{\nu}$. At LEP, the electrons and positrons (antiparticles to the electron) will be accelerated around a loop in opposite directions. The total collider energy is then given $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$ Here we have suppressed the metric tensor and covariant notation, implicitly assuming four vectors. The collider energy is then analogous to the hypotenuse of a right-angled triangle of sides $p_{1}^{\nu}$ and $p_{2}^{\nu}$.
+With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}^{\nu}$ and $p_{2}^{\nu}$, whilst the outgoing particles carry $p_{3}^{\nu}$ and $p_{4}^{\nu}$. At LEP, the electrons and positrons (antiparticles to the electron) will be accelerated around a loop in opposite directions. The collider energy is then given $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$ Here we have suppressed the metric tensor and covariant notation, implicitly assuming four vectors. The collider energy is then analogous to the hypotenuse of a right-angled triangle of sides $p_{1}^{\nu}$ and $p_{2}^{\nu}$.
+
+The differential cross sections are dependant on the collider energy via the dimensionless variables $$\varepsilon = \frac{m_{\mu}}{\sqrt{s}}, \quad \lambda = \frac{M_{\Zzero}}{\sqrt{s}},$$
+
+where $m_{\mu}$ is the muon mass. It is worth noting that, at the energies LEP will be operating at, it is safe to consider the electron as massless in the ultrarelativistic limit.
 
 \subsection{Real and Virtual Particles}
 
 As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may either be \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the classical relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle, $\Delta E\Delta t \geq \hbar$: the violation in energy may only exists for a very small amount of time.
 
-The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$, where $M_{\Zzero}$ is the boson's mass.
+The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$, where $M_{\Zzero}$ is the boson's mass. When the particle is real, we can detect it. With this, we should we a cross section resonance as the boson becomes closer to on-mass.
 
 \subsection{Differential Cross Sections}
 
@@ -69,7 +73,7 @@ The total matrix element $\mathcal{M}$ must be considered carefully. As the prop
 
 Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section: the first for the pure photon, the second for the pure $\Zzero$, and the last for the interference them.
 
-The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. Due to their bulk, they are reproduced in appendix \ref{app:differentials}.
+The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. Due to their bulk, they are not reproduced here but are given in appendix \ref{app:differentials}.
 
 
 \section{Integration of the Differential $\frac{\d{\sigma}}{\d{\Omega}}$}\label{sec:integration}
@@ -145,6 +149,8 @@ TODO Extension of the problem.
 \section{Differential Cross Sections}\label{app:differentials}
 
 The cross sections corresponding to the photon, $\Zzero$ and interference matrix elements follow. Due to the length of the analytic solutions, constants are defined, then the cross section is defined with respect to these constants.
+
+At the energies reachable at LEP, we consider the electromagnetic and weak coupling constants, $\alpha$ and $\theta_{w}$ respectively, as constant.\footnote{$\alpha$ is taken to be $\frac{1}{128}$, $\sin{\theta_{w}}^{2}$ is taken to be $0.23152$.}
 
 \subsection{$\gamma\operatorname{-}\gamma$}
 
