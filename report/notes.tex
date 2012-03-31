@@ -124,13 +124,13 @@ $$
 
 \section{Feynman Diagrams}
 
-Here are the Feynman diagrams for the scatterings.
+Feynman diagrams for the s-channel scatterings.
 
 \begin{figure}[h]
 	\vspace{10pt}
 	\centering
 	\subfloat[$\gamma-\gamma$]{
-		\begin{fmffile}{gammacrossing}
+		\begin{fmffile}{sgammacrossing}
 		  \begin{fmfgraph*}(40,25)
 		    \fmfleft{i1,i2}
 		    \fmfright{o1,o2}
@@ -146,7 +146,7 @@ Here are the Feynman diagrams for the scatterings.
 	}
 	\qquad
 	\subfloat[$\Zzero-\Zzero$]{
-		\begin{fmffile}{zcrossing}
+		\begin{fmffile}{szcrossing}
 		  \begin{fmfgraph*}(40,25)
 		    \fmfleft{i1,i2}
 		    \fmfright{o1,o2}
@@ -156,11 +156,50 @@ Here are the Feynman diagrams for the scatterings.
 		    \fmflabel{$\mu^-$}{o2}
 		    \fmf{fermion}{i1,v1,i2}
 		    \fmf{fermion}{o1,v2,o2}
-		    \fmf{boson,label=$\Zzero$}{v1,v2}
+		    \fmf{boson,label=$\Zzero^{(*)}$}{v1,v2}
 		  \end{fmfgraph*}
 		\end{fmffile}
 	}
-	\caption{$e^{-}e^{+}\rarrow\mu^{-}\mu^{+}$ scattering via different bosons.}
+	\caption{s-channel $e^{-}e^{+}\rarrow\mu^{-}\mu^{+}$ scattering via different bosons.}
+\end{figure}
+
+Feynman diagrams for the t-channel scatterings.
+
+\begin{figure}[h]
+	\vspace{10pt}
+	\centering
+	\subfloat[$\gamma-\gamma$]{
+		\begin{fmffile}{tgammacrossing}
+		  \begin{fmfgraph*}(40,25)
+		    \fmfleft{i1,i2}
+		    \fmfright{o1,o2}
+		    \fmflabel{$e^-$}{i1}
+		    \fmflabel{$e^+$}{i2}
+		    \fmflabel{$\mu^-$}{o1}
+		    \fmflabel{$\mu^+$}{o2}
+		    \fmf{fermion}{i1,v1,o1}
+		    \fmf{fermion}{o2,v2,i2}
+		    \fmf{photon,label=$\gamma$}{v1,v2}
+		  \end{fmfgraph*}
+		\end{fmffile}
+	}
+	\qquad
+	\subfloat[$\Zzero-\Zzero$]{
+		\begin{fmffile}{tzcrossing}
+		  \begin{fmfgraph*}(40,25)
+		    \fmfleft{i1,i2}
+		    \fmfright{o1,o2}
+		    \fmflabel{$e^-$}{i1}
+		    \fmflabel{$e^+$}{i2}
+		    \fmflabel{$\mu^-$}{o1}
+		    \fmflabel{$\mu^+$}{o2}
+		    \fmf{fermion}{i1,v1,o1}
+		    \fmf{fermion}{o2,v2,i2}
+		    \fmf{boson,label=$\Zzero^{(*)}$}{v1,v2}
+		  \end{fmfgraph*}
+		\end{fmffile}
+	}
+	\caption{s-channel $e^{-}e^{+}\rarrow\mu^{-}\mu^{+}$ scattering via different bosons.}
 \end{figure}
 
 \end{document}
