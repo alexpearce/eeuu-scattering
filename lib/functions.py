@@ -65,8 +65,10 @@ def montecarlo2(f, a, b, N):
   prefactor = float(b - a) / float(N)
   thesum = 0
   
+  difference = b - a
   for i in range(N):
-    x = (b - a)*random.random_sample() + a
+    # Generate random number in the range [a,b), a > b.
+    x = difference*random.random_sample() + a
     thesum += f(x)
   
   return prefactor * thesum
@@ -85,7 +87,7 @@ def export_to_csv(x, y, filename = 'data'):
   if (len(x) != len(y)):
     print "x and y must be of the same dimension."
     exit()
-  print "Writing 2D data to file..."
+  print "Writing 2D data to {}.csv...".format(filename)
   writer = csv.writer(open('{}.csv'.format(filename), 'wb'), delimiter = ',')
   for k, v in enumerate(x):
     writer.writerow([v, y[k]])

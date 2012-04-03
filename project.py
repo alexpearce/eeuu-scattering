@@ -320,7 +320,7 @@ def trapezium_cross_section(f, a, b, step_size = 0.1, strips = 1000):
 
 
 def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
-  """Compete the cross section using monte carlo integration in a range of collider energies."""
+  """Compute the cross section using monte carlo integration in a range of collider energies."""
   root_s_arr = [i for i in arange(float(a), float(b), step_size)]
   cross_section = zeros(len(root_s_arr))
   count = 0
@@ -448,3 +448,32 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
   return f(combined_diff_cross_section, a, b, step_size, N)
   
 ## END NUMERICAL CROSS SECTION PLOTS ##
+
+## BEGIN PERFORMANCE ##
+
+from time import clock, time
+
+def timer(function_str, times = 1):
+  """Evaluate the function_str `times` times."""
+  """Usage:
+    timer("seperate_cross_section('trapezium', 3, 200)")
+    => 18.5318579674
+  """
+  
+  if times < 1: exit("times must be 1 or greater")
+
+  time_begin = time()
+  for i in range(times):
+    exec function_str
+  time_end = time()
+
+  print (time_end-time_begin)/float(times)
+  
+## END PERFORMANCE ##
+
+a = m_z-15; b = m_z+15; step_size = 0.01;
+trap_root_s, trap_sigma = trapezium_cross_section(combined_diff_cross_section, a, b, step_size)
+mc_root_s, mc_sigma = montecarlo_cross_section(combined_diff_cross_section, a, b, step_size)
+
+export_to_csv(trap_root_s, trap_sigma, 'trap_combined_focused')
+export_to_csv(mc_root_s, mc_sigma, 'mc_combined_focused')
