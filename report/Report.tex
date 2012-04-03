@@ -11,8 +11,6 @@
 % Read .1 file extension as .mps.
 \DeclareGraphicsRule{.1}{mps}{*}{}
 
-% user-defined commands here
-
 \begin{document}
 
 \title{The $\ee \rarrow \mumu$ Cross Section in the Standard Model}
@@ -82,7 +80,7 @@ A common analytical approach to numerically approximating integrals in the trape
 
 The reasoning behind using two methods of numerical integration is twofold. Firstly, it serves as a useful consistency check: if at least one method is running incorrectly, the results from each are unlikely to agree with each other. Secondly, the data collected with respect to the efficiency of each method on the given functions may be useful for future analysis of particle interaction cross sections (or, indeed, any functions of a similar form).
 
-On this point, it is worth noting that the accuracy of each algorithm will depend largely on the functional form of the differential cross sections. Erratic, non-analytic functions will be poorly suited for trapezium evaluation, while functions with very small variations will result in the poor Monte Carlo accuracy. The differential forms are plotted in figure TODO, and the impact of these forms in the accuracy of the final results will be analysed in section \ref{sec:results}.
+On this point, it is worth noting that the accuracy of each algorithm will depend largely on the functional form of the differential cross sections. Erratic, non-analytic functions will be poorly suited for trapezium evaluation, while functions with very small variations will result in the poor Monte Carlo accuracy. The differential forms are plotted in figures \ref{fig:diffbelow}, \ref{fig:diffexact} and \ref{fig:diffabove}. The impact of these forms in the accuracy of the final results will be analysed in section \ref{sec:results}.
 
 \subsection{Method}\label{ssec:method}
 
@@ -118,6 +116,8 @@ Here we are.
 
 
 \section{Figures}
+
+\subsection{Feynman Diagrams}
 
 \begin{figure}[h]
 	\vspace{10pt}
@@ -158,6 +158,55 @@ Here we are.
 		\end{fmffile}
 	}
 	\caption{$e^{-}e^{+}\rarrow\mu^{-}\mu^{+}$ scattering via two different channels.}
+\end{figure}
+
+\subsection{Differential Cross Sections}
+
+This subsection contains plottings of the QED differential cross section ($\gamma\operatorname{-}\gamma$ channel) and then the full Standard Model cross section ($\gamma\operatorname{-}\gamma$, $\Zzero\operatorname{-}\Zzero$ and $\gamma\operatorname{-}\Zzero$ channels) at three different collider energies.
+
+\begin{figure}[h]
+	\vspace{10pt}
+	\centering
+	\subfloat[QED]{
+		\label{fig:diffqedbelow}
+		\includegraphics[scale=0.7]{qed_below}
+	}
+	\subfloat[SM]{
+		\label{fig:diffsmbelow}
+		\includegraphics[scale=0.7]{sm_below}
+	}
+	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=3\GeV$.}
+	\label{fig:diffbelow}
+\end{figure}
+
+\begin{figure}[h]
+	\vspace{10pt}
+	\centering
+	\subfloat[QED]{
+		\label{fig:diffqedexact}
+		\includegraphics[scale=0.7]{qed_exact}
+	}
+	\subfloat[SM]{
+		\label{fig:diffsmexact}
+		\includegraphics[scale=0.7]{sm_exact}
+	}
+	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=M_{\Zzero}=91.2\GeV$.}
+	\label{fig:diffexact}
+\end{figure}
+
+\begin{figure}[h]
+	\vspace{10pt}
+	\centering
+	\subfloat[QED]{
+		\label{fig:diffqedabove}
+		\includegraphics[scale=0.7]{qed_above}
+	}
+	\subfloat[SM]{
+		\label{fig:diffsmabove}
+		\includegraphics[scale=0.7]{sm_above}
+	}
+	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=115\GeV$.}
+	\label{fig:diffabove}
 \end{figure}
 
 \newpage

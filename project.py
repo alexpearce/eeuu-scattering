@@ -448,3 +448,17 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
   return f(combined_diff_cross_section, a, b, step_size, N)
   
 ## END NUMERICAL CROSS SECTION PLOTS ##
+
+collider.set_energy_to(115)
+print collider.energy
+
+a = -1.0
+b = 1.0
+step_size = 0.01
+cos_theta = arange(a, b+step_size, step_size)
+
+qed = [gamma_gamma(x) for x in cos_theta]
+export_to_csv(cos_theta, qed, 'qed_above')
+
+sm = [combined_diff_cross_section(x) for x in cos_theta]
+export_to_csv(cos_theta, sm, 'sm_above')
