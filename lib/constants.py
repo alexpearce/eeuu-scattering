@@ -14,10 +14,10 @@ alpha = 1.0 / 128.0
 sin_2_theta_w = 0.23152
 theta_w = asin(sqrt(sin_2_theta_w))
 
-# QED e- coupling
+# e- coupling
 g_e = sqrt(4*pi*alpha)
 
-# QED Z coupling
+# Z coupling
 g_z = g_e / (cos(theta_w) * sin(theta_w))
 
 # Take electron to be massless
