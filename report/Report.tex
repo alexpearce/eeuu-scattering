@@ -22,7 +22,7 @@
 
 
 \begin{abstract}
-The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has yielded excellent results. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ mechanism (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \rarrow \mumu$ scattering process, which may produce $\Zzero$ bosons, in the hope that the proposed Large Electron-Positron collider (LEP) will verify this channel of $\Zzero$ production. A distinct $\Zzero$ resonance around the $\Zzero$ mass of 91.8\GeV was found with a cross section $\sigma=9.4\inb$.
+The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has yielded excellent results. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \rarrow \mumu$ scattering process, which may produce $\Zzero$ bosons, in the hope that the proposed Large Electron-Positron collider (LEP) will verify this channel of $\Zzero$ production. A distinct $\Zzero$ resonance around the $\Zzero$ mass of 91.8\GeV was found with a cross section $\sigma=9.4\inb$.
 \end{abstract}
 
 
@@ -33,11 +33,11 @@ The Standard Model's (SM) prediction of particles beyond those initially conside
 
 The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been all but proven by the current team at CERN operating the SPS. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process is manifested by an electron-position pair ($e^{-}e^{+}$) annihilating, forming either a virtual photon or $\Zzero$ boson, and then a muon-antimuon pair ($\mu^{-}\mu^{+}$) being produced.
 
-This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering is also described by a t-channel diagram (in figure \ref{fig:feyntgammaz}), however we proceed by analysing only the s-channel as it is only this channel via which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but as it is simply a swapping of the outgoing particles' momenta in the t-channel, we ignore this also.
+This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering is also described by a t-channel diagram (in figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel as it is only this channel via which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but as it is simply a swapping of the outgoing particles' momenta in the t-channel, hence we ignore this also.
 
 The use of Feynman diagrams is that we may apply the Feynman rules to them to produce a  matrix element $\mathcal{M}$. The square of this corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
-The following section briefly outlines the theory behind the interactions. The integration methods used are explored in the section after that, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. Finally, TODO is considered in section \ref{sec:extension}.
+The following section briefly outlines the theory behind the interactions. The integration methods used to evaluate the differential cross sections are explored in the section after that, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. Finally, a brief discussion on performance and alternative numerical integration techniques occurs in section \ref{sec:performance}.
 
 \section{Principles of Interaction Cross Sections}
 
@@ -45,24 +45,24 @@ With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref
 
 The differential cross sections are dependant on the collider energy via the dimensionless variables $$\varepsilon = \frac{m_{\mu}}{\sqrt{s}}, \quad \lambda = \frac{M_{\Zzero}}{\sqrt{s}},$$
 
-where $m_{\mu}$ is the muon mass. It is worth noting that, at the energies LEP will be operating at, it is safe to consider the electron as massless in the ultrarelativistic limit.
+where $m_{\mu}$ is the muon mass. It is worth noting that, at the energies LEP will be operating at, it is safe to consider the electron as massless in the ultrarelativistic limit. (In addition, the muon is over 200 times more massive than the electron so we may disregard the electron mass in scattering interactions.)
 
 \subsection{Real and Virtual Particles}
 
-As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may either be \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the classical relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle, $\Delta E\Delta t \geq \hbar$: the violation in energy may only exists for a very small amount of time.
+As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may either be \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the classical relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle, $\Delta E\Delta t \geq \hbar$: the violation in energy may only exist for a very small amount of time.
 
-The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$, where $M_{\Zzero}$ is the boson's mass. When the particle is real, we can detect it. With this, we should we a cross section resonance as the boson becomes closer to on-mass.
+The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$, where $M_{\Zzero}$ is the boson's mass. When the particle is real, we can detect it. With this, we should expect a cross section resonance as the boson tends towards being on-mass.
 
 \subsection{Differential Cross Sections}
 
-The total matrix element $\mathcal{M}$ must be considered carefully. As the propagator in the interaction may be one of two particles, it must be the sum of two separate matrix elements:
+The total matrix element $\mathcal{M}$ must be considered carefully. As the propagator in the interaction may be one of two particles, it must be the sum of two separate matrix elements (one matrix element for each possible propagator). The measurable quantity, the cross section, is the integrated square of the matrix element, so we must have the square of a sum:
 
 \begin{align*}
 \mathcal{M} &= \mathcal{M}_{\gamma} + \mathcal{M}_{\Zzero},
 \\
 \mathcal{M}^{2} &= (\mathcal{M}_{\gamma} + \mathcal{M}_{\Zzero})^{2}
 \\
-&= \mathcal{M}_{\gamma}^{2} + \mathcal{M}_{\Zzero}^{2} + 2\operatorname{Re}(\mathcal{M}_{\gamma}\mathcal{M}_{\Zzero})
+&= \mathcal{M}_{\gamma}^{2} + \mathcal{M}_{\Zzero}^{2} + 2\operatorname{Re}(\mathcal{M}_{\gamma}\mathcal{M}_{\Zzero}^{*})
 \\
 &= \frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\gamma} +
 	\frac{\d{\sigma}}{\d{\Omega}}^{\Zzero\operatorname{-}\Zzero} +
@@ -82,8 +82,21 @@ A common analytical approach to numerically approximating integrals in the trape
 
 The reasoning behind using two methods of numerical integration is twofold. Firstly, it serves as a useful consistency check: if at least one method is running incorrectly, the results from each are unlikely to agree with each other. Secondly, the data collected with respect to the efficiency of each method on the given functions may be useful for future analysis of particle interaction cross sections (or, indeed, any functions of a similar form).
 
-On this point, it is worth noting that the accuracy of each algorithm will depend largely on the functional form of the differential cross sections. Erratic, non-analytic functions will be poorly suited for trapezium evaluation, while functions with very small variations will result in the poor Monte Carlo accuracy. The differential forms are plotted in figure TODO, and the impact of these forms in the accuracy of the final results will be analysed in the subsequent section.
+On this point, it is worth noting that the accuracy of each algorithm will depend largely on the functional form of the differential cross sections. Erratic, non-analytic functions will be poorly suited for trapezium evaluation, while functions with very small variations will result in the poor Monte Carlo accuracy. The differential forms are plotted in figure TODO, and the impact of these forms in the accuracy of the final results will be analysed in section \ref{sec:results}.
 
+\subsection{Method}\label{ssec:method}
+
+As the integration is over circular polar coordinates, we note that the differential $\sin{\theta}\d{\theta}\d{\phi}$ may be expressed as $\d{(\cos{\theta})}\d{\phi}$, hence we may perform the change of variable $\cos{\theta} \to x$. This changes the limits in $\theta$ to the limits in $x$ $$0 \leq \theta \leq \pi \to -1 \leq x \leq 1.$$ Consequently, the random numbers generated for the Monte Carlo integration are generated between -1 and 1, providing a uniform distribution in $\cos{\theta}$, rather than $\theta$.
+
+A simple Monte Carlo integration will be performed via $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{b-a}{N}\sum\limits_{i=1}^{N}f(x_{i}),$$ where $N$ is the number of random points to be sampled and $x_{i}$ is the $i^{\mathrm{th}}$ random number with the integration limits.
+
+A similarly simple trapezium algorithm is used: $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{h(f(a) + f(b))}{2} + h\sum\limits_{i=1}^{N-1}f(a+ih).$$
+
+$h$ is the trapezoidal width, $h=\frac{b-a}{N}$, and $N$ is the number of trapezoids used to estimate the integral with.
+
+Both methods are quoted as approximations, but it should be considered that as $N \to \infty$ the Monte Carlo method becomes exact (despite this being impossible to perform computationally).
+
+The number of points to sample or the number of trapezoids to use will depend on the computation power and time available, as well as the accuracy and precision desired. The exact values used will be discussed in the following section.
 
 \section{Results and Analysis}\label{sec:results}
 
@@ -95,9 +108,13 @@ On this point, it is worth noting that the accuracy of each algorithm will depen
 Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
 
 
-\section{Extension}\label{sec:extension}
+\section{Performance}\label{sec:performance}
 
 TODO Extension of the problem.
+
+\subsection{Runge-Kutta}\label{ssect:rugkut}
+
+Here we are.
 
 
 \section{Figures}
@@ -150,7 +167,7 @@ TODO Extension of the problem.
 
 The cross sections corresponding to the photon, $\Zzero$ and interference matrix elements follow. Due to the length of the analytic solutions, constants are defined, then the cross section is defined with respect to these constants.
 
-At the energies reachable at LEP, we consider the electromagnetic and weak coupling constants, $\alpha$ and $\theta_{w}$ respectively, as constant.\footnote{$\alpha$ is taken to be $\frac{1}{128}$, $\sin{\theta_{w}}^{2}$ is taken to be $0.23152$.}
+Due to the small energy scales that will be probed reachable at LEP, we consider the electromagnetic and weak coupling constants, $\alpha$ and $\theta_{w}$ respectively, as constant.\footnote{$\alpha$ is taken to be $\frac{1}{128}$, $\sin{\theta_{w}}^{2}$ is taken to be $0.23152$.}
 
 \subsection{$\gamma\operatorname{-}\gamma$}
 

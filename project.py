@@ -448,15 +448,3 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
   return f(combined_diff_cross_section, a, b, step_size, N)
   
 ## END NUMERICAL CROSS SECTION PLOTS ##
-
-energies = [s for s in arange(2, 20, 0.1)]
-cos_theta = [x for x in arange(-1, 1.01, 0.1)]
-# An array of arrays of differential cross sections at increasing energies
-z = []
-x_y_z = []
-for s in energies:
- collider.set_energy_to(s)
- for theta in cos_theta:
-  x_y_z.append([theta, gamma_gamma(theta), s])
-
-threed_export_to_csv(x_y_z)

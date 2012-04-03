@@ -95,12 +95,3 @@ def export_to_csv(x, y, filename = 'data'):
     writer.writerow([v, y[k]])
 
   print "File writing complete."
-  
-def threed_export_to_csv(x_y_z, filename = 'data'):
-  """Exports an array contaning arrays of three values to a CSV file"""
-  print "Writing 3D data to file..."
-  writer = csv.writer(open('{}.csv'.format(filename), 'wb'), delimiter = ',')
-  for arr in x_y_z:
-    writer.writerow([arr[0], arr[1], arr[2]])
-
-  print "File writing complete."
