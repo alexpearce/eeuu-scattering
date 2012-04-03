@@ -24,6 +24,7 @@ def montecarlo(f, a, b, N):
   """
   Monte carlo integration of a function f between a and b (a < b)
   with N trials.
+  No longer in use, use montecarlo2 instead.
   """
   
   # 1. Generate a random (x, y) pair
@@ -78,11 +79,6 @@ def max_min_of(f, a, b, step_size = 0.01):
     if (f(x) < minimum): minimum = f(x)
   
   return maximum, (minimum if minimum < 0 else 0) 
-
-# TODO: export plots as PDF
-def export_to_pdf():
-  """docstring for export_as_data"""
-  pass
   
 def export_to_csv(x, y, filename = 'data'):
   """Exports two equal-dimension arrays to a CSV file"""
