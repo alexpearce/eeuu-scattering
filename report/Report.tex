@@ -6,13 +6,17 @@
 % Feynman diagrams
 \usepackage{feynmp}
 % Figures and floats
-\usepackage{graphicx,subfig}
+\usepackage{graphicx,subfig,float}
 
 % Graphics folider
 \graphicspath{{figures/}}
 
 % Read .1 file extension as .mps.
 \DeclareGraphicsRule{.1}{mps}{*}{}
+
+% Scientific notation
+% http://www.tapdancinggoats.com/easy-scientific-notation-in-latex.htm
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
 
 \begin{document}
 
@@ -101,7 +105,15 @@ The number of points to sample or the number of trapezoids to use will depend on
 
 \section{Results and Analysis}\label{sec:results}
 
-The integrated cross section is presented in figures \ref{fig:crosssection} \ref{fig:crosssectionfocus}.
+TODO: discuss step size, errors, and iterations, MC resonance is bigger than trap.
+
+The integrated cross section is presented in figures \ref{fig:bothgammagamma} and \ref{fig:bothcombined}. Each plot shows both the trapezium and Monte Carlo integration results, but their correspondence is such that they are almost indistinguishable from one another.
+
+The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\GeV^{-2}$ but is clearly following the trapezium curve precisely.
+
+There is a striking $\Zzero$ resonance around the $\Zzero$ mass $M_{\Zzero}$. The cross section peaks to $8.17\e{-7}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance is its cross section (figure \ref{fig:bothgammagamma}). It is due to the Standard Model contribution, and in particular the interference term $\gamma\operatorname{-}\Zzero$.
+
+Figure \ref{fig:bothgammaz} shows the cross section for the interference term as evaluated by the Monte Carlo method, with the trapezium algorithm superimposed (figure \ref{fig:trapgammaz} shows just the trapezium algorithm's evaluation).
 
 
 \section{Kinematic Variables}\label{sec:variables}
@@ -122,7 +134,7 @@ Here we are.
 
 \subsection{Feynman Diagrams}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\vspace{10pt}
 	% Diagram unit length.
 	\unitlength = 1mm
@@ -167,7 +179,7 @@ Here we are.
 
 This subsection contains plottings of the QED differential cross section ($\gamma\operatorname{-}\gamma$ channel) and then the full Standard Model cross section ($\gamma\operatorname{-}\gamma$, $\Zzero\operatorname{-}\Zzero$ and $\gamma\operatorname{-}\Zzero$ channels) at three different collider energies.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\vspace{10pt}
 	\centering
 	\subfloat[QED]{
@@ -182,7 +194,7 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 	\label{fig:diffbelow}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\vspace{10pt}
 	\centering
 	\subfloat[QED]{
@@ -197,19 +209,49 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 	\label{fig:diffexact}
 \end{figure}
 
-\begin{figure}[h]
+
+
+\subsection{Cross Sections $\sigma$}
+
+\begin{figure}[H]
 	\vspace{10pt}
 	\centering
 	\subfloat[QED]{
-		\label{fig:diffqedabove}
-		\includegraphics[scale=0.7]{qed_above}
-	}
+		\label{fig:bothgammagamma}
+		\includegraphics[width=\textwidth]{both_gamma_gamma}
+	}\\
 	\subfloat[SM]{
-		\label{fig:diffsmabove}
-		\includegraphics[scale=0.7]{sm_above}
+		\label{fig:bothcombined}
+		\includegraphics[width=\textwidth]{both_combined}
 	}
-	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=115\GeV$.}
-	\label{fig:diffabove}
+	\caption{Trapezium and Montecarlo cross section $\sigma$ for collider energies $3\operatorname{-}200\GeV$.}
+	\label{fig:both}
+\end{figure}
+
+\begin{figure}[H]
+	\vspace{10pt}
+	\hspace*{-0.1\textwidth}
+	\centering
+	\label{fig:bothcombinedfocused}
+	\includegraphics[width=1.2\textwidth]{both_combined_focused}
+	\caption{Trapezium and Montecarlo cross section $\sigma$ for collider energies centred $15\GeV$ around $M_{\Zzero}$.}
+	\label{fig:both}
+\end{figure}
+
+\begin{figure}[H]
+	\vspace{10pt}
+	\hspace*{-0.2\textwidth}
+	\centering
+	\subfloat[Trapezium]{
+		\label{fig:trapgammaz}
+		\includegraphics[width=0.7\textwidth]{trap_gamma_z}
+	}
+	\subfloat[Monte Carlo with trapezium superimposed]{
+		\label{fig:bothgammaz}
+		\includegraphics[width=0.7\textwidth]{both_gamma_z}
+	}
+	\caption{$\gamma\operatorname{-}\Zzero$ cross section for collider energies centred $15\GeV$ around $M_{\Zzero}$.}
+	\label{fig:bothgammaz}
 \end{figure}
 
 \newpage

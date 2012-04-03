@@ -472,8 +472,8 @@ def timer(function_str, times = 1):
 ## END PERFORMANCE ##
 
 a = m_z-15; b = m_z+15; step_size = 0.01;
-trap_root_s, trap_sigma = trapezium_cross_section(combined_diff_cross_section, a, b, step_size)
-mc_root_s, mc_sigma = montecarlo_cross_section(combined_diff_cross_section, a, b, step_size)
+trap_root_s, trap_sigma = trapezium_cross_section(gamma_z, a, b, step_size)
+mc_root_s, mc_sigma = montecarlo_cross_section(gamma_z, a, b, step_size)
 
-export_to_csv(trap_root_s, trap_sigma, 'trap_combined_focused')
-export_to_csv(mc_root_s, mc_sigma, 'mc_combined_focused')
+export_to_csv(trap_root_s, trap_sigma, 'trap_gamma_z_focused')
+export_to_csv(mc_root_s, mc_sigma, 'mc_gamma_z_focused')
