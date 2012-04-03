@@ -84,21 +84,24 @@ On this point, it is worth noting that the accuracy of each algorithm will depen
 
 \subsection{Method}\label{ssec:method}
 
+Firstly, we observe that they is no $\phi$ dependence in any of the differential cross sections. This makes the integration over $\phi$ trivial ($0\leq\phi\leq2\pi$), adding a factor of $2\pi$ to cross section $\sigma$. This simplifies the problem significantly as we are now dealing with a one-dimensional integral and so may use the trapezium rule.
+
 As the integration is over circular polar coordinates, we note that the differential $\sin{\theta}\d{\theta}\d{\phi}$ may be expressed as $\d{(\cos{\theta})}\d{\phi}$, hence we may perform the change of variable $\cos{\theta} \to x$. This changes the limits in $\theta$ to the limits in $x$ $$0 \leq \theta \leq \pi \to -1 \leq x \leq 1.$$ Consequently, the random numbers generated for the Monte Carlo integration are generated between -1 and 1, providing a uniform distribution in $\cos{\theta}$, rather than $\theta$.
 
-A simple Monte Carlo integration will be performed via $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{b-a}{N}\sum\limits_{i=1}^{N}f(x_{i}),$$ where $N$ is the number of random points to be sampled and $x_{i}$ is the $i^{\mathrm{th}}$ random number with the integration limits.
+A simple Monte Carlo integration will be performed via $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{b-a}{N}\sum\limits_{i=1}^{N}f(x_{i}),$$ where $N$ is the number of random points to be sampled and $x_{i}$ is the $i^{\mathrm{th}}$ random number within the limits of integration.
 
-A similarly simple trapezium algorithm is used: $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{h(f(a) + f(b))}{2} + h\sum\limits_{i=1}^{N-1}f(a+ih).$$
+A similarly simple trapezium algorithm is used: $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{h(f(a) + f(b))}{2} + h\sum\limits_{i=1}^{N-1}f(a+ih),\quad h=\frac{b-a}{N}.$$
 
-$h$ is the trapezoidal width, $h=\frac{b-a}{N}$, and $N$ is the number of trapezoids used to estimate the integral with.
+$h$ is the trapezium width and $N$ is the number of trapezoids used to estimate the integral with.
 
 Both methods are quoted as approximations, but it should be considered that as $N \to \infty$ the Monte Carlo method becomes exact (despite this being impossible to perform computationally).
 
 The number of points to sample or the number of trapezoids to use will depend on the computation power and time available, as well as the accuracy and precision desired. The exact values used will be discussed in the following section.
 
+
 \section{Results and Analysis}\label{sec:results}
 
-\TeX
+
 
 
 \section{Kinematic Variables}\label{sec:variables}
