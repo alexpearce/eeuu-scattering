@@ -14,9 +14,7 @@ def trapezium(f, a, b, N):
   prefactor = h/2.0 * (f(a) + f(b))
   
   # Sum
-  s = 0
-  for i in range(1, N):
-    s += f(a + i*h)
+  s = sum([f(a + i*h) for i in range(1, N)])
   
   return prefactor + h*s
   
