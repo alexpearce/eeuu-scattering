@@ -118,7 +118,6 @@ def plot_gamma_z(a, b, step_size = 0.1):
 
   cos_theta = arange(a, b+step_size, step_size)
   z = [gamma_z(x) for x in cos_theta]
-  print [cos_theta[0], z[0]], [cos_theta[-1], z[-1]]
   plb.plot(cos_theta, z)
   plb.show()
  
@@ -470,10 +469,3 @@ def timer(function_str, times = 1):
   print (time_end-time_begin)/float(times)
   
 ## END PERFORMANCE ##
-
-a = m_z-15; b = m_z+15; step_size = 0.01;
-trap_root_s, trap_sigma = trapezium_cross_section(gamma_z, a, b, step_size)
-mc_root_s, mc_sigma = montecarlo_cross_section(gamma_z, a, b, step_size)
-
-export_to_csv(trap_root_s, trap_sigma, 'trap_gamma_z_focused')
-export_to_csv(mc_root_s, mc_sigma, 'mc_gamma_z_focused')
