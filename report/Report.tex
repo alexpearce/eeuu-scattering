@@ -119,7 +119,7 @@ Figure \ref{fig:mcgammaz} shows the cross section for the interference term as e
 
 The Monte Carlo integration of $\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}$ shown in figure \ref{fig:mcgammaz} reveals a spectacular failing of the algorithm. Despite its satisfactory performance evaluating all other cross sections, the algorithm fails on integrating the form of the cross section, shown in figure \ref{fig:diffgammaz}.
 
-We believe that this failing is due to the near-linear form of the integrand. Inspection may conclude that the function is linear, but viewed over a wider range in $\cos{\theta}$ the function is non-linear, resembling a quadratic form. The range $-1\leq\cos{\theta}\leq1$ is zoomed in on a small segment of a curved line so closely approximates a linear function. The Monte Carlo approach has great difficult in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtly results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
+We believe that this failing is due to the near-linear form of the integrand. Inspection may conclude that the function is linear, but viewed over a wider range in $\cos{\theta}$ the function is non-linear, resembling a quadratic form. The range $-1\leq\cos{\theta}\leq1$ is zoomed in on a small segment of a curved line so closely approximates a linear function. The Monte Carlo approach has great difficulty in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtly results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
 
 Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies, by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials.
 
@@ -133,11 +133,15 @@ Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
 
 \section{Performance}\label{sec:performance}
 
-TODO Extension of the problem.
+TODO: talk about the difference in integrating the sum and summing the integrals
 
-\subsection{Runge-Kutta}\label{ssect:rugkut}
+Although the trapezium and Monte Carlo methods of numerical integration produced similarly accurate results in negligibly different times, it should be possible to evaluate the integrals quicker.
 
-Here we are.
+The reasoning behind this claim is that we have used Python, a scripting language, to solve the problem which is generally slower than a compiled language such as FORTRAN or C.
+
+In order to gauge any benefits that a compiled language might bring, the Python script was timed over several runs of numerically integrating and then summing the separate differential cross sections. The time was averaged to give a rough runtime estimate. After 50 runs of the script, the average runtime was AVG RUNTIME HERE.
+
+A FORTRAN script was then written which performed precisely the same task as the Python script, and again was ran 50 times to produce an average runtime.
 
 
 \section{Figures}
