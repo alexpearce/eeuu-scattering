@@ -39,7 +39,7 @@ This interaction is described by the Feynman diagram in figure \ref{fig:feynsgam
 
 Feynman diagrams allow us to apply the Feynman rules thus to producing a  matrix element $\mathcal{M}$. The square of the matrix element corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
-The following section briefly outlines the theory behind the interactions. The integration methods used to evaluate the differential cross sections are explored in the section \ref{sec:integration}, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. Finally, a brief discussion on performance and alternative numerical integration techniques is given in section \ref{sec:performance}.
+The following section briefly outlines the theory behind the interactions. The integration methods used to evaluate the differential cross sections are explored in the section \ref{sec:integration}, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. A brief discussion on performance is given in section \ref{sec:performance}, and finally some concise conclusions are drawn in section \ref{sec:conclusion}.
 
 \section{Principles of Interaction Cross Sections}
 
@@ -137,12 +137,21 @@ TODO: talk about the difference in integrating the sum and summing the integrals
 
 Although the trapezium and Monte Carlo methods of numerical integration produced similarly accurate results in negligibly different times, it should be possible to evaluate the integrals quicker.
 
-The reasoning behind this claim is that we have used Python, a scripting language, to solve the problem which is generally slower than a compiled language such as FORTRAN or C.
+The reasoning behind this claim is that we have used Python, a scripting language, to solve the problem. Python is generally slower than a compiled language such as FORTRAN or C.
 
-In order to gauge any benefits that a compiled language might bring, the Python script was timed over several runs of numerically integrating and then summing the separate differential cross sections. The time was averaged to give a rough runtime estimate. After 50 runs of the script, the average runtime was AVG RUNTIME HERE.
+In order to measure any benefits that a compiled language might bring, the Python script was timed over several runs of numerically integrating then summing the separate differential cross sections. This time was averaged to give an approximate runtime estimate.
 
-A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to produce an average runtime. It was found that the C script took an average of 
+The parameters used were a collider energy running from $3\GeV$ to $200\GeV$ in steps of $0.1\GeV$. The number of trapezia used was $1000$.
 
+After 50 runs of the Python script, the average runtime was $18.8 \pm (ERRORHERE) \operatorname{s}$.
+
+A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.47 \pm 0.1 \operatorname{s}$.
+
+This shows a large difference in performance between the two languages. The C script ran in $2.5\%$ of the time the Python script required.
+
+The program is extremely repetitive; the parameters given above require close to $2$ million iterations of the integration algorithm. The C compiler's ability to make optimisations in the script save small amounts of time per iteration, which are compounded to produce vast improvements in the total runtime.
+
+\section{Conclusions}\label{sec:conclusion}
 
 \section{Figures}
 

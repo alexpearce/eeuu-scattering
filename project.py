@@ -466,6 +466,10 @@ def timer(function_str, times = 1):
     exec function_str
   time_end = time()
 
-  print (time_end-time_begin)/float(times)
+  diff = time_end - time_begin
+  print "Total time for {} trials was {} seconds.".format(times, diff)
+  print "The average for one trial was {}".format(diff/float(times))
   
 ## END PERFORMANCE ##
+
+timer("seperate_cross_section('trapezium', 3, 200, 0.1, 1000)", 50)

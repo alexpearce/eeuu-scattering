@@ -244,7 +244,7 @@ void cross_section(int export_to_file) {
   // Set ranges and step sizes
   int a = 3;
   int b = 200;
-  float step_size = 0.01;
+  float step_size = 0.1;
   int N = 1000;
   
   // How many steps will we take? This many.
@@ -327,18 +327,18 @@ int main(int argc, char *argv[]) {
   seed_random();
   
   if (should_time) {
-    time_t start, end;
+    double start, end;
     int j;
-    start = time(NULL);
+    start = clock();
     for (j = 0; j < times; j++) {
       // Don't export to file
       cross_section(0);
     }
-    end = time(NULL);
+    end = clock();
     
-    float diff = difftime(end, start);
-    printf("Total time for %i trials was %.2f seconds.\n", times, diff);
-    printf("The average for one trial was %.2f seconds.\n", diff/(float)times);
+    float diff = (end - start)/CLOCKS_PER_SEC;
+    printf("Total time for %i trials was %.3f seconds.\n", times, diff);
+    printf("The average for one trial was %.3f seconds.\n", diff/(float)times);
   } else {
     cross_section(export_to_file);
   }
