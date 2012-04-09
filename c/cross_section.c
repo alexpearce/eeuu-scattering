@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 /*
@@ -219,8 +220,8 @@ void write_to_file(Data dataset, int size) {
   fclose(file);
 }
 
-int main(void) {
-  
+// Calculate the total cross section
+void cross_section(int export_to_file) {
   /* Constants */
 
   alpha         = 1.0 / 128.0;
@@ -239,19 +240,10 @@ int main(void) {
   
   /* End Constants */
   
-  // Initialize the collider at 3GeV
-  set_collider_to(3);
-  
-  // Sanity checks
-  //printf("Trapezium:   %.15e\n", trapezium(gamma_gamma, -1.0, 1.0, 1000000));
-  //printf("Monte Carlo: %.15e\n", monte_carlo(gamma_gamma, -1.0, 1.0, 10000));
-  
-  seed_random();
-  
   // Set ranges and step sizes
   int a = 3;
   int b = 200;
-  float step_size = 0.1;
+  float step_size = 0.01;
   int N = 1000;
   
   // How many steps will we take? This many.
@@ -298,7 +290,39 @@ int main(void) {
   total_data.sigma = &total_sigma[0];
   total_data.root_s = &root_s[0];
   
-  //write_to_file(total_data, arr_length);
+  if (export_to_file == 1) {
+    write_to_file(total_data, arr_length);
+  }
+}
+
+int main(int argc, char *argv[]) {
+  
+  int i, should_time, export_to_file = 0;
+  for (i = 0; i < argc; i++) {
+    if (strcmp(argv[i], "--export") == 0) {
+      // Export the cross section to file
+      export_to_file = 1;
+    } else if (strcmp(argv[i], "--time") == 0) {
+      if (atoi(argv[i+1]) == 0) {
+        // TODO this causes a segfault if i+1 isn't an argument
+        printf("--time argument must have an integer value.\n");
+      } else {
+        // Time the cross section function N times
+        should_time = 1;
+      }
+    }
+  }
+  
+  // Initialize the collider at 3GeV
+  set_collider_to(3);
+  
+  // Sanity checks
+  //printf("Trapezium:   %.15e\n", trapezium(gamma_gamma, -1.0, 1.0, 1000000));
+  //printf("Monte Carlo: %.15e\n", monte_carlo(gamma_gamma, -1.0, 1.0, 10000));
+  
+  seed_random();
+  
+  cross_section(export_to_file);
   
   return 0;
 }
