@@ -10,7 +10,7 @@
 
 // Data structure that we use to return two 'arrays'
 typedef struct {
-  double *root_s;
+  float *root_s;
   double *sigma;
 } Data;
 
@@ -134,58 +134,46 @@ double trapezium(double (*f)(double), double a, double b, int N) {
   return prefactor + (h*sum);
 }
 
-Data trapezium_cross_section(double (*f)(double), double *cross_section_ptr, double a, double b, double step_size, int strips) {
-  int intervals = (b - a)/step_size;
-    
+Data trapezium_cross_section(double (*f)(double), double *cross_section_ptr, float *energy_ptr, int intervals, int strips) {
   int i;
-  double energies[intervals];
-  double *energies_ptr = &energies[0];
-  
-  double new_energy = a;
   for (i = 0; i < intervals; i++) {
     // Set the energy
-    set_collider_to(new_energy);
-    *energies_ptr = new_energy;
-    
+    set_collider_to(*energy_ptr);
     // Integrate
     *cross_section_ptr = trapezium((*f), -1.0, 1.0, strips);
-    
-    // Increase the energy for the next loop
-    new_energy += step_size;
-    
+    // Next array element
     cross_section_ptr++;
-    energies_ptr++;
+    energy_ptr++;
   }
   
   // Data struct
   Data rtn;
   
   // 'Reset' the pointers back to the beginning of their arrays
-  rtn.root_s = energies_ptr - intervals;
+  rtn.root_s = energy_ptr - intervals;
   rtn.sigma  = cross_section_ptr - intervals;
   
   return rtn;
 }
 
-Data monte_carlo_cross_section(double (*f)(double), double *ptr, double a, double b, double step_size, int strips) {
-  int intervals = (b - a)/step_size;
-    
+Data monte_carlo_cross_section(double (*f)(double), double *cross_section_ptr, float *energy_ptr, int intervals, int strips) {
   int i;
-  double energies[intervals];
-  double new_energy = a;
-  for (i = 0; i <= intervals; i++) {
-    set_collider_to(new_energy);
-    energies[i] = new_energy;
-    // Increase the energy
-    new_energy += step_size;
-    
-    *ptr = monte_carlo((*f), -1.0, 1.0, strips);
-    ptr++;
+  for (i = 0; i < intervals; i++) {
+    // Set the energy
+    set_collider_to(*energy_ptr);
+    // Integrate
+    *cross_section_ptr = monte_carlo((*f), -1.0, 1.0, strips);
+    // Next array element
+    cross_section_ptr++;
+    energy_ptr++;
   }
   
+  // Data struct
   Data rtn;
-  rtn.root_s = &energies[0];
-  rtn.sigma = ptr - (intervals - 1);
+  
+  // 'Reset' the pointers back to the beginning of their arrays
+  rtn.root_s = energy_ptr - intervals;
+  rtn.sigma  = cross_section_ptr - intervals;
   
   return rtn;
 }
@@ -210,19 +198,20 @@ double * ptr_fun(double *ptr) {
 // Expects `size` to be the array size
 void write_to_file(Data dataset, int size) {
   // Pointers to the arrays
-  double *root_s_ptr = dataset.root_s;
+  float *root_s_ptr = dataset.root_s;
   double *sigma_ptr  = dataset.sigma;
   
   // File pointer
   FILE *file;
   
   // Open the file for writing
-  file = fopen("data.csv", "w+");
+  file = fopen("data.csv", "w");
   
   int i;
   for (i = 0; i < size; i++) {
     // Print a CSV line "x, y"
-    fprintf(file, "%.15f, %.15f\n", *root_s_ptr, *sigma_ptr);
+    // fprintf(file, "%.3f, %.15f\n", *root_s_ptr, *sigma_ptr);
+    fprintf(file, "%.2f, %.15f\n", *root_s_ptr, *sigma_ptr);
     root_s_ptr++;
     sigma_ptr++;
   }
@@ -260,33 +249,56 @@ int main(void) {
   seed_random();
   
   // Set ranges and step sizes
-  double a = 3.0;
-  double b = 200.0;
-  double step_size = 0.1;
+  int a = 3;
+  int b = 200;
+  float step_size = 0.1;
   int N = 1000;
   
   // How many steps will we take? This many.
-  int intervals = (b - a)/step_size;
+  int intervals = (float)(b - a)/step_size;
+  
+  // Set up the energies
+  float root_s[intervals];
+  root_s[0] = a;
+  int i;
+  for (i = 1; i < intervals; i++) {
+    // Set the energy
+    root_s[i] = a + i*step_size;
+  }
   
   // Create array of size `intervals`
-  double cross_section[intervals];
-  // Pointer to the array
-  double *ptr;
-  // Point to first element of the array
-  ptr = &cross_section[0];
+  double g_g_sigma[intervals], z_z_sigma[intervals], g_z_sigma[intervals], total_sigma[intervals];
   
-  Data dataset;
-  dataset = trapezium_cross_section(z_z, &cross_section[0], a, b, step_size, N);
+  Data g_g_data, z_z_data, g_z_data, total_data;
+  // g_g_data = trapezium_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
+  // z_z_data = trapezium_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
+  // g_z_data = trapezium_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
+  g_g_data = monte_carlo_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
+  z_z_data = monte_carlo_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
+  g_z_data = monte_carlo_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
   
   // http://stackoverflow.com/a/4162948/596068
-  int arr_length = sizeof(cross_section) / sizeof(cross_section[0]);
+  int arr_length = sizeof(root_s) / sizeof(root_s[0]);
   
-  write_to_file(dataset, arr_length);
+  // Prepare the total data
+  // i.e. sum the individual cross sections
+  double *g_g_sigma_ptr = g_g_data.sigma;
+  double *z_z_sigma_ptr = z_z_data.sigma;
+  double *g_z_sigma_ptr = g_z_data.sigma;
   
-  // int i;
-  // for (i = 0; i < 6; i++) {
-  //   printf("cross_section[%i] = %.15e\n", i, cross_section[i]);
-  // }
+  // We have an iterator just up there ^
+  for (i = 0; i < arr_length; i++) {
+    total_sigma[i] = *g_g_sigma_ptr + *z_z_sigma_ptr + *g_z_sigma_ptr;
+    
+    g_g_sigma_ptr++;
+    z_z_sigma_ptr++;
+    g_z_sigma_ptr++;
+  }
+  
+  total_data.sigma = &total_sigma[0];
+  total_data.root_s = &root_s[0];
+  
+  write_to_file(total_data, arr_length);
   
   return 0;
 }
