@@ -4,7 +4,7 @@
 
 /*
  * To compile:
- *   gcc -Wall test.c -o test && ./test
+ *   gcc -Wall file.c -o file
  *
  */
 
@@ -298,7 +298,7 @@ int main(void) {
   total_data.sigma = &total_sigma[0];
   total_data.root_s = &root_s[0];
   
-  write_to_file(total_data, arr_length);
+  //write_to_file(total_data, arr_length);
   
   return 0;
 }
