@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 
 /*
  * To compile:
@@ -298,6 +299,7 @@ void cross_section(int export_to_file) {
 int main(int argc, char *argv[]) {
   
   int i, should_time, export_to_file = 0;
+  int times = 1;
   for (i = 0; i < argc; i++) {
     if (strcmp(argv[i], "--export") == 0) {
       // Export the cross section to file
@@ -309,6 +311,8 @@ int main(int argc, char *argv[]) {
       } else {
         // Time the cross section function N times
         should_time = 1;
+        // Number of times to repeat the timing
+        times = atoi(argv[i+1]);
       }
     }
   }
@@ -322,7 +326,22 @@ int main(int argc, char *argv[]) {
   
   seed_random();
   
-  cross_section(export_to_file);
+  if (should_time) {
+    time_t start, end;
+    int j;
+    start = time(NULL);
+    for (j = 0; j < times; j++) {
+      // Don't export to file
+      cross_section(0);
+    }
+    end = time(NULL);
+    
+    float diff = difftime(end, start);
+    printf("Total time for %i trials was %.2f seconds.\n", times, diff);
+    printf("The average for one trial was %.2f seconds.\n", diff/(float)times);
+  } else {
+    cross_section(export_to_file);
+  }
   
   return 0;
 }
