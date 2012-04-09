@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*
+ * To compile:
+ *   gcc -Wall test.c -o test && ./test
+ *
+ */
+
+// Data structure that we use to return two 'arrays'
+typedef struct {
+  double *root_s;
+  double *sigma;
+} Data;
+
 // Fine structure
 float alpha;
 // Weak mixing angle / Weinberg angle
@@ -122,20 +134,60 @@ double trapezium(double (*f)(double), double a, double b, int N) {
   return prefactor + (h*sum);
 }
 
-double * trapezium_cross_section(double (*f)(double), double *ptr, double a, double b, double step_size, int strips) {
+Data trapezium_cross_section(double (*f)(double), double *cross_section_ptr, double a, double b, double step_size, int strips) {
   int intervals = (b - a)/step_size;
-  //double cross_section[intervals];
-  
-  int count = 0;
+    
   int i;
-  for (i = 0; i <= intervals; i++) {
-    set_collider_to(a + (i * step_size));
-    *ptr = trapezium((*f), -1.0, 1.0, strips);
-    ptr++;
-    count++;
+  double energies[intervals];
+  double *energies_ptr = &energies[0];
+  
+  double new_energy = a;
+  for (i = 0; i < intervals; i++) {
+    // Set the energy
+    set_collider_to(new_energy);
+    *energies_ptr = new_energy;
+    
+    // Integrate
+    *cross_section_ptr = trapezium((*f), -1.0, 1.0, strips);
+    
+    // Increase the energy for the next loop
+    new_energy += step_size;
+    
+    cross_section_ptr++;
+    energies_ptr++;
   }
   
-  return ptr;
+  // Data struct
+  Data rtn;
+  
+  // 'Reset' the pointers back to the beginning of their arrays
+  rtn.root_s = energies_ptr - intervals;
+  rtn.sigma  = cross_section_ptr - intervals;
+  
+  return rtn;
+}
+
+Data monte_carlo_cross_section(double (*f)(double), double *ptr, double a, double b, double step_size, int strips) {
+  int intervals = (b - a)/step_size;
+    
+  int i;
+  double energies[intervals];
+  double new_energy = a;
+  for (i = 0; i <= intervals; i++) {
+    set_collider_to(new_energy);
+    energies[i] = new_energy;
+    // Increase the energy
+    new_energy += step_size;
+    
+    *ptr = monte_carlo((*f), -1.0, 1.0, strips);
+    ptr++;
+  }
+  
+  Data rtn;
+  rtn.root_s = &energies[0];
+  rtn.sigma = ptr - (intervals - 1);
+  
+  return rtn;
 }
 
 // Seed the drand48 number generator
@@ -152,6 +204,30 @@ double * ptr_fun(double *ptr) {
   ptr2 = (ptr + 1);
   *ptr2 = 1.2;
   return ptr;
+}
+
+// Writes an array of doubles to a file
+// Expects `size` to be the array size
+void write_to_file(Data dataset, int size) {
+  // Pointers to the arrays
+  double *root_s_ptr = dataset.root_s;
+  double *sigma_ptr  = dataset.sigma;
+  
+  // File pointer
+  FILE *file;
+  
+  // Open the file for writing
+  file = fopen("data.csv", "w+");
+  
+  int i;
+  for (i = 0; i < size; i++) {
+    // Print a CSV line "x, y"
+    fprintf(file, "%.15f, %.15f\n", *root_s_ptr, *sigma_ptr);
+    root_s_ptr++;
+    sigma_ptr++;
+  }
+  // Close the file
+  fclose(file);
 }
 
 int main(void) {
@@ -184,9 +260,9 @@ int main(void) {
   seed_random();
   
   // Set ranges and step sizes
-  float a = 3;
-  float b = 10;
-  float step_size = 0.1;
+  double a = 3.0;
+  double b = 200.0;
+  double step_size = 0.1;
   int N = 1000;
   
   // How many steps will we take? This many.
@@ -199,7 +275,13 @@ int main(void) {
   // Point to first element of the array
   ptr = &cross_section[0];
   
-  trapezium_cross_section(gamma_gamma, ptr, a, b, step_size, N);
+  Data dataset;
+  dataset = trapezium_cross_section(z_z, &cross_section[0], a, b, step_size, N);
+  
+  // http://stackoverflow.com/a/4162948/596068
+  int arr_length = sizeof(cross_section) / sizeof(cross_section[0]);
+  
+  write_to_file(dataset, arr_length);
   
   // int i;
   // for (i = 0; i < 6; i++) {
