@@ -450,6 +450,12 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
 
 ## BEGIN PERFORMANCE ##
 
+"""Example usage:
+  timer("seperate_cross_section('trapezium', 3, 200, 0.1, 1000)", 50)
+  => Total time for 50 trials was 938.284044027 seconds.
+  => The average for one trial was 18.7656808805
+"""
+
 from time import clock, time
 
 def timer(function_str, times = 1):
@@ -471,5 +477,3 @@ def timer(function_str, times = 1):
   print "The average for one trial was {}".format(diff/float(times))
   
 ## END PERFORMANCE ##
-
-timer("seperate_cross_section('trapezium', 3, 200, 0.1, 1000)", 50)

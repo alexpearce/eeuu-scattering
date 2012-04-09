@@ -105,7 +105,7 @@ The number of points to sample or the number of trapezia to use will depend on t
 
 \section{Results and Analysis}\label{sec:results}
 
-TODO: errors
+TODO: errors, why is resonance present, what is $\Gamma_{\Zzero}$, why does the interference term has the form it does, how do the differential cross sections change as $\sqrt{s}$ changes.
 
 When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.1\GeV$ so as to allow fine detail in the plots. $1000$ trapezia were used in the trapezium algorithm, while 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
 
@@ -128,7 +128,7 @@ Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic beh
 
 \section{Kinematic Variables}\label{sec:variables}
 
-Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
+TODO: Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
 
 
 \section{Performance}\label{sec:performance}
@@ -152,6 +152,11 @@ This shows a large difference in performance between the two languages. The C sc
 The program is extremely repetitive; the parameters given above require close to $2$ million iterations of the integration algorithm. The C compiler's ability to make optimisations in the script save small amounts of time per iteration, which are compounded to produce vast improvements in the total runtime.
 
 \section{Conclusions}\label{sec:conclusion}
+
+Effectiveness of each algorithm. How does integration then summing compare to summing the integrands then integrating. The MC fails, what is it good for? Trapezium performed very good, is it always so great?
+ 
+
+Measurements of the resonance peak position (energy and cross section).
 
 \section{Figures}
 
