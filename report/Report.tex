@@ -107,10 +107,10 @@ Both methods are quoted as approximations, but it should be considered that as $
 
 The number of points to sample or the number of trapezia to use will depend on the computational power and time available, as well as the accuracy and precision desired. The exact values used will be discussed in the following section.
 
+We note that the problem may be tackled in two distinct ways. We may either sum the integrands and integrate the resulting function, or we can integrate the differentials and then sum the results. We will comment further on this point in section \ref{ssec:interference}.
+
 
 \section{Results and Analysis}\label{sec:results}
-
-TODO: why does the interference term has the form it does.
 
 When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm, while 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
 
@@ -130,15 +130,17 @@ Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ 
 
 Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\operatorname{-}\Zzero$ contributes nothing at $M_{\Zzero}$.
 
-\subsection{Interference Term $\gamma\operatorname{-}\Zzero$}
+\subsection{Interference Term $\gamma\operatorname{-}\Zzero$}\label{ssec:interference}
 
-TODO: talk about how summing the integrands smooth out the interference subtleties.
+TODO: why does the interference term has the form it does.
 
 The Monte Carlo integration of $\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}$ shown in figure \ref{fig:mcgammaz} reveals a spectacular failing of the algorithm. Despite its satisfactory performance evaluating all other cross sections, the algorithm fails on integrating the form of the cross section, shown in figure \ref{fig:diffgammaz}.
 
 We believe that this failing is due to the near-linear form of the integrand. Inspection may conclude that the function is linear, but viewed over a wider range in $\cos{\theta}$ the function is non-linear, resembling a quadratic form. The range $-1\leq\cos{\theta}\leq1$ is zoomed in on a small segment of a curved line so closely approximates a linear function. The Monte Carlo approach has great difficulty in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtly results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
 
-Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies, by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials.
+Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies, by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials. The performance differences of each method is discussed in section \ref{sec:performance}.
+
+As touched on in section \ref{ssec:method}, we may sum the integrands and integrate the resulting function. If we take this approach, the subtleties of the interference term are absorbed into the other differentials. Integrating the sum therefore eliminates the only major problem in using the Monte Carlo algorithm.
 
 Due to this, we use the final peak cross section from the trapezium evaluation and use the Monte Carlo evaluation to determine the errors. We recorded a peak resonance of $\sigma=(5.13\pm0.19)\e{-6}\GeV^{-2}=2.00\pm0.07\inb$ at a collider energy of $\sqrt{s}=91.21\pm0.01\GeV$.
 
@@ -148,7 +150,7 @@ Due to this, we use the final peak cross section from the trapezium evaluation a
 TODO: Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
 
 
-\section{Performance}\label{ssec:performance}
+\section{Performance}\label{sec:performance}
 
 TODO: talk about the difference in integrating the sum and summing the integrals
 
@@ -162,17 +164,17 @@ The parameters used were a collider energy running from $3\GeV$ to $200\GeV$ in 
 
 After 50 runs of the Python script, the average runtime was $18.7 \pm 0.2 \operatorname{s}$.
 
-A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.40 \pm 0.1 \operatorname{s}$.
+A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.40 \pm 0.1 \operatorname{s}$. A plot of the data produced by the C script is given in \ref{fig:cboth}. It shows that each script produces equal results.
 
 This shows a large difference in performance between the two languages. The C script ran in $2.1\pm0.1\%$ of the time the Python script required.
 
 The program is extremely repetitive; the parameters given above require close to $2$ million iterations of the integration algorithm. The C compiler's ability to make optimisations in the script save small amounts of time per iteration, which are compounded to produce vast improvements in the total runtime.
 
+Using the Python script, summing the individual integrals takes an almost-equal execution time as summing the integrands and then integrating. Interestingly, the C script takes $0.03\pm0.01\operatorname{s}$ less to sum the integrands.
+
 \section{Conclusions}\label{sec:conclusion}
 
-Measurements of the resonance peak position (energy and cross section).
-
-A numerical integration of the $\ee \to \mumu$ scattering cross section was performed in order to analyse its behaviour over a range of collider energies. A resonant behaviour was found near the $\Zzero$ boson mass. Both algorithms performed well, integrating the differentials quickly and accurately, although the Monte Carlo simulation required substantially more computations to achieve similar precision to the trapezium rule. In order to overcome subtleties in individual differential cross sections, integrating the sum of the differentials is the better approach for Monte Carlo evaluation. The trapezium rule proved to be the more efficient algorithm in this one dimensional case. In higher order problems, the Monte Carlo approach must be carefully analysed to ensure accurate results.
+A numerical integration of the $\ee \to \mumu$ scattering cross section was performed in order to analyse its behaviour over a range of collider energies. A resonant behaviour was found near the $\Zzero$ boson mass. Both algorithms performed well, integrating the differentials quickly and accurately, although the Monte Carlo algorithm required substantially more computations to achieve similar precision to the trapezium rule. In order to overcome the subtly in the interference differential cross section, integrating the sum of the differentials is the better approach for Monte Carlo evaluation. The trapezium rule proved to be the more efficient algorithm in this one dimensional case. In higher order problems, the Monte Carlo approach must be carefully analysed to ensure accurate results. Finally, using C produced drastically faster results than when using Python. Using C also allowed a noticeable speed improvement when integrating the sum of the integrands, rather than summing the integrated differentials.
 
 \section{Figures}
 
@@ -318,6 +320,16 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 	}
 	\caption{$\gamma\operatorname{-}\Zzero$ cross section for collider energies centred $15\GeV$ around $M_{\Zzero}$.}
 	\label{fig:bothgammaz}
+\end{figure}
+
+\begin{figure}[H]
+	\vspace{10pt}
+	\hspace*{-0.1\textwidth}
+	\centering
+	\label{fig:cboth}
+	\includegraphics[width=1.2\textwidth]{c_both}
+	\caption{Trapezium and Montecarlo cross section $\sigma$ for collider energies from $3\GeV$ to $200\GeV$. This data was produced by a C script, whereas all other plots use data from a Python script.}
+	\label{fig:bothfocused}
 \end{figure}
 
 \newpage

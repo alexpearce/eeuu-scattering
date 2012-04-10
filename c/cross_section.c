@@ -104,6 +104,10 @@ double gamma_z(double cos_theta) {
   return alph * (beta*(1 + cos_theta_2 + (4.0*epsilon_2*sin_theta_2)) + (delta*cos_theta));
 }
 
+double combined(double cos_theta) {
+  return (gamma_gamma(cos_theta) + z_z(cos_theta) + gamma_z(cos_theta));
+}
+
 // Numerically integrate a function f between a and b using N sampled points
 double monte_carlo(double (*f)(double), double a, double b, int N) {
   // To call f, do (*f)(value)
@@ -251,7 +255,7 @@ void cross_section(int export_to_file) {
     // Set the energy
     root_s[i] = a + i*step_size;
   }
-  
+
   // Create array of size `intervals`
   double g_g_sigma[intervals], z_z_sigma[intervals], g_z_sigma[intervals], total_sigma[intervals];
   
@@ -262,6 +266,7 @@ void cross_section(int export_to_file) {
   // g_g_data = monte_carlo_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
   // z_z_data = monte_carlo_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
   // g_z_data = monte_carlo_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
+  
   
   // http://stackoverflow.com/a/4162948/596068
   int arr_length = sizeof(root_s) / sizeof(root_s[0]);
@@ -280,6 +285,10 @@ void cross_section(int export_to_file) {
     z_z_sigma_ptr++;
     g_z_sigma_ptr++;
   }
+  
+  // double total_sigma[intervals];
+  // Data total_data;
+  // total_data = trapezium_cross_section(combined, &total_sigma[0], &root_s[0], intervals, N);
   
   total_data.sigma = &total_sigma[0];
   total_data.root_s = &root_s[0];
