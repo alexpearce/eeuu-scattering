@@ -10,7 +10,7 @@
  *
  */
 
-// Data structure that we use to return two 'arrays'
+// Data structure that we use to return two 'arrays' (two array pointers, in fact)
 typedef struct {
   float *root_s;
   double *sigma;
@@ -51,7 +51,7 @@ float epsilon_2;
 float zeta;
 
 // Updates the global energy-dependant variables
-// float energy in GeV
+// energy in GeV
 void set_collider_to(float energy) {
   sqrt_s = energy;
   s = sqrt_s * sqrt_s;
@@ -189,13 +189,6 @@ void seed_random(void) {
   srand48(seed);
 }
 
-double * ptr_fun(double *ptr) {
-  double * ptr2;
-  ptr2 = (ptr + 1);
-  *ptr2 = 1.2;
-  return ptr;
-}
-
 // Writes an array of doubles to a file
 // Expects `size` to be the array size
 void write_to_file(Data dataset, int size) {
@@ -324,13 +317,14 @@ int main(int argc, char *argv[]) {
   //printf("Trapezium:   %.15e\n", trapezium(gamma_gamma, -1.0, 1.0, 1000000));
   //printf("Monte Carlo: %.15e\n", monte_carlo(gamma_gamma, -1.0, 1.0, 10000));
   
-  seed_random();
+  //seed_random();
   
   if (should_time) {
     double start, end;
     int j;
     start = clock();
     for (j = 0; j < times; j++) {
+      seed_random();
       // Don't export to file
       cross_section(0);
     }
@@ -340,6 +334,7 @@ int main(int argc, char *argv[]) {
     printf("Total time for %i trials was %.3f seconds.\n", times, diff);
     printf("The average for one trial was %.3f seconds.\n", diff/(float)times);
   } else {
+    seed_random();
     cross_section(export_to_file);
   }
   
