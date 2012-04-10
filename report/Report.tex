@@ -77,6 +77,11 @@ Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section
 
 The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. They are given in appendix \ref{app:differentials}.
 
+Plots of the differentials are given in section \ref{ssec:differentialfigs}. Figures \ref{fig:diffbelow}, \ref{fig:diffexact}, and \ref{fig:diffabove} show a pair of plots for increasing collider energies $\sqrt{s}=$ $3\GeV$, $M_{\Zzero}$, and $115\GeV$ respectively. The left-hand figure in each pair shows just the QED differential while the right-hand side figure shows the full Standard Model differential.
+
+The full Standard Model distribution only slightly alters the QED distribution in the low energy regime, namely by introducing a small asymmetry in the quadratic form of the curve. The Standard Model contribution is much more prominent for the $M_{\Zzero}$ regime as, not only does it introduce an asymmetry, it shifts the position of the curve along $\frac{\d{\sigma}}{\d{\Omega}}$ by two orders of magnitude. This should result in a large cross section $\sigma$ around this region.
+
+The Standard Model differential has a very different form in the high energy regime whilst also increasing the magnitude of the curve. These plots show that the Standard Model contribution tends to increase the cross section of the scattering. In particular, we expect to see a large peak in $\sigma$ around $M_{\Zzero}$.
 
 \section{Integration of the Differential $\frac{\d{\sigma}}{\d{\Omega}}$}\label{sec:integration}
 
@@ -105,7 +110,7 @@ The number of points to sample or the number of trapezia to use will depend on t
 
 \section{Results and Analysis}\label{sec:results}
 
-TODO: errors, why is resonance present, what is $\Gamma_{\Zzero}$, why does the interference term has the form it does, how do the differential cross sections change as $\sqrt{s}$ changes.
+TODO: errors, why is resonance present, what is $\Gamma_{\Zzero}$, why does the interference term has the form it does.
 
 When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.1\GeV$ so as to allow fine detail in the plots. $1000$ trapezia were used in the trapezium algorithm, while 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
 
@@ -203,7 +208,7 @@ Measurements of the resonance peak position (energy and cross section).
 	\caption{$e^{-}e^{+}\to\mu^{-}\mu^{+}$ scattering via two different channels. Time flows from left to right.}
 \end{figure}
 
-\subsection{Differential Cross Sections}
+\subsection{Differential Cross Sections}\label{ssec:differentialfigs}
 
 This subsection contains plottings of the QED differential cross section ($\gamma\operatorname{-}\gamma$ channel) and then the full Standard Model cross section ($\gamma\operatorname{-}\gamma$, $\Zzero\operatorname{-}\Zzero$ and $\gamma\operatorname{-}\Zzero$ channels) at three different collider energies.
 
@@ -233,7 +238,7 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 		\label{fig:diffsmexact}
 		\includegraphics[scale=0.7]{sm_exact}
 	}
-	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=M_{\Zzero}=91.2\GeV$.}
+	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=M_{\Zzero}=91.19\GeV$.}
 	\label{fig:diffexact}
 \end{figure}
 
@@ -248,7 +253,7 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 		\label{fig:diffsmabove}
 		\includegraphics[scale=0.7]{sm_above}
 	}
-	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=M_{\Zzero}=91.2\GeV$.}
+	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=115\GeV$.}
 	\label{fig:diffabove}
 \end{figure}
 
