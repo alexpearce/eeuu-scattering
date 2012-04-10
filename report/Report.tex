@@ -162,9 +162,9 @@ The parameters used were a collider energy running from $3\GeV$ to $200\GeV$ in 
 
 After 50 runs of the Python script, the average runtime was $18.7 \pm 0.2 \operatorname{s}$.
 
-A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.47 \pm 0.1 \operatorname{s}$.
+A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.40 \pm 0.1 \operatorname{s}$.
 
-This shows a large difference in performance between the two languages. The C script ran in $2.5\%$ of the time the Python script required.
+This shows a large difference in performance between the two languages. The C script ran in $2.1\pm0.1\%$ of the time the Python script required.
 
 The program is extremely repetitive; the parameters given above require close to $2$ million iterations of the integration algorithm. The C compiler's ability to make optimisations in the script save small amounts of time per iteration, which are compounded to produce vast improvements in the total runtime.
 

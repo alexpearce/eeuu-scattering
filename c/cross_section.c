@@ -256,12 +256,12 @@ void cross_section(int export_to_file) {
   double g_g_sigma[intervals], z_z_sigma[intervals], g_z_sigma[intervals], total_sigma[intervals];
   
   Data g_g_data, z_z_data, g_z_data, total_data;
-  // g_g_data = trapezium_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
-  // z_z_data = trapezium_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
-  // g_z_data = trapezium_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
-  g_g_data = monte_carlo_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
-  z_z_data = monte_carlo_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
-  g_z_data = monte_carlo_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
+  g_g_data = trapezium_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
+  z_z_data = trapezium_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
+  g_z_data = trapezium_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
+  // g_g_data = monte_carlo_cross_section(gamma_gamma, &g_g_sigma[0], &root_s[0], intervals, N);
+  // z_z_data = monte_carlo_cross_section(gamma_z, &z_z_sigma[0], &root_s[0], intervals, N);
+  // g_z_data = monte_carlo_cross_section(z_z, &g_z_sigma[0], &root_s[0], intervals, N);
   
   // http://stackoverflow.com/a/4162948/596068
   int arr_length = sizeof(root_s) / sizeof(root_s[0]);
