@@ -20,14 +20,14 @@
 
 \begin{document}
 
-\title{The $\ee \to \mumu$ Cross Section in the Standard Model}
+\title{Numerical Evaluation of the $\ee \to \mumu$ Cross Section in the Standard Model}
 \author{Alex Pearce}
 \date{\today}
 \maketitle
 
 
 \begin{abstract}
-The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has yielded excellent results. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process, which may produce $\Zzero$ bosons, in the hope that the proposed Large Electron-Positron collider (LEP) will verify this channel of $\Zzero$ production. A distinct $\Zzero$ resonance around the $\Zzero$ mass of 91.8\GeV was found with a cross section $\sigma=9.4\inb$.
+The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has yielded excellent results. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=0.32\inb$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
 \end{abstract}
 
 
@@ -242,11 +242,11 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 	\centering
 	\subfloat[QED]{
 		\label{fig:diffqedabove}
-		\includegraphics[scale=0.7]{qed_exact}
+		\includegraphics[scale=0.7]{qed_above}
 	}
 	\subfloat[SM]{
 		\label{fig:diffsmabove}
-		\includegraphics[scale=0.7]{sm_exact}
+		\includegraphics[scale=0.7]{sm_above}
 	}
 	\caption{$\frac{\d{\sigma}}{\d{\Omega}}$ at $\sqrt{s}=M_{\Zzero}=91.2\GeV$.}
 	\label{fig:diffabove}
