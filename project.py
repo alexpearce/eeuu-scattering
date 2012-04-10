@@ -104,7 +104,6 @@ def plot_gamma_gamma(a, b, step_size = 0.1):
   plb.plot(cos_theta, z)
   plb.show()
 
-
 def plot_z_z(a, b, step_size = 0.1):
   """Plot z-z differential cross section between a and b"""
 
@@ -120,11 +119,11 @@ def plot_gamma_z(a, b, step_size = 0.1):
   z = [gamma_z(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
- 
+  
 def plot_combined(a, b, step_size = 0.1):
   """Plot the sum of all the differential cross sections between a and b"""
   
-  cos_theta = arange(a, b, step_size)
+  cos_theta = arange(a, b+step_size, step_size)
   z = [combined_diff_cross_section(x) for x in cos_theta]
   plb.plot(cos_theta, z)
   plb.show()
