@@ -27,7 +27,7 @@
 
 
 \begin{abstract}
-The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has yielded excellent results. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=0.32\inb$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
+The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has yielded excellent results. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(5.13\pm0.19)\e{-6}\GeV^{-2}=2.00\pm0.07\inb$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
 \end{abstract}
 
 
@@ -110,17 +110,27 @@ The number of points to sample or the number of trapezia to use will depend on t
 
 \section{Results and Analysis}\label{sec:results}
 
-TODO: errors, why is resonance present, what is $\Gamma_{\Zzero}$, why does the interference term has the form it does.
+TODO: why does the interference term has the form it does.
 
-When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.1\GeV$ so as to allow fine detail in the plots. $1000$ trapezia were used in the trapezium algorithm, while 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
+When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm, while 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
 
 The integrated cross section is presented in figures \ref{fig:bothgammagamma} and \ref{fig:bothcombined}. Each plot shows both the trapezium and Monte Carlo integration results, but their correspondence is such that they are almost indistinguishable from one another.
 
 The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\GeV^{-2}$ but its form follows that of the trapezium evaluation precisely.
 
-There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. The cross section peaks to $8.17\e{-7}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}). It is due to the Standard Model contribution, and in particular the interference term $\gamma\operatorname{-}\Zzero$.
+\subsection{Resonance}\label{ssec:resonance}
+
+There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. The cross section peaks to $5.13\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}). It is due to the Standard Model contribution, and in particular the interference term $\gamma\operatorname{-}\Zzero$.
 
 Figure \ref{fig:mcgammaz} shows the cross section for the interference term as evaluated by the Monte Carlo method, with the trapezium algorithm superimposed. Figure \ref{fig:trapgammaz} shows just the trapezium algorithm's evaluation. We see from the trapezium-evaluated cross section that the contribution at $\sqrt{s}=M_{\Zzero}$ is $0$, but past the $\Zzero$ boson mass the contribution is positive. Thus, the interference terms shifts the resonance to slightly higher energies.
+
+The resonance itself is due to the $\Zzero\operatorname{-}\Zzero$ term. We see an increase in the cross section in an energy range around $M_{\Zzero}$ because it is in this range that the $\Zzero$ boson becomes on-shell, and hence becomes real and detectable. The resonance is our detection of the $\Zzero$ boson mediating the scattering interaction.
+
+Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ is the width of the resonance at half maximum and then $\Delta t = \frac{\hbar}{\Delta E}$ corresponds to the lifetime of the $\Zzero$ boson. A rough reading off of figure \ref{fig:bothfocused} gives $\Delta E = 2.5\pm0.25\GeV$ and therefore $\Delta t = \tau = (2.6\pm0.3)\e{-25} \operatorname{s}$. It is now clear that the parameter $\Gamma_{\Zzero}$ is the resonance width at half maximum.
+
+Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\operatorname{-}\Zzero$ contributes nothing at $M_{\Zzero}$.
+
+\subsection{Interference Term $\gamma\operatorname{-}\Zzero$}
 
 The Monte Carlo integration of $\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}$ shown in figure \ref{fig:mcgammaz} reveals a spectacular failing of the algorithm. Despite its satisfactory performance evaluating all other cross sections, the algorithm fails on integrating the form of the cross section, shown in figure \ref{fig:diffgammaz}.
 
@@ -128,7 +138,7 @@ We believe that this failing is due to the near-linear form of the integrand. In
 
 Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies, by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials.
 
-
+Due to this, we use the final peak cross section from the trapezium evaluation and use the Monte Carlo evaluation to determine the errors. We recorded a peak resonance of $\sigma=(5.13\pm0.19)\e{-6}\GeV^{-2}=2.00\pm0.07\inb$ at a collider energy of $\sqrt{s}=91.21\pm0.01\GeV$.
 
 
 \section{Kinematic Variables}\label{sec:variables}
@@ -136,7 +146,7 @@ Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic beh
 TODO: Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
 
 
-\section{Performance}\label{sec:performance}
+\section{Performance}\label{ssec:performance}
 
 TODO: talk about the difference in integrating the sum and summing the integrals
 
@@ -267,8 +277,6 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 
 
 \subsection{Cross Sections $\sigma$}
-
-TODO: UNITS ON AXES YOU IDIOT
 
 \begin{figure}[H]
 	\vspace{10pt}
