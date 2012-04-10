@@ -132,6 +132,8 @@ Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\opera
 
 \subsection{Interference Term $\gamma\operatorname{-}\Zzero$}
 
+TODO: talk about how summing the integrands smooth out the interference subtleties.
+
 The Monte Carlo integration of $\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}$ shown in figure \ref{fig:mcgammaz} reveals a spectacular failing of the algorithm. Despite its satisfactory performance evaluating all other cross sections, the algorithm fails on integrating the form of the cross section, shown in figure \ref{fig:diffgammaz}.
 
 We believe that this failing is due to the near-linear form of the integrand. Inspection may conclude that the function is linear, but viewed over a wider range in $\cos{\theta}$ the function is non-linear, resembling a quadratic form. The range $-1\leq\cos{\theta}\leq1$ is zoomed in on a small segment of a curved line so closely approximates a linear function. The Monte Carlo approach has great difficulty in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtly results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
@@ -168,9 +170,9 @@ The program is extremely repetitive; the parameters given above require close to
 
 \section{Conclusions}\label{sec:conclusion}
 
-Effectiveness of each algorithm. How does integration then summing compare to summing the integrands then integrating. The MC fails, what is it good for? Trapezium performed very good, is it always so great?
-
 Measurements of the resonance peak position (energy and cross section).
+
+A numerical integration of the $\ee \to \mumu$ scattering cross section was performed in order to analyse its behaviour over a range of collider energies. A resonant behaviour was found near the $\Zzero$ boson mass. Both algorithms performed well, integrating the differentials quickly and accurately, although the Monte Carlo simulation required substantially more computations to achieve similar precision to the trapezium rule. In order to overcome subtleties in individual differential cross sections, integrating the sum of the differentials is the better approach for Monte Carlo evaluation. The trapezium rule proved to be the more efficient algorithm in this one dimensional case. In higher order problems, the Monte Carlo approach must be carefully analysed to ensure accurate results.
 
 \section{Figures}
 
