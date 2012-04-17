@@ -33,31 +33,31 @@ The Standard Model's (SM) prediction of particles beyond those initially conside
 
 \section{Introduction}\label{sec:intro}
 
-The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been all but proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process is manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating, forming either a virtual photon or $\Zzero$ boson, and then a muon-antimuon pair ($\mu^{-}\mu^{+}$) being produced.
+The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been all but proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating, forming either a virtual photon or $\Zzero$ boson, and then a muon-antimuon pair ($\mu^{-}\mu^{+}$) being produced.
 
-This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering is also described by a t-channel diagram (in figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel, as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.
+This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering may also be described by a t-channel diagram (figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel, as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.
 
-Feynman diagrams allow us to apply the Feynman rules thus to producing a  matrix element $\mathcal{M}$. The square of the matrix element corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
+Feynman diagrams allow us to apply the Feynman rules thus producing a  matrix element $\mathcal{M}$. The square of this matrix element corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
 The following section briefly outlines the theory behind the interactions. The integration methods used to evaluate the differential cross sections are explored in the section \ref{sec:integration}, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. A brief discussion on performance is given in section \ref{sec:performance}, and finally some concise conclusions are drawn in section \ref{sec:conclusion}.
 
 \section{Principles of Interaction Cross Sections}
 
-With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}^{\nu}$ and $p_{2}^{\nu}$, whilst the outgoing particles carry $p_{3}^{\nu}$ and $p_{4}^{\nu}$. At LEP, the electrons and positrons will be accelerated around a loop in opposite directions. The collider energy is then given by $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$ Here we have suppressed the metric tensor and the covariant notation, implicitly assuming four vectors. The collider energy is then analogous to the hypotenuse of a right-angled triangle of sides $p_{1}^{\nu}$ and $p_{2}^{\nu}$.
+With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}^{\nu}$ and $p_{2}^{\nu}$, whilst the outgoing particles carry $p_{3}^{\nu}$ and $p_{4}^{\nu}$. At LEP, the electrons and positrons will be accelerated around a circular collider in opposite directions. The collider energy is then given by $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$ Here we have suppressed the metric tensor and the covariant notation, implicitly assuming four vectors. The collider energy is then analogous to the hypotenuse of a right-angled triangle of sides $p_{1}^{\nu}$ and $p_{2}^{\nu}$.
 
 The differential cross sections are dependant on the collider energy via the dimensionless variables $$\varepsilon = \frac{m_{\mu}}{\sqrt{s}}, \quad \lambda = \frac{M_{\Zzero}}{\sqrt{s}},$$
 
-where $m_{\mu}$ is the muon mass. It is worth noting the energies LEP will be operating at allow us to take the electron as massless in the ultrarelativistic limit.\footnote{In addition the muon is over 200 times more massive than the electron so we may disregard the electron mass in scattering interactions.}
+where $m_{\mu}$ is the muon mass and $M_{\Zzero}$ is the $\Zzero$ boson mass. It is worth noting that the energies LEP will be operating at allow us to take the electron as massless in the ultrarelativistic limit.\footnote{In addition the muon is over 200 times more massive than the electron so we may disregard the electron mass in scattering interactions.}
 
 \subsection{Real and Virtual Particles}
 
-As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may be either \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the classical relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle $\Delta E\Delta t \geq \hbar$; t he violation in energy may only exist for a very short period of time.
+As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may be either \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the `classical' relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle $\Delta E\Delta t \geq \hbar$; the violation in energy may only exist for a very short period of time.
 
-The $\Zzero$ boson will be on-shell (i.e. real) if and only if $s = M_{\Zzero}$, where $M_{\Zzero}$ is the boson's mass. When the particle is real, we can detect it. With this, we should expect a cross section resonance as the boson tends towards being on-shell.
+As the $\Zzero$ is an unstable particle it has a finite lifetime. By the uncertainty principle, there is then a range of permitted energies under which the boson will become on-shell. Within this range, we should expect the $\Zzero$ to begin mediating scattering interactions allowing us to detect it via a resonance in the cross section $\sigma$. 
 
 \subsection{Differential Cross Sections}
 
-The total matrix element $\mathcal{M}$ must be considered as it is the integrated square of this that LEP will detect. As the propagator in the interaction may be one of two particles, $\mathcal{M}$ must be the sum of two separate matrix elements (one matrix element for each possible propagator). The measurable quantity, the cross section $\sigma$, is the integrated square of the matrix element, so we must have the square of a sum:
+The total matrix element $\mathcal{M}$ is critical as it is the integrated square of this that LEP will detect. As the propagator in the interaction may be one of two particles, $\mathcal{M}$ must be the sum of two separate matrix elements (one matrix element for each possible propagator). The measurable quantity, the cross section $\sigma$, is the integrated square of the matrix element, so we must have the square of a sum:
 
 \begin{align*}
 \mathcal{M} &= \mathcal{M}_{\gamma} + \mathcal{M}_{\Zzero},
@@ -77,15 +77,17 @@ Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section
 
 The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. They are given in appendix \ref{app:differentials}.
 
-Plots of the differentials are given in section \ref{ssec:differentialfigs}. Figures \ref{fig:diffbelow}, \ref{fig:diffexact}, and \ref{fig:diffabove} show a pair of plots for increasing collider energies $\sqrt{s}=$ $3\GeV$, $M_{\Zzero}$, and $115\GeV$ respectively. The left-hand figure in each pair shows just the QED differential while the right-hand side figure shows the full Standard Model differential.
+Plots of the differentials are given in section \ref{ssec:differentialfigs}. Figures \ref{fig:diffbelow}, \ref{fig:diffexact}, and \ref{fig:diffabove} show a pair of plots for collider energies $\sqrt{s}=$ $3\GeV$, $M_{\Zzero}$, and $115\GeV$ respectively. The left-hand figure in each pair shows just the QED differential while the right-hand side figure shows the full Standard Model differential.
 
 The full Standard Model distribution only slightly alters the QED distribution in the low energy regime, namely by introducing a small asymmetry in the quadratic form of the curve. The Standard Model contribution is much more prominent for the $M_{\Zzero}$ regime as, not only does it introduce an asymmetry, it shifts the position of the curve along $\frac{\d{\sigma}}{\d{\Omega}}$ by two orders of magnitude. This should result in a large cross section $\sigma$ around this region.
 
-The Standard Model differential has a very different form in the high energy regime whilst also increasing the magnitude of the curve. These plots show that the Standard Model contribution tends to increase the cross section of the scattering. In particular, we expect to see a large peak in $\sigma$ around $M_{\Zzero}$.
+The Standard Model differential in figure \ref{fig:diffsmabove} has a very different form in the high energy regime whilst also increasing the magnitude of the curve.
+
+Each pair of plots show that the Standard Model contribution tends to increase the cross section of the scattering. In particular, we expect to see a large peak in $\sigma$ close to $M_{\Zzero}$.
 
 \section{Integration of the Differential $\frac{\d{\sigma}}{\d{\Omega}}$}\label{sec:integration}
 
-A common approach to numerically approximating integrals is the trapezium rule. We shall use the trapezium rule and compare it with the more recent Monte Carlo method, whereby random points are sampled and the fraction of those between the curve and the independent axis is proportional to the area i.e. the integral.
+A common approach to numerically approximating integrals is the trapezium rule. We shall use the trapezium rule and compare it with the more recent Monte Carlo method, whereby random points are sampled and the fraction of those between the curve and the dependent axis is proportional to the area i.e. the integral.
 
 The reasoning behind using two methods of numerical integration is twofold. Firstly, it serves as a consistency check: if at least one method is running incorrectly, the results from each are unlikely to agree with each other. Secondly, the data collected with respect to the efficiency of each method on the given functions may be useful for future analysis of particle interaction cross sections. (Indeed, the collected data may be useful for analysing any functions of a similar form.)
 
@@ -93,9 +95,9 @@ On this point, it is worth noting that the accuracy of each algorithm will depen
 
 \subsection{Method}\label{ssec:method}
 
-Firstly, we observe that there is no $\phi$ dependence in any of the differential cross sections. This makes the integration over $\phi$ trivial ($0\leq\phi\leq2\pi$), adding a factor of $2\pi$ to cross section $\sigma$. This simplifies the problem significantly as we are now dealing with a one-dimensional integral and so may use the trapezium rule.
+Firstly, we observe that there is no $\phi$ dependence in any of the differential cross sections as in appendix \ref{app:differentials}. This makes the integration over $\phi$ trivial ($0\leq\phi\leq2\pi$), adding a factor of $2\pi$ to cross section $\sigma$. This simplifies the problem significantly as we are now dealing with a one-dimensional integral which permits the use of the trapezium rule.
 
-As the integration is over circular polar coordinates, we note that the differential $\sin{\theta}\d{\theta}\d{\phi}$ may be expressed as $\d{(\cos{\theta})}\d{\phi}$, hence we may perform the change of variable $\cos{\theta} \to x$. This changes the limits in $\theta$ to the limits in $x$ $$0 \leq \theta \leq \pi \to -1 \leq x \leq 1.$$ Consequently, the random numbers generated for the Monte Carlo integration are generated between -1 and 1, providing a uniform distribution in $\cos{\theta}$, rather than $\theta$.
+The integration is over circular polar coordinates and we note that the differential $\sin{\theta}\d{\theta}\d{\phi}$ may be expressed as $\d{(\cos{\theta})}\d{\phi}$, hence we may perform the change of variable $\cos{\theta} \to x$. This changes the limits in $\theta$ to the limits in $x$ $$0 \leq \theta \leq \pi \to -1 \leq x \leq 1.$$ Consequently the random numbers generated for the Monte Carlo integration must be generated between -1 and 1 to provide a uniform distribution in $\cos{\theta}$ rather than $\theta$.
 
 A simple Monte Carlo integration will be performed via $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{b-a}{N}\sum\limits_{i=1}^{N}f(x_{i}),$$ where $N$ is the number of random points to be sampled and $x_{i}$ is the $i^{\mathrm{th}}$ random number within the limits of integration.
 
@@ -103,7 +105,7 @@ A similarly simple trapezium algorithm is used: $$\int\limits_{a}^{b}f(x)\d{x} \
 
 $h$ is the trapezium width and $N$ is the number of trapezia used to estimate the integral with.
 
-Both methods are quoted as approximations, but it should be considered that as $N \to \infty$ the Monte Carlo method becomes exact, despite this being impossible to perform computationally.
+Both methods are given as approximations but it should be considered that as $N \to \infty$ both method becomes exact (despite this being impossible to perform computationally).
 
 The number of points to sample or the number of trapezia to use will depend on the computational power and time available, as well as the accuracy and precision desired. The exact values used will be discussed in the following section.
 
@@ -112,7 +114,7 @@ We note that the problem may be tackled in two distinct ways. We may either sum 
 
 \section{Results and Analysis}\label{sec:results}
 
-When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm, while 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
+When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm and 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
 
 The integrated cross section is presented in figures \ref{fig:bothgammagamma} and \ref{fig:bothcombined}. Each plot shows both the trapezium and Monte Carlo integration results, but their correspondence is such that they are almost indistinguishable from one another.
 
@@ -120,13 +122,13 @@ The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\G
 
 \subsection{Resonance}\label{ssec:resonance}
 
-There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. The cross section peaks to $5.13\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}). It is due to the Standard Model contribution, and in particular the interference term $\gamma\operatorname{-}\Zzero$.
+There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. The cross section peaks to $5.13\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}). It is due to the Standard Model contribution and in particular the interference term $\gamma\operatorname{-}\Zzero$.
 
 Figure \ref{fig:mcgammaz} shows the cross section for the interference term as evaluated by the Monte Carlo method, with the trapezium algorithm superimposed. Figure \ref{fig:trapgammaz} shows just the trapezium algorithm's evaluation. We see from the trapezium-evaluated cross section that the contribution at $\sqrt{s}=M_{\Zzero}$ is $0$, but past the $\Zzero$ boson mass the contribution is positive. Thus, the interference terms shifts the resonance to slightly higher energies.
 
 The resonance itself is due to the $\Zzero\operatorname{-}\Zzero$ term. We see an increase in the cross section in an energy range around $M_{\Zzero}$ because it is in this range that the $\Zzero$ boson becomes on-shell, and hence becomes real and detectable. The resonance is our detection of the $\Zzero$ boson mediating the scattering interaction.
 
-Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ is the width of the resonance at half maximum and then $\Delta t = \frac{\hbar}{\Delta E}$ corresponds to the lifetime of the $\Zzero$ boson. A rough reading off of figure \ref{fig:bothfocused} gives $\Delta E = 2.5\pm0.25\GeV$ and therefore $\Delta t = \tau = (2.6\pm0.3)\e{-25} \operatorname{s}$. It is now clear that the parameter $\Gamma_{\Zzero}$ is the resonance width at half maximum.
+Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ is the width of the resonance at half maximum and then $\Delta t = \frac{\hbar}{\Delta E}$ corresponds to the lifetime of the $\Zzero$ boson. A rough reading off of figure \ref{fig:bothfocused} gives $\Delta E = 2.5\pm0.25\GeV$ and therefore $\Delta t = \tau = (2.6\pm0.3)\e{-25} \operatorname{s}$. It is now clear that the parameter $\Gamma_{\Zzero}$ is the resonance width at half maximum and is related to the lifetime of the particle.
 
 Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\operatorname{-}\Zzero$ contributes nothing at $M_{\Zzero}$.
 
@@ -136,7 +138,9 @@ TODO: why does the interference term has the form it does.
 
 The Monte Carlo integration of $\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}$ shown in figure \ref{fig:mcgammaz} reveals a spectacular failing of the algorithm. Despite its satisfactory performance evaluating all other cross sections, the algorithm fails on integrating the form of the cross section, shown in figure \ref{fig:diffgammaz}.
 
-We believe that this failing is due to the near-linear form of the integrand. Inspection may conclude that the function is linear, but viewed over a wider range in $\cos{\theta}$ the function is non-linear, resembling a quadratic form. The range $-1\leq\cos{\theta}\leq1$ is zoomed in on a small segment of a curved line so closely approximates a linear function. The Monte Carlo approach has great difficulty in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtly results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
+We believe that this failing is due to the near-linear form of the integrand. Visual inspection of the curve may conclude that the function is linear, but viewed over a wider range in $\cos{\theta}$ the function is non-linear, resembling a quadratic form. The range $-1\leq\cos{\theta}\leq1$ is tightly zoomed in on a small segment of a curved line and so closely approximates a linear function.
+
+The Monte Carlo approach has great difficulty in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtly results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
 
 Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies, by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials. The performance differences of each method is discussed in section \ref{sec:performance}.
 
@@ -156,15 +160,15 @@ Although the trapezium and Monte Carlo methods of numerical integration produced
 
 The reasoning behind this claim is that we have used Python, a scripting language, to solve the problem. Python is generally slower than a compiled language such as FORTRAN or C.
 
-In order to measure any benefits that a compiled language might bring, the Python script was timed over several runs of numerically integrating then summing the separate differential cross sections. This time was averaged to give an approximate runtime estimate.
+In order to measure any benefits that a compiled language might bring, the Python script was timed over several runs of numerically integrating then summing the separate differential cross sections via the trapezium rule. This time was averaged to give an approximate runtime estimate.
 
 The parameters used were a collider energy running from $3\GeV$ to $200\GeV$ in steps of $0.1\GeV$. The number of trapezia used was $1000$.
 
 After 50 runs of the Python script, the average runtime was $18.7 \pm 0.2 \operatorname{s}$.
 
-A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.40 \pm 0.1 \operatorname{s}$. A plot of the data produced by the C script is given in \ref{fig:cboth}. It shows that each script produces equal results.
+A C script was then written which performed the same numerical integrations as the Python script, and again was ran 50 times to find an average runtime. It was found that the C script took an average of $0.40 \pm 0.1 \operatorname{s}$. A plot of the data produced by the C script is given in figure \ref{fig:cboth}. It shows that each script produces comparable results.
 
-This shows a large difference in performance between the two languages. The C script ran in $2.1\pm0.1\%$ of the time the Python script required.
+The timings show a large difference in performance between the two languages. The C script ran in $2.1\pm0.1\%$ of the time the Python script required.
 
 The program is extremely repetitive; the parameters given above require close to $2$ million iterations of the integration algorithm. The C compiler's ability to make optimisations in the script save small amounts of time per iteration, which are compounded to produce vast improvements in the total runtime.
 
@@ -177,6 +181,8 @@ A numerical integration of the $\ee \to \mumu$ scattering cross section was perf
 \section{Figures}
 
 \subsection{Feynman Diagrams}
+
+TODO: label momenta
 
 \begin{figure}[H]
 	\vspace{10pt}
@@ -324,10 +330,9 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 	\vspace{10pt}
 	\hspace*{-0.1\textwidth}
 	\centering
-	\label{fig:cboth}
 	\includegraphics[width=1.2\textwidth]{c_both}
 	\caption{Trapezium and Montecarlo cross section $\sigma$ for collider energies from $3\GeV$ to $200\GeV$. This data was produced by a C script, whereas all other plots use data from a Python script.}
-	\label{fig:bothfocused}
+	\label{fig:cboth}
 \end{figure}
 
 \newpage
