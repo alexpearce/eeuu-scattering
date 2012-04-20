@@ -195,29 +195,29 @@ TODO: label momenta
 		  \begin{fmfgraph*}(40,25)
 		    \fmfleft{i1,i2}
 		    \fmfright{o1,o2}
-		    \fmflabel{$e^-$}{i1}
-		    \fmflabel{$e^+$}{i2}
-		    \fmflabel{$\mu^+$}{o1}
-		    \fmflabel{$\mu^-$}{o2}
-		    \fmf{fermion}{i1,v1,i2}
+		    \fmflabel{$e^{+}, p_{2}$}{i1}
+		    \fmflabel{$e^{-}, p_{1}$}{i2}
+		    \fmflabel{$\mu^{+}, p_{4}$}{o1}
+		    \fmflabel{$\mu^{-}, p_{3}$}{o2}
+		    \fmf{fermion}{i2,v1,i1}
 		    \fmf{fermion}{o1,v2,o2}
 		    \fmf{photon,label=$\gamma^{*}/\Zzero^{(*)}$}{v1,v2}
 		  \end{fmfgraph*}
 		\end{fmffile}
 	}
-	\qquad
+	\qquad\qquad
 	\subfloat[t-channel]{
 		\label{fig:feyntgammaz}
 		\begin{fmffile}{tgammazcrossing}
 		  \begin{fmfgraph*}(40,25)
 		    \fmfleft{i1,i2}
 		    \fmfright{o1,o2}
-		    \fmflabel{$e^-$}{i1}
-		    \fmflabel{$e^+$}{i2}
-		    \fmflabel{$\mu^-$}{o1}
-		    \fmflabel{$\mu^+$}{o2}
-		    \fmf{fermion}{i1,v1,o1}
-		    \fmf{fermion}{o2,v2,i2}
+		    \fmflabel{$e^+, p_{2}$}{i1}
+		    \fmflabel{$e^-, p_{1}$}{i2}
+		    \fmflabel{$\mu^+, p_{4}$}{o1}
+		    \fmflabel{$\mu^-, p_{3}$}{o2}
+		    \fmf{fermion}{o1,v1,i1}
+		    \fmf{fermion}{i2,v2,o2}
 		    \fmf{photon,label=$\gamma^{*}/\Zzero^{(*)}$}{v1,v2}
 		  \end{fmfgraph*}
 		\end{fmffile}
