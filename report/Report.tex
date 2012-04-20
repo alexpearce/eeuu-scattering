@@ -130,11 +130,11 @@ The resonance itself is due to the $\Zzero\operatorname{-}\Zzero$ term. We see a
 
 Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ is the width of the resonance at half maximum and then $\Delta t = \frac{\hbar}{\Delta E}$ corresponds to the lifetime of the $\Zzero$ boson. A rough reading off of figure \ref{fig:bothfocused} gives $\Delta E = 2.5\pm0.25\GeV$ and therefore $\Delta t = \tau = (2.6\pm0.3)\e{-25} \operatorname{s}$. It is now clear that the parameter $\Gamma_{\Zzero}$ is the resonance width at half maximum and is related to the lifetime of the particle.
 
-Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\operatorname{-}\Zzero$ contributes nothing at $M_{\Zzero}$.
+Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\operatorname{-}\Zzero$ contributes nothing at $M_{\Zzero}$.\footnotemark
+
+\footnotetext{The reason for this is found in the Feynman rule for a boson propagator (using the Feynman diagram in figure \ref{fig:feynsgammaz}). For the $\Zzero$ boson it is proportional to $({s - M_{\Zzero} + i\Gamma_{\Zzero} M_{\Zzero}})^{-1}$. When $\sqrt{s} = M_{\Zzero}$ this propagator term is purely imaginary, hence $\operatorname{Re}(\mathcal{M}_{\Zzero}) = 0 \Rightarrow 2\operatorname{Re}(\mathcal{M}_{\gamma}\mathcal{M}_{\Zzero}^{*}) = 0$.}
 
 \subsection{Interference Term $\gamma\operatorname{-}\Zzero$}\label{ssec:interference}
-
-TODO: why does the interference term has the form it does.
 
 The Monte Carlo integration of $\frac{\d{\sigma}}{\d{\Omega}}^{\gamma\operatorname{-}\Zzero}$ shown in figure \ref{fig:mcgammaz} reveals a spectacular failing of the algorithm. Despite its satisfactory performance evaluating all other cross sections, the algorithm fails on integrating the form of the cross section, shown in figure \ref{fig:diffgammaz}.
 
