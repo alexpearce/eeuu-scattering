@@ -33,13 +33,13 @@ The Standard Model's (SM) prediction of particles beyond those initially conside
 
 \section{Introduction}\label{sec:intro}
 
-The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been all but proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating, forming either a virtual photon or $\Zzero$ boson, and then a muon-antimuon pair ($\mu^{-}\mu^{+}$) being produced.
+The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating, forming either a virtual photon or $\Zzero$ boson, and then a muon-antimuon pair ($\mu^{-}\mu^{+}$) being produced.
 
 This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering may also be described by a t-channel diagram (figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel, as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.
 
 Feynman diagrams allow us to apply the Feynman rules thus producing a  matrix element $\mathcal{M}$. The square of this matrix element corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
-The following section briefly outlines the theory behind the interactions. The integration methods used to evaluate the differential cross sections are explored in section \ref{sec:integration}, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, then a discussion of the kinematic variables follows in section \ref{sec:variables}. A brief discussion on performance is given in section \ref{sec:performance}, and finally some conclusions are drawn in section \ref{sec:conclusion}.
+The following section briefly outlines the theory behind the interactions. The integration methods used to evaluate the differential cross sections are explored in section \ref{sec:integration}, along with a study of the differential cross sections in order to judge the effectiveness of numerical integration upon them. The results are presented and analysed in section \ref{sec:results}, and a brief discussion on performance is given in section \ref{sec:performance}. Finally, some conclusions are drawn in section \ref{sec:conclusion}.
 
 \section{Principles of Interaction Cross Sections}
 
@@ -114,11 +114,13 @@ We note that the problem may be tackled in two distinct ways. We may either sum 
 
 \section{Results and Analysis}\label{sec:results}
 
-When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm and 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast enumeration of the integrals and consistent results with each other.
+When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm and 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast computation of the integrals and consistent results with each other.
 
 The integrated cross section is presented in figures \ref{fig:bothgammagamma} and \ref{fig:bothcombined}. Each plot shows both the trapezium and Monte Carlo integration results, but their correspondence is such that they are almost indistinguishable from one another.
 
 The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\GeV^{-2}$ but its general shape follows that of the trapezium evaluation precisely.
+
+TODO: errors. standard deviation in MC, errors in trapezium using formula in notes
 
 \subsection{Resonance}\label{ssec:resonance}
 
@@ -147,11 +149,6 @@ Figure \ref{fig:bothgammaz} also shows that the Monte Carlo method's erratic beh
 As touched on in section \ref{ssec:method}, we may sum the integrands and integrate the resulting function. If we take this approach, the subtleties of the interference term are absorbed into the other differentials. Integrating the sum therefore eliminates the only major problem in using the Monte Carlo algorithm.
 
 Due to this, we use the final peak cross section from the trapezium evaluation and use the Monte Carlo evaluation to determine the errors. We recorded a peak resonance of $\sigma=(5.13\pm0.19)\e{-6}\GeV^{-2}=2.00\pm0.07\inb$ at a collider energy of $\sqrt{s}=91.21\pm0.01\GeV$.
-
-
-\section{Kinematic Variables}\label{sec:variables}
-
-TODO: Discussion of $\cos{\theta}$ and $p_{T} = \lvert\vec{p}_{f}\rvert\sin{\theta}$.
 
 
 \section{Performance}\label{sec:performance}
@@ -413,7 +410,7 @@ $$
 \end{equation}
 
 \begin{thebibliography}{9}
-  % type bibliography here
+  TODO: this
 \end{thebibliography}
-
+ 
 \end{document}
