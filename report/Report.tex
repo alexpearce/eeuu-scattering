@@ -27,15 +27,13 @@
 
 
 \begin{abstract}
-The Standard Model's (SM) prediction of particles beyond those initially considered by quantum electrodynamics (QED) has been proven true. The Super Proton Synchrotron (SPS) at CERN recently detected both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel (Rubbia, van der Meer et al.). We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify the existence of this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(8.17\pm0.04)\e{-7}\GeV^{-2}=0.32\pm0.01\mathrm{nb}$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
+The recent discovery of both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel by the Super Proton Synchrotron (SPS) team at CERN (Rubbia, van der Meer et al.) opens up new opportunities for accelerator physics. We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify the existence of this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(8.17\pm0.04)\e{-7}\GeV^{-2}=0.32\pm0.01\mathrm{nb}$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
 \end{abstract}
 
 
 \section{Introduction}\label{sec:intro}
 
-The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating, forming either a virtual photon or $\Zzero$ boson, and then a muon-antimuon pair ($\mu^{-}\mu^{+}$) being produced.
-
-This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}. The scattering may also be described by a t-channel diagram (figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel, as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.
+The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating to produce a muon-antimuon pair ($\mu^{-}\mu^{+}$). The process may be mediated by photons or $\Zzero$ bosons via the electromagnetic and weak interactions respectively. This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}.\footnote{The scattering may also be described by a t-channel diagram (figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.}
 
 Feynman diagrams allow us to apply the Feynman rules thus producing a  matrix element $\mathcal{M}$. The square of this matrix element corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
@@ -43,7 +41,7 @@ The following section briefly outlines the theory behind the interactions. The i
 
 \section{Principles of Interaction Cross Sections}
 
-With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}^{\nu}$ and $p_{2}^{\nu}$, whilst the outgoing particles carry $p_{3}^{\nu}$ and $p_{4}^{\nu}$. At LEP, the electrons and positrons will be accelerated around a circular collider in opposite directions. The collider energy is then given by $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$ Here we have suppressed the metric tensor and the covariant notation, implicitly assuming four vectors.
+With reference to the Feynman diagrams in figures \ref{fig:feynsgammaz} and \ref{fig:feyntgammaz}, the incoming particles are labelled with the four-momenta $p_{1}$ and $p_{2}$, whilst the outgoing particles carry $p_{3}$ and $p_{4}$. Here we have suppressed the four-vector notation, implicitly assuming tensor notation. At LEP, the electrons and positrons will be accelerated around a circular collider in opposite directions. The collider energy is then given by $\sqrt{s}$, where $$s = (p_{1} + p_{2})^{2}.$$
 
 The differential cross sections are dependent on the collider energy via the dimensionless variables $$\varepsilon = \frac{m_{\mu}}{\sqrt{s}}, \quad \lambda = \frac{M_{\Zzero}}{\sqrt{s}},$$
 
@@ -53,11 +51,11 @@ where $m_{\mu}$ is the muon mass and $M_{\Zzero}$ is the $\Zzero$ boson mass. It
 
 As noted in figure \ref{fig:feynsgammaz}, the scattering may be mediated by either a virtual photon $\gamma^{*}$ or a $\Zzero^{(*)}$ boson, where the bracketed star notation indicates that the boson may be either \emph{on-} or \emph{off-mass-shell}. These terms refer to how well the mediating particles (propagators in the Feynman diagrams) adhere to the mass-energy relation $E^{2} - \lvert{\vec{p}}\rvert^{2}c^{2} = m^{2}c^{4}$. Propagators exceeding the `classical' relativistic values of $E$ and $p$ are off-shell, and said to be virtual particles. This violation of relativity is allowed because it is permitted by the Heisenberg uncertainty principle $\Delta E\Delta t \geq \hbar$; the violation in energy may only exist for a very short period of time.
 
-As the $\Zzero$ is an unstable particle it has a finite lifetime. By the uncertainty principle, there is then a range of permitted energies under which the boson will become on-shell. Within this range, we should expect the $\Zzero$ to begin mediating scattering interactions allowing us to detect it via a resonance in the cross section $\sigma$. 
+As the $\Zzero$ is an unstable particle it has a finite lifetime. By the uncertainty principle, there is then a range of permitted energies under which the boson will become on-shell. Within this range, we should expect the $\Zzero$ to begin mediating scattering interactions allowing us to detect it via a peak in the cross section $\sigma$. 
 
 \subsection{Differential Cross Sections}
 
-The total matrix element $\mathcal{M}$ is critical as it is the integrated square of this that LEP will detect. As the propagator in the interaction may be one of two particles, $\mathcal{M}$ must be the sum of two separate matrix elements (one matrix element for each possible propagator). The measurable quantity, the cross section $\sigma$, is the integrated square of the matrix element, so we must have the square of a sum:
+LEP will detect the integrated square of the total matrix element $\mathcal{M}$. As the propagator in the interaction may be one of two particles, $\mathcal{M}$ must be the sum of two separate matrix elements (one matrix element for each possible propagator). The measurable quantity, the cross section $\sigma$, is the integrated square of the total matrix element so we must have the square of a sum:
 
 \begin{align*}
 \mathcal{M} &= \mathcal{M}_{\gamma} + \mathcal{M}_{\Zzero},
@@ -109,7 +107,7 @@ Both methods are given as approximations but it should be considered that as $N 
 
 The number of points to sample or the number of trapezia to use will depend on the computational power and time available, as well as the accuracy and precision desired. The exact values used will be discussed in the following section.
 
-We note that the problem may be tackled in two distinct ways. We may either sum the integrands and integrate the resulting function (method (\ref{eqn:intsum})), or we can integrate the differentials and then sum the results (method (\ref{eqn:sumint})). We will comment further on this point in section \ref{ssec:interference}.
+We note that the problem may be tackled in two distinct ways. We may either sum the integrands and integrate the resulting function (method $(\ref{eqn:intsum})$), or we can integrate the differentials and then sum the results (method $(\ref{eqn:sumint})$). We will comment further on this point in section \ref{ssec:interference}.
 
 \begin{equation}\label{eqn:intsum}
 \sigma_{\mathrm{total}} =
@@ -130,19 +128,19 @@ We note that the problem may be tackled in two distinct ways. We may either sum 
 
 \section{Results and Analysis}\label{sec:results}
 
-When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm and 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for both a fast computation of the integrals and consistent results with each other.
+When numerically integrating the differential cross sections, they were evaluated in collider energy steps of $0.01\GeV$ so as to allow fine detail in the plots and precise readings. $1000$ trapezia were used in the trapezium algorithm and 1000 random points were sampled with the Monte Carlo method. Although it is not the case that $N$ trapezia should produce similarly accurate or precise values as $N$ sampled points, it was found that $N=1000$ for both algorithms allowed for a fast computation of the integrals and consistent results with each other.
 
 The integrated cross section is presented in figures \ref{fig:bothgammagamma} and \ref{fig:bothcombined}. Each plot shows both the trapezium and Monte Carlo integration results, but their correspondence is such that they are almost indistinguishable from one another.
 
-The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\GeV^{-2}$ but its general shape follows that of the trapezium evaluation precisely.
+The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\GeV^{-2}$ but its general shape follows that of the trapezium evaluation very well.
 
 TODO: errors. errors in trapezium using formula in notes
 
 \subsection{Resonance}\label{ssec:resonance}
 
-There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. The cross section peaks to $8.13\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}); it is due to the Standard Model contributions.
+There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. There is a cross section peak of around $8.13\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}); it is due to the Standard Model contributions.
 
-The resonance itself is mostly due to the $\Zzero\operatorname{-}\Zzero$ term. We see a significant increase in the cross section around $M_{\Zzero}$ because it is in this range that the $\Zzero$ boson becomes on-shell, and hence becomes real and detectable. The resonance is our detection of the $\Zzero$ boson mediating the scattering interaction.
+The resonance itself is mostly due to the $\Zzero\operatorname{-}\Zzero$ term. We see a significant increase in the cross section around $M_{\Zzero}$ because it is in this range that the $\Zzero$ boson becomes on-shell, and hence becomes real and therefore detectable. The resonance is our detection of the $\Zzero$ boson mediating the scattering interaction.
 
 Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ is the width of the resonance at half maximum and then $\Delta t = \frac{\hbar}{\Delta E}$ corresponds to the lifetime of the $\Zzero$ boson. A rough reading off of figure \ref{fig:bothfocused} gives $\Delta E = 2.5\pm0.3\GeV$ and therefore $\Delta t = \tau = (2.6\pm0.4)\e{-25} \operatorname{s}$. It is now clear that the parameter $\Gamma_{\Zzero}$ is the resonance width at half maximum and is related to the lifetime of the particle.
 
@@ -160,7 +158,7 @@ We believe that this failing is due to the near-linear form of the integrand. Vi
 
 The Monte Carlo approach has great difficulty in accurately evaluating the integral in this case as many sampled points, more than could be available given reasonable time constraints, are required to account for the incredibly subtle functional form. This subtlety results in very erratic behaviour on numerical evaluation, resulting in both inaccurate and inconsistent results. The trapezium rule allows for this subtly, producing consistent results.
 
-The Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies, by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials.
+The Monte Carlo method's erratic behaviour produces a $\gamma\operatorname{-}\Zzero$ cross section an order of magnitude larger the trapezium result. Due to this, the Monte Carlo resonance peak varies by $\pm0.5\e{-7}\GeV^{-2}$. Its position and value fluctuates around the trapezium peak on subsequent trials.
 
 As touched on in section \ref{ssec:method}, there are two available ways we may evaluate the integrals, methods $(\ref{eqn:intsum})$ and $(\ref{eqn:sumint})$. If we use method $(\ref{eqn:intsum})$, the subtleties of the interference term are absorbed into the other differentials. Integrating the sum therefore eliminates the only major problem we encountered when using the Monte Carlo algorithm. The trapezium rule was invariant in both performance and results with respect to each method.
 
