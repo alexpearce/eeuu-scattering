@@ -451,18 +451,22 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
 """Functions that do this and that."""
 
 import sys
-def montecarlo_histogram(n = 50):
+def montecarlo_peaks(n = 50):
   """
   Runs the Monte Carlo integration on the combined differential section
   `n` times and plots a histogram on the resonance peak value
   """
+  # The maximum sigma values
   peaks = zeros(n)
+  # The energy values at which the maximum sigma occurs
+  energies = zeros(n)
   for i in range(n):
     sys.stderr.write('.')
-    root_s, sigma = montecarlo_cross_section(combined_diff_cross_section, m_z-5, m_z+5, 0.01, 100)
+    root_s, sigma = montecarlo_cross_section(combined_diff_cross_section, m_z-10, m_z+10, 0.01, 100)
     peaks[i] = max(sigma)
+    energies[i] = root_s[nonzero(sigma == peaks[i])[0][0]]
   
-  export_to_csv(peaks, zeros(n), 'peaks')
+  export_to_csv(peaks, energies, 'peaks')
 
 ## END MISC ##
 
@@ -494,4 +498,5 @@ def timer(function_str, times = 1):
   print "Total time for {} trials was {} seconds.".format(times, diff)
   print "The average for one trial was {}".format(diff/float(times))
   
+timer("montecarlo_peaks(1000)", 1)
 ## END PERFORMANCE ##
