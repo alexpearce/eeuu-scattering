@@ -498,5 +498,4 @@ def timer(function_str, times = 1):
   print "Total time for {} trials was {} seconds.".format(times, diff)
   print "The average for one trial was {}".format(diff/float(times))
   
-timer("montecarlo_peaks(1000)", 1)
 ## END PERFORMANCE ##
