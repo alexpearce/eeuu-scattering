@@ -447,6 +447,38 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
   
 ## END NUMERICAL CROSS SECTION PLOTS ##
 
+## MISC ##
+"""Functions that do this and that."""
+
+import sys
+def montecarlo_histogram(n = 50):
+  """
+  Runs the Monte Carlo integration on the combined differential section
+  `n` times and plots a histogram on the resonance peak value
+  """
+  peaks = zeros(n)
+  for i in range(n):
+    sys.stderr.write('.')
+    root_s, sigma = montecarlo_cross_section(combined_diff_cross_section, m_z-5, m_z+5, 0.01, 100)
+    peaks[i] = max(sigma)
+  
+  export_to_csv(peaks, zeros(n), 'peaks')
+  
+  # max_peak = max(peaks)
+  # min_peak = min(peaks)
+  # rnge = max_peak - min_peak
+  # num_bins = 20
+  # d_energy = rnge / num_bins
+  # bins = zeros(num_bins + 1)
+  # for s in peaks:
+  #   i = int(floor((s - min_peak) / d_energy))
+  #   bins[i] += 1
+  # 
+  # plb.bar(range(len(bins)), bins, width = 1.0)
+  # plb.show()
+
+## END MISC ##
+
 ## BEGIN PERFORMANCE ##
 
 """Example usage:
