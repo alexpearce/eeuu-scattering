@@ -27,7 +27,7 @@
 
 
 \begin{abstract}
-The recent discovery of both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel by the Super Proton Synchrotron (SPS) team at CERN (Rubbia, van der Meer et al.) opens up new opportunities for accelerator physics. We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify the existence of this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(8.17\pm0.04)\e{-7}\GeV^{-2}=0.32\pm0.01\mathrm{nb}$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
+The recent discovery of both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel by the Super Proton Synchrotron (SPS) team at CERN (Rubbia, van der Meer et al.~\cite{ref:wpaper,ref:zpaper}) opens up new opportunities for accelerator physics. We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify the existence of this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(5.15\pm0.05)\e{-6}\GeV^{-2}=0.200\pm0.002\mathrm{nb}$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
 \end{abstract}
 
 
@@ -75,7 +75,7 @@ Each term of $\mathcal{M}^{2}$ corresponds to its own differential cross section
 
 The functional form of each differential cross section is derived by applying the Feynman rules to figure \ref{fig:feynsgammaz}. They are given in appendix \ref{app:differentials}.
 
-Plots of the differentials are given in section \ref{ssec:differentialfigs}. Figures \ref{fig:diffbelow}, \ref{fig:diffexact}, and \ref{fig:diffabove} show a pair of plots for collider energies $\sqrt{s}=$ $3\GeV$, $M_{\Zzero}$ = $91.19\GeV$, and $115\GeV$ respectively. The left-hand figure in each pair shows just the QED differential while the right-hand side figure shows the full Standard Model differential.
+Plots of the differentials are given in section \ref{ssec:differentialfigs}. Figures \ref{fig:diffbelow}, \ref{fig:diffexact}, and \ref{fig:diffabove} show a pair of plots for collider energies $\sqrt{s}=$ $3\GeV$, $M_{\Zzero}$ = $91.19\GeV$~\cite{ref:pdg}, and $115\GeV$ respectively. The left-hand figure in each pair shows just the QED differential while the right-hand side figure shows the full Standard Model differential.
 
 The full Standard Model distribution only slightly alters the QED distribution in the low energy regime, namely by introducing a small asymmetry in the quadratic form of the curve. The Standard Model contribution is much more prominent for the $M_{\Zzero}$ regime as, not only does it introduce an asymmetry, it shifts the position of the curve along $\frac{\d{\sigma}}{\d{\Omega}}$ by two orders of magnitude. This should result in a large cross section $\sigma$ around this region.
 
@@ -97,9 +97,9 @@ Firstly, we observe that there is no $\phi$ dependence in any of the differentia
 
 The integration is over circular polar coordinates and we note that the differential $\sin{\theta}\d{\theta}\d{\phi}$ may be expressed as $\d{(\cos{\theta})}\d{\phi}$, hence we may perform the change of variable $\cos{\theta} \to x$. This changes the limits in $\theta$ to the limits in $x$ $$0 \leq \theta \leq \pi \to -1 \leq x \leq 1.$$ Consequently the random numbers generated for the Monte Carlo integration must be generated between -1 and 1 to provide a uniform distribution in $\cos{\theta}$ rather than $\theta$.
 
-A simple Monte Carlo integration will be performed via $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{b-a}{N}\sum\limits_{i=1}^{N}f(x_{i}),$$ where $N$ is the number of random points to be sampled and $x_{i}$ is the $i^{\mathrm{th}}$ random number within the limits of integration.
+A simple Monte Carlo integration will be performed via~\cite{ref:gjdaniell}$$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{b-a}{N}\sum\limits_{i=1}^{N}f(x_{i}),$$ where $N$ is the number of random points to be sampled and $x_{i}$ is the $i^{\mathrm{th}}$ random number within the limits of integration.
 
-A similarly simple trapezium algorithm is used: $$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{h(f(a) + f(b))}{2} + h\sum\limits_{i=1}^{N-1}f(a+ih),\quad h=\frac{b-a}{N}.$$
+A similarly simple trapezium algorithm is used~\cite{ref:gjdaniell}:$$\int\limits_{a}^{b}f(x)\d{x} \approx \frac{h(f(a) + f(b))}{2} + h\sum\limits_{i=1}^{N-1}f(a+ih),\quad h=\frac{b-a}{N}.$$
 
 $h$ is the trapezium width and $N$ is the number of trapezia used to estimate the integral with.
 
@@ -136,7 +136,7 @@ The Monte Carlo cross section shows slight fluctuations on a scale of $10^{-8}\G
 
 \subsection{Resonance}\label{ssec:resonance}
 
-There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. There is a cross section peak of around $8.13\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}); it is due to the Standard Model contributions.
+There is a striking resonance around the $\Zzero$ mass $M_{\Zzero}$. There is a cross section peak of around $5\e{-6}\GeV^{-2}$ at collider energy $91.21\GeV$. It is important to note that this is \emph{above} the $\Zzero$ mass of $91.19\GeV$. The explanation for this cannot be found in the $\gamma\operatorname{-}\gamma$ channel as there is clearly no resonance in its cross section (figure \ref{fig:bothgammagamma}); it is due to the Standard Model contributions.
 
 The resonance itself is mostly due to the $\Zzero\operatorname{-}\Zzero$ term. We see a significant increase in the cross section around $M_{\Zzero}$ because it is in this range that the $\Zzero$ boson becomes on-shell, and hence becomes real and therefore detectable. The resonance is our detection of the $\Zzero$ boson mediating the scattering interaction.
 
@@ -144,7 +144,7 @@ Recalling the previously mentioned Heisenberg uncertainty principle, $\Delta E$ 
 
 Note that, from figure \ref{fig:trapgammaz}, the interference term $\gamma\operatorname{-}\Zzero$ contributes nothing at $M_{\Zzero}$.\footnotemark
 
-\footnotetext{The reason for this is found in the Feynman rule for a boson propagator (using the Feynman diagram in figure \ref{fig:feynsgammaz}). For the $\Zzero$ boson it is proportional to $({s - M_{\Zzero} + i\Gamma_{\Zzero} M_{\Zzero}})^{-1}$. When $\sqrt{s} = M_{\Zzero}$ this propagator term is purely imaginary, hence $\operatorname{Re}(\mathcal{M}_{\Zzero}) = 0 \Rightarrow 2\operatorname{Re}(\mathcal{M}_{\gamma}\mathcal{M}_{\Zzero}^{*}) = 0$.}
+\footnotetext{The reason for this is found in the Feynman rule for a boson propagator (using the Feynman diagram in figure \ref{fig:feynsgammaz}). For the $\Zzero$ boson it is proportional to $({s - M_{\Zzero} + i\Gamma_{\Zzero} M_{\Zzero}})^{-1}$. When $\sqrt{s} = M_{\Zzero}$ this propagator term is purely imaginary, hence $\operatorname{Re}(\mathcal{M}_{\Zzero}) = 0 \Rightarrow 2\operatorname{Re}(\mathcal{M}_{\gamma}\mathcal{M}_{\Zzero}^{*}) = 0$~\cite{ref:dgriffiths}.}
 
 \subsection{Interference Term $\gamma\operatorname{-}\Zzero$}\label{ssec:interference}
 
@@ -163,8 +163,7 @@ As touched on in section \ref{ssec:method}, there are two available ways we may 
 \subsection{Results}\label{ssec:results}
 
 
-Taking the above in to consideration, we combined the stability of the trapezium evaluation and the fluctuations of  the Monte Carlo evaluation to present a peak resonance of $\sigma=(8.17\pm0.04)\e{-7}\GeV^{-2}=0.32\pm0.01\mathrm{nb}$ at a collider energy of $\sqrt{s}=91.21\pm0.01\GeV$. The integrations were performed under method $(\ref{eqn:intsum})$ with a Monte Carlo standard deviation over $1000$ runs of $0.086\e{-7}\GeV^{-2}$.
-
+Taking the above in to consideration, we combined the stability of the trapezium evaluation and the fluctuations of  the Monte Carlo evaluation to present a peak resonance of $\sigma=(5.15\pm0.05)\e{-6}\GeV^{-2}=0.200\pm0.002\mathrm{nb}$ at a collider energy of $\sqrt{s}=91.21\pm0.01\GeV$. The integrations were performed under method $(\ref{eqn:intsum})$ with a Monte Carlo standard deviation in the cross section of $20\mathrm{pb}$ and in the collider energy of $0.085\GeV$.
 
 \section{Performance}\label{sec:performance}
 
@@ -295,6 +294,8 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 
 \subsection{Cross Sections $\sigma$}
 
+The following cross sections omit the $2\pi$ prefactor.
+
 \begin{figure}[H]
 	\vspace{10pt}
 	\centering
@@ -350,7 +351,7 @@ This subsection contains plottings of the QED differential cross section ($\gamm
 \appendix
 \section{Differential Cross Sections}\label{app:differentials}
 
-The cross sections corresponding to the photon, $\Zzero$, and interference matrix elements follow. Due to the length of the analytic solutions, constants are defined, then the cross section is defined with respect to these constants.
+The cross sections corresponding to the photon, $\Zzero$, and interference matrix elements follow. Due to the length of the analytic solutions, constants are defined, then the cross section is defined with respect to these constants. The differentials are given by G J Daniell~\cite{ref:gjdaniell}.
 
 The small energy scales that will be reachable at LEP allow us to take the couplings $g_{e}$ and $g_{z}$ as constant. We define $g_{e}=\sqrt{4\pi\alpha}$ and $g_{z}=\sqrt{4\pi\alpha}(\cos{\theta_{w}}\sin{\theta_{w}})^{-1}$.\footnote{$\alpha$ is taken to be $\frac{1}{128}$, $\sin^{2}{\theta_{w}}$ is taken to be $0.23152$.}
 
@@ -425,7 +426,36 @@ $$
 \end{equation}
 
 \begin{thebibliography}{9}
-  TODO: this
+	\bibitem{ref:wpaper}
+  G. Arnison et al.,
+  ``Experimental observation of isolated large transverse energy electrons with associated missing energy at $\sqrt{s}=540\GeV$,''
+  \emph{\PL}\textbf{122B},
+  Issue 1,
+  p103-116 (1983).
+  
+	\bibitem{ref:zpaper}
+  G. Arnison et al.,
+  ``Experimental observation of lepton pairs of invariant mass around 95 $\GeV/c^{2}$ at the CERN SPS collider,''
+  \emph{\PL}\textbf{126B},
+  Issue 5,
+  p398-410 (1983).
+
+  \bibitem{ref:gjdaniell}
+  G J Daniell,
+  \emph{PHYS6017 Course Notes},
+  2011.
+  
+  \bibitem{ref:dgriffiths}
+  D Griffiths,
+  \emph{Introduction to Elementary Particles},
+  Wiley-VCH, Weinheim,
+  6th Edition,
+  2011.
+  
+  \bibitem{ref:pdg}
+  K. Nakamura et al. (Particle Data Group),
+  J.{} Phys.{} G \textbf{37},
+  075021 (2010) and 2011 partial update for the 2012 edition.
 \end{thebibliography}
  
 \end{document}
