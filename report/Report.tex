@@ -18,22 +18,27 @@
 % http://www.tapdancinggoats.com/easy-scientific-notation-in-latex.htm
 \providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
 
+\title{Numerical Evaluation of the $\ee \to \mumu$ Cross Section in the Standard Model}
+\author{
+	Alex Pearce
+	\\School of Physics \& Astronomy\\University of Southampton
+}
+
+\date{April 30, 2012}
+
 \begin{document}
 
-\title{Numerical Evaluation of the $\ee \to \mumu$ Cross Section in the Standard Model}
-\author{Alex Pearce}
-\date{\today}
 \maketitle
 
 
 \begin{abstract}
-The recent discovery of both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel by the Super Proton Synchrotron (SPS) team at CERN (Rubbia, van der Meer et al.~\cite{ref:wpaper,ref:zpaper}) opens up new opportunities for accelerator physics. We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify the existence of this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(5.15\pm0.05)\e{-6}\GeV^{-2}=0.200\pm0.002\mathrm{nb}$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
+The recent discovery of both the $\Wboson$ bosons and the $\Zzero$ boson via the $\antibar{p}$ channel by the Super Proton Synchrotron (SPS) team at CERN (G. Arnison et al.~\cite{ref:wpaper,ref:zpaper}) opens up new opportunities for accelerator physics. We performed a numerical integration of the differential cross section of the $\ee \to \mumu$ scattering process with a trapezium and a Monte Carlo algorithm in the hope that the proposed Large Electron-Positron collider (LEP) will verify the existence of this channel of $\Zzero$ production. A large resonance at $\sqrt{s}=91.21\pm0.01\GeV$ was found, slightly above the $\Zzero$ mass. The peak cross section was found to be $\sigma=(5.15\pm0.05)\e{-6}\GeV^{-2}=0.200\pm0.002\mathrm{nb}$. Implementing the algorithms in C was found to be nearly 50 times faster than in Python.
 \end{abstract}
 
 
 \section{Introduction}\label{sec:intro}
 
-The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($e^{-}e^{+}$) annihilating to produce a muon-antimuon pair ($\mu^{-}\mu^{+}$). The process may be mediated by photons or $\Zzero$ bosons via the electromagnetic and weak interactions respectively. This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}.\footnote{The scattering may also be described by a t-channel diagram (figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.}
+The proposition of three mediators of the weak nuclear force, the $\Wplus$, $\Wminus$ and $\Zzero$ bosons, has been proven by the current SPS team at CERN. The suggestion of $\Zzero$ production via electron-positron pairs is now becoming of interest to experimentalists. The process manifests itself by an electron-position pair ($\ee$) annihilating to produce a muon-antimuon pair ($\mumu$). The process may be mediated by photons or $\Zzero$ bosons via the electromagnetic and weak interactions respectively. This interaction is described by the Feynman diagram in figure \ref{fig:feynsgammaz}.\footnote{The scattering may also be described by a t-channel diagram (figure \ref{fig:feyntgammaz}), however we proceed by analysing the s-channel as it is only via this channel which we may measure resonances and new unstable particles. Note that a u-channel diagram also exists, but it is merely a swapping of the outgoing particles' momenta in the t-channel. We ignore the u-channel for this reason.}
 
 Feynman diagrams allow us to apply the Feynman rules thus producing a  matrix element $\mathcal{M}$. The square of this matrix element corresponds to a differential cross section $\frac{\d{\sigma}}{\d{\Omega}}$ which may be integrated to find the total cross section $\sigma$, which is measurable by a detector.
 
@@ -229,7 +234,7 @@ A numerical integration of the $\ee \to \mumu$ scattering cross section was perf
 		  \end{fmfgraph*}
 		\end{fmffile}
 	}
-	\caption{$e^{-}e^{+}\to\mu^{-}\mu^{+}$ scattering via two different channels. Time flows from left to right.}
+	\caption{$\ee\to\mumu$ scattering via two different channels. Time flows from left to right.}
 \end{figure}
 
 \subsection{Differential Cross Sections}\label{ssec:differentialfigs}
