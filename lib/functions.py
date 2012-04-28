@@ -31,15 +31,6 @@ def montecarlo2(f, a, b, N):
   
   return prefactor * thesum
   
-def max_min_of(f, a, b, step_size = 0.01):
-  """Find the maximum value of a function f between a and b"""
-  maximum = minimum = f(a)
-  for x in arange(a, b+step_size, step_size):
-    if (f(x) > maximum): maximum = f(x)
-    if (f(x) < minimum): minimum = f(x)
-  
-  return maximum, (minimum if minimum < 0 else 0) 
-  
 def export_to_csv(x, y, filename = 'data'):
   """Exports two equal-dimension arrays to a CSV file"""
   if (len(x) != len(y)):
