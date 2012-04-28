@@ -153,7 +153,7 @@ def check_gamma_gamma_consistency():
   alpha = (g_e**4 / (64*pi*pi*collider.s)) * sqrt(1 - factor) 
   print "\nExpected value:    {0:.6}".format((4.0/3.0)*alpha*(2 + factor))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_gamma, -1, 1, 10000))
-  print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_gamma, -1, 1, 1000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_gamma, -1, 1, 1000))
 
   # N = 100:
   # Expected value:  4.52108e-06
@@ -184,7 +184,7 @@ def check_z_z_consistency():
   # Haven't integrated over phi, so no 2*pi prefactor
   print "\nExpected value:    {0:.6}".format((8.0/3.0)*alpha*(gamma + ((1 + 2*c.epsilon_2)*beta)))
   print "Trapezium value:   {0:.6}".format(trapezium(z_z, -1, 1, 1000))
-  print "Monte carlo value: {0:.6}".format(montecarlo2(z_z, -1, 1, 10000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(z_z, -1, 1, 10000))
 
   # N = 100:
   # Expected value:    6.56796e-13
@@ -213,7 +213,7 @@ def check_gamma_z_consistency():
   print "\nExpected value:    {0:.6}".format((8.0/3.0)*alpha*beta*(1 + 2*c.epsilon_2))
   print "Trapezium value:   {0:.6}".format(trapezium(gamma_z, -1, 1, 1000))
   # mc only starts to get reasonable results at 10e-6 points
-  print "Monte carlo value: {0:.6}".format(montecarlo2(gamma_z, -1, 1, 1000))
+  print "Monte carlo value: {0:.6}".format(montecarlo(gamma_z, -1, 1, 1000))
 
 ## END CONSISTENCY CHECKS ##
 
@@ -329,7 +329,7 @@ def montecarlo_cross_section(f, a, b, step_size = 0.1, iterations = 1000):
   for i in root_s_arr:
     collider.set_energy_to(i)
     # Use the monte carlo method to calculate the numerical cross section
-    cross_section[count] = montecarlo2(f, -1, 1, iterations)
+    cross_section[count] = montecarlo(f, -1, 1, iterations)
     count += 1
     
   return root_s_arr, cross_section

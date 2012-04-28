@@ -18,7 +18,7 @@ def trapezium(f, a, b, N):
   
   return prefactor + h*s
   
-def montecarlo2(f, a, b, N):
+def montecarlo(f, a, b, N):
   """A considerably better mc method. Same API as the first."""
   prefactor = float(b - a) / float(N)
   thesum = 0
