@@ -4,5 +4,5 @@ You can read a little more about the project and how to compile the LaTeX docume
 
 All the content in this repository is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/3.0/), with the exception of `atlasphysics.sty` and `.gitignore` which are not licensed.
 
-![Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png).
+![Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png)
 
