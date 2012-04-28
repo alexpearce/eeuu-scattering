@@ -3,6 +3,10 @@
 # Global constant, used to initialize the collider (GeV)
 INITIAL_COLLIDER_ENERGY = 3
 
+# Import system modules
+from sys import stderr
+from time import clock, time
+
 # Import 3rd party modules
 import pylab as plb
 from numpy import *
@@ -450,7 +454,6 @@ def combined_cross_section(method, a, b, step_size = 0.1, N = 1000):
 ## MISC ##
 """Functions that do this and that."""
 
-import sys
 def montecarlo_peaks(n = 50):
   """
   Runs the Monte Carlo integration on the combined differential section
@@ -461,14 +464,15 @@ def montecarlo_peaks(n = 50):
   # The energy values at which the maximum sigma occurs
   energies = zeros(n)
   for i in range(n):
-    sys.stderr.write('.')
+    stderr.write('.')
     root_s, sigma = montecarlo_cross_section(combined_diff_cross_section, m_z-10, m_z+10, 0.01, 100)
     peaks[i] = max(sigma)
     energies[i] = root_s[nonzero(sigma == peaks[i])[0][0]]
   
-  export_to_csv(peaks, energies, 'peaks')
+  # export_to_csv(peaks, energies, 'peaks')
 
 ## END MISC ##
+
 
 ## BEGIN PERFORMANCE ##
 
@@ -477,8 +481,6 @@ def montecarlo_peaks(n = 50):
   => Total time for 50 trials was 938.284044027 seconds.
   => The average for one trial was 18.7656808805
 """
-
-from time import clock, time
 
 def timer(function_str, times = 1):
   """Evaluate the function_str `times` times."""
