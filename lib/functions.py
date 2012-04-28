@@ -18,46 +18,6 @@ def trapezium(f, a, b, N):
   
   return prefactor + h*s
   
-def montecarlo(f, a, b, N):
-  """
-  Monte carlo integration of a function f between a and b (a < b)
-  with N trials.
-  No longer in use, use montecarlo2 instead.
-  """
-  
-  # 1. Generate a random (x, y) pair
-  # 2. Compute f(x)
-  # 3. If y < f(x), (x, y) is under the curve
-  # 4. Compute the ratio hits / N
-  # 5. Multiply the ratio by the box area
-  # Hits above and below the x-axis
-  positive_hits = 0
-  negative_hits = 0
-  # The maximum and minimum value f takes between -1 and 1
-  maximum, minimum = max_min_of(f, -1, 1)
-  for i in range(N):
-    # Generate x between -1 and 1
-    x = (b - a)*random.random_sample() + a
-    # Generate y between 0 and the function's maximum value
-    # http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random
-    y = (maximum - minimum)*random.random_sample() + minimum
-    
-    # Store the function value at x
-    f_x = f(x)
-    
-    # y needs to be between the x-axis and the curve
-    if f_x > 0:
-      if 0 <= y <= f_x: positive_hits += 1
-    elif f_x < 0:
-      if f_x <= y <= 0: negative_hits += 1
-    # else f(x) = 0, no area to integrate.
-  
-  hits_ratio = float(positive_hits - negative_hits) / float(N)
-  # Integrating in a box of width 2 (between -1 and 1), height maximum - minimum
-  integration_area = (b - a) * (maximum - minimum)
-
-  return integration_area * hits_ratio
-  
 def montecarlo2(f, a, b, N):
   """A considerably better mc method. Same API as the first."""
   prefactor = float(b - a) / float(N)
